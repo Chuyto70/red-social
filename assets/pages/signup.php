@@ -1,10 +1,10 @@
 
     <div class="login">
-        <div class="col-lg-4 col-md-8 col-sm-12 bg-white border rounded p-4 shadow-sm">
+        <div class="col-lg-4 col-md-8 col-sm-12 border rounded p-4 shadow-sm bg-white">
             <form method="post" action="assets/php/actions.php?signup">
                 <div class="d-flex justify-content-center">
 
-                    <img class="mb-4" src="assets/images/pictogram.png" alt="" height="45">
+                <img src="assets/images/home/logo.ico" alt="logo" class="img-fluid mb-4" style="height: 60px;">
                 </div>
                 <h1 class="h5 mb-3 fw-normal">Create new account</h1>
                 <div class="d-flex">
@@ -63,7 +63,7 @@
 
 
                 <div class="mt-3 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-primary" type="submit">Sign Up</button>
+                    <button class="btn btn-primary" type="submit">Crear cuenta</button>
                     <a href="?login" class="text-decoration-none">Already have an account ?</a>
 
 

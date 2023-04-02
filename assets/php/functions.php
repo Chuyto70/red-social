@@ -50,7 +50,7 @@ function sendMessage($user_id,$msg){
 function newMsgCount(){
 global $db;
 $current_user_id = $_SESSION['userdata']['id'];
-$query="SELECT COUNT(*) as row FROM messages WHERE to_user_id=$current_user_id && read_status=0";
+$query="SELECT COUNT(*) as `row` FROM messages WHERE to_user_id=$current_user_id && read_status=0";
 $run=mysqli_query($db,$query);
 return mysqli_fetch_assoc($run)['row'];
 }
@@ -121,7 +121,7 @@ function unblockUser($user_id){
 function checkLikeStatus($post_id){
     global $db;
     $current_user = $_SESSION['userdata']['id'];
-    $query="SELECT count(*) as row FROM likes WHERE user_id=$current_user && post_id=$post_id";
+    $query="SELECT count(*) as `row` FROM likes WHERE user_id=$current_user && post_id=$post_id";
     $run = mysqli_query($db,$query);
     return mysqli_fetch_assoc($run)['row'];
 }
@@ -198,7 +198,7 @@ function getUnreadNotificationsCount(){
     $cu_user_id = $_SESSION['userdata']['id'];
   
       global $db;
-      $query="SELECT count(*) as row FROM notifications WHERE to_user_id=$cu_user_id && read_status=0 ORDER BY id DESC";
+      $query="SELECT count(*) as `row` FROM notifications WHERE to_user_id=$cu_user_id && read_status=0 ORDER BY id DESC";
       $run = mysqli_query($db,$query);
       return mysqli_fetch_assoc($run)['row'];
   }
@@ -277,7 +277,7 @@ function showFormData($field){
 //for checking duplicate email
 function isEmailRegistered($email){
     global $db;
-    $query="SELECT count(*) as row FROM users WHERE email='$email'";
+    $query="SELECT count(*) as `row` FROM users WHERE email='$email'";
     $run=mysqli_query($db,$query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
@@ -286,7 +286,7 @@ function isEmailRegistered($email){
 //for checking duplicate username
 function isUsernameRegistered($username){
     global $db;
-    $query="SELECT count(*) as row FROM users WHERE username='$username'";
+    $query="SELECT count(*) as `row` FROM users WHERE username='$username'";
     $run=mysqli_query($db,$query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
@@ -296,7 +296,7 @@ function isUsernameRegistered($username){
 function isUsernameRegisteredByOther($username){
     global $db;
     $user_id=$_SESSION['userdata']['id'];
-    $query="SELECT count(*) as row FROM users WHERE username='$username' && id!=$user_id";
+    $query="SELECT count(*) as `row` FROM users WHERE username='$username' && id!=$user_id";
     $run=mysqli_query($db,$query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
@@ -436,7 +436,7 @@ return $filter_list;
 function checkFollowStatus($user_id){
     global $db;
     $current_user = $_SESSION['userdata']['id'];
-    $query="SELECT count(*) as row FROM follow_list WHERE follower_id=$current_user && user_id=$user_id";
+    $query="SELECT count(*) as `row` FROM follow_list WHERE follower_id=$current_user && user_id=$user_id";
     $run = mysqli_query($db,$query);
     return mysqli_fetch_assoc($run)['row'];
 }
@@ -445,7 +445,7 @@ function checkFollowStatus($user_id){
 function checkBlockStatus($current_user,$user_id){
     global $db;
     
-    $query="SELECT count(*) as row FROM block_list WHERE user_id=$current_user && blocked_user_id=$user_id";
+    $query="SELECT count(*) as `row` FROM block_list WHERE user_id=$current_user && blocked_user_id=$user_id";
     $run = mysqli_query($db,$query);
     return mysqli_fetch_assoc($run)['row'];
 }
@@ -454,7 +454,7 @@ function checkBlockStatus($current_user,$user_id){
 function checkBS($user_id){
     global $db;
     $current_user = $_SESSION['userdata']['id'];
-    $query="SELECT count(*) as row FROM block_list WHERE (user_id=$current_user && blocked_user_id=$user_id) || (user_id=$user_id && blocked_user_id=$current_user)";
+    $query="SELECT count(*) as `row` FROM block_list WHERE (user_id=$current_user && blocked_user_id=$user_id) || (user_id=$user_id && blocked_user_id=$current_user)";
     $run = mysqli_query($db,$query);
     return mysqli_fetch_assoc($run)['row'];
 }

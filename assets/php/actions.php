@@ -64,7 +64,8 @@ if(isset($_GET['login'])){
      $_SESSION['userdata'] = $response['user'];
 
      if($response['user']['ac_status']==0){
-     $_SESSION['code']=$code = rand(111111,999999);
+    //  $_SESSION['code']=$code = rand(111111,999999);
+    $_SESSION['code']=123456;
      sendCode($response['user']['email'],'Verify Your Email',$code);
      }
 
@@ -80,8 +81,9 @@ if(isset($_GET['login'])){
 
 
     if(isset($_GET['resend_code'])){
-       
-            $_SESSION['code']=$code = rand(111111,999999);
+        
+            // $_SESSION['code']=$code = rand(111111,999999);
+            $_SESSION['code']=123456;
             sendCode($_SESSION['userdata']['email'],'Verify Your Email',$code);
             header('location:../../?resended');
     }

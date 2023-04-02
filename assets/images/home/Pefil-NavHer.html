@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://127.0.0.1:5501/perfil.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pefil NavHer</title>
+    
+    
+    
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+<link rel="stylesheet" type="text/css" href="./Pefil NavHer_files/normalize.css"><link rel="stylesheet" href="./Pefil NavHer_files/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"><link rel="stylesheet" href="./Pefil NavHer_files/perfil.css"></head>
+<body>
+
+
+
+    <header>
+        <nav>
+                <a href="http://127.0.0.1:5501/perfil.html">Perfil</a>
+                <a href="http://127.0.0.1:5501/perfil.html#">Video</a>
+                <a href="http://127.0.0.1:5501/perfil.html#">Proyecto</a>
+    
+            <div class="buscar">
+                <input type="text" class="buscar_texto" placeholder="Buscar en NavHer">
+                    <a href="http://127.0.0.1:5501/perfil.html" class="boton">
+                        <i class="icon-buscar"></i>
+                    </a></div>    
+                    <div class="toggle">
+                      <i class="fa-solid fa-bars" id="header-toggle"></i>
+                    </div>
+                  
+        </nav>  
+    </header>
+
+
+
+
+    
+<section class="perfil-usuario">
+    <div class="contenedor-perfil">
+        <div class="portada-perfil" style="background-image: url(imagenes/niña.png);">
+            <div class="sombra"></div>
+            <div class="avatar-perfil">
+                <img src="./Pefil NavHer_files/polloxd.jpg" alt="img">
+                <a href="http://127.0.0.1:5501/perfil.html#" class="cambiar-foto">
+                    <i class="fas fa-camera"></i> 
+                    <span>Cambiar foto</span>
+                </a>
+            </div>
+            <div class="datos-perfil">
+                <h4 class="titulo-usuario">Yoshi Manuel</h4>
+                <p class="bio-usuario">Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
+                <ul class="lista-perfil">
+                    <li>1M Followers</li>
+                    <li>600k Likes</li>
+                    <li>1.7k Photos</li>
+                </ul>
+            </div>
+            <div class="opcciones-perfil">
+                <button type="">Cambiar portada</button>
+                <button type=""><i class="fas fa-wrench"></i></button>
+            </div>
+        </div>
+        <div class="menu-perfil">
+            <ul>
+                <li><a href="http://127.0.0.1:5501/social.html" title=""><i class="icono-perfil fas fa-bullhorn"></i> Publicaciones</a></li>
+                <li><a href="http://127.0.0.1:5501/perfil.html#" title=""><i class="icono-perfil fas fa-info-circle"></i> Informacion</a></li>
+                <li><a href="http://127.0.0.1:5501/perfil.html#" title=""><i class="icono-perfil fas fa-grin"></i> Amigos 2</a></li>
+                <li><a href="http://127.0.0.1:5501/perfil.html#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+</body></html>

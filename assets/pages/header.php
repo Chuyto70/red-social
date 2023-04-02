@@ -12,4 +12,4 @@
     <title><?=$data['page_title']?></title>
 </head>
 
-<body>
+<body class="bg-dark">

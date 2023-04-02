@@ -4,8 +4,175 @@
  global $follow_suggestions;
  
  ?>
-    <div class="container col-md-10 col-sm-12 col-lg-9 rounded-0 d-flex justify-content-between">
-        <div class="col-md-8 col-sm-12" style="max-width:93vw">
+    <div class="container col-12 rounded-0 d-flex justify-content-between">
+
+
+
+
+
+    <div class="col-3 mt-4 p-3">
+       
+       <!-- Fuente iconos https://icons.getbootstrap.com/icons/newspaper/-->
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-play-circle-fill mr-2"></i>
+                   <span>Videos</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-newspaper mr-2"></i>
+                   <span>Noticias</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-globe mr-2"></i>
+                   <span>Stream</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-people-fill mr-2"></i>
+                   <span>Amigos</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>    
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-controller mr-2"></i>
+                   <span>Games</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-three-dots-vertical mr-2"></i>
+                   <span>Más Categorias</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+           </div>
+           <div class="border-top border-white"></div>
+           <div class="d-flex align-items-center p-2">
+           </div>
+       
+           <div class="d-flex align-items-center p-2">
+               <div class="text-center">
+                   <h5 class="text-white">Conectados</h5>
+               </div>
+           </div>
+       
+           
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-tiktok mr-2"></i>
+                   <span>Tik Tok</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-youtube mr-2"></i>
+                   <span>Youtube</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           <div class="d-flex align-items-center p-2">
+               <button type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+                   <div class="d-flex align-items-center justify-content-between text-center">
+                   <i class="bi bi-facebook mr-2"></i>
+                   <span>Facebook</span>
+                   <div></div>
+                   </div>
+               </button>
+           </div>
+           
+              <div>
+                  <h6 class="text-muted p-2">Puedes seguirlos</h6>
+                  <?php
+       foreach($follow_suggestions as $suser){
+       ?>
+       <div class="d-flex justify-content-between">
+                      <div class="d-flex align-items-center p-2">
+                          <div><img src="assets/images/profile/<?=$suser['profile_pic']?>" alt="" height="40" class="rounded-circle border">
+                          </div>
+                          <div>&nbsp;&nbsp;</div>
+                          <div class="d-flex flex-column justify-content-center">
+                              <a href='?u=<?=$suser['username']?>' class="text-decoration-none text-white"><h6 style="margin: 0px;font-size: small;"><?=$suser['first_name']?> <?=$suser['last_name']?></h6></a>
+                              <p style="margin:0px;font-size:small" class="text-muted">@<?=$suser['username']?></p>
+                          </div>
+                      </div>
+                      <div class="d-flex align-items-center">
+                          <button class="btn btn-sm btn-primary followbtn" data-user-id='<?=$suser['id']?>' >Follow</button>
+       
+                      </div>
+                  </div>
+       <?php
+       }
+       
+       if(count($follow_suggestions)<1){
+       echo "<p class='p-2 bg-white border rounded text-center'>No Suggestions For You</p>";
+       }
+                  ?>
+                  
+                 
+       
+       
+              </div>
+          </div>
+       
+
+
+
+
+
+    
+    
+    
+    
+          <div class="col-6 body-center" style="background-color: #272727;">
+
+
+<div class="card shadow mb-4" style="background-color:#272727; color:#ffffff; padding-top:20px;">
+<div class="card-header py-3">
+<h6 class="m-0 font-weight-bold text-primary">Publicar</h6>
+</div>
+<div class="card-body">
+<form method="post" action="assets/php/actions.php?addpost" enctype="multipart/form-data">
+<div class="form-group">
+<textarea name="post_text" class="form-control" rows="3" placeholder="Que estás pensando?" style="background-color:#ddd;"></textarea>
+</div>
+<div class="form-group">
+<div class="custom-file">
+  <input type="file" class="custom-file-input" name="post_img" id="select_post_img">
+  <label class="custom-file-label" for="select_post_img">Selecionar imagen</label>
+</div>
+</div>
+<button type="submit" class="btn btn-primary">Publicar</button>
+</form>
+</div>
+</div>
 
         
             <?php
@@ -240,22 +407,30 @@ continue;
 
         </div>
 
-        <div class="col-lg-4 col-sm-0 overflow-hidden mt-4 p-sm-0 p-md-3">
+        <div class="col-3 mt-4 p-3">
        
 
-            <div class="d-flex align-items-center p-2">
-                <div><img src="assets/images/profile/<?=$user['profile_pic']?>" alt="" height="60" width="60" class="rounded-circle border">
-                </div>
-                <div>&nbsp;&nbsp;&nbsp;</div>
-                <div class="d-flex flex-column justify-content-center">
-                <a href='?u=<?=$user['username']?>' class="text-decoration-none text-dark"><h6 style="margin: 0px;"><?=$user['first_name']?> <?=$user['last_name']?></h6></a>
-                    <p style="margin:0px;" class="text-muted">@<?=$user['username']?></p>
-                </div>
-            </div>
+
+
+      <div class="card">
+        <img class="card-img-top" src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/oslo.jpg" alt="Bologna">
+        <div class="card-body text-center">
+          <img class="avatar rounded-circle" src="assets/images/profile/<?=$user['profile_pic']?>" alt="Bologna">
+          <h4 class="card-title"><?=$post['first_name']?> <?=$post['last_name']?></h4>
+          <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
+          <p class="card-text">@<?=$post['username']?> </p>
+          <a href="#" class="btn btn-info">Seguidores</a>
+          <a href="#" class="btn btn-outline-info">Mensaje</a>
+        </div>
+      </div>
+
+
+
+
 
 
             <div>
-                <h6 class="text-muted p-2">You Can Follow Them</h6>
+                <h6 class="text-muted p-2">Puedes seguirlos</h6>
                 <?php
 foreach($follow_suggestions as $suser){
     ?>

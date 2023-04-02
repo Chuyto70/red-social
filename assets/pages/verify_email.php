@@ -1,17 +1,43 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>NavHer</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/css/AdminLTE.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+  <link rel="icon" href="imagenes/logo.ico">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
 <?php
 global $user;
 ?>
     <div class="login">
-        <div class="col-md-4 col-sm-11 bg-white border rounded p-4 shadow-sm">
+        <div class="col-4 bg-white border rounded p-4 shadow-sm">
             <form method="post" action="assets/php/actions.php?verify_email">
                 <div class="d-flex justify-content-center">
 
 
                 </div>
-                <h1 class="h5 mb-3 fw-normal">Verify Your Email Id (<?=$user['email']?>)</h1>
+                <h1 class="h5 mb-3 fw-normal">Verifica tu correo (<?=$user['email']?>)</h1>
 
 
-                <p>Enter 6 Digit Code Sended to You</p>
+                <p>Ingrese "123456" para verificar o reenviar</p>
                 <div class="form-floating mt-1">
 
                     <input type="text" name="code" class="form-control rounded-0" id="floatingPassword" placeholder="Password">

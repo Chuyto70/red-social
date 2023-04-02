@@ -1,5 +1,5 @@
 body{
-    background-color: #F5F9F9;
+    background-color: #272727;
     /* background-size: cover; */
 }
 
@@ -12,3 +12,23 @@ align-items: center;
 
 
 }
+
+.navbar{
+    background-color: #272727;
+    /* background-size: cover; */
+}
+
+.body-center {
+    background-color: #272727;
+  }
+  
+
+  body{
+    padding: 2rem 0rem;
+  }
+  .avatar {
+    border: 0.3rem solid rgba(#fff, 0.3);
+    margin-top: -6rem;
+    margin-bottom: 1rem;
+    max-width: 9rem;
+  }  

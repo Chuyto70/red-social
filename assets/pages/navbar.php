@@ -1,14 +1,22 @@
 <?php global $user;?>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border">
+<nav class="navbar navbar-expand-lg navbar-light bg-black">
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="form-group">
+            <h3 class="text-center text-white">AvaDisk(NAVHER)</h3>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark bg-gradient border" >
         <div class="container col-lg-9 col-sm-12 col-md-10 d-flex flex-lg-row flex-md-row flex-sm-column justify-content-between">
             <div class="d-flex justify-content-between col-lg-8 col-sm-12">
                 <a class="navbar-brand" href="?">
-                    <img src="assets/images/pictogram.png" alt="" height="28">
+                <img src="assets/images/home/logo.ico" alt="" height="28">
 
                 </a>
 
                 <form class="d-flex" id="searchform">
-                    <input class="form-control me-2" type="search" id="search" placeholder="looking for someone.."
+                    <input class="form-control me-2" type="search" id="search" placeholder="Buscar.."
                         aria-label="Search" autocomplete="off">
 <div class="bg-white text-end rounded border shadow py-3 px-4 mt-5" style="display:none;position:absolute;z-index:+99;" id="search_result" data-bs-auto-close="true">
 <button type="button" class="btn-close" aria-label="Close" id="close_search"></button>
@@ -72,7 +80,7 @@ if(getUnreadNotificationsCount()>0){
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="assets/php/actions.php?logout"><i class="bi bi-box-arrow-in-left"></i> Logout</a></li>
+                        <li><a class="dropdown-item text-dark" href="assets/php/actions.php?logout"><i class="bi bi-box-arrow-in-left"></i> Logout</a></li>
                     </ul>
                 </li>
 

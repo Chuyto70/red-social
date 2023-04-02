@@ -1,34 +1,37 @@
-
-    <div class="login">
-        <div class="col-sm-12 col-md-4 bg-white border rounded p-4 shadow-sm">
-            <form method="post" action="assets/php/actions.php?login">
-                <div class="d-flex justify-content-center">
-
-                    <img class="mb-4" src="assets/images/pictogram.png" alt="" height="45">
-                </div>
-                <h1 class="h5 mb-3 fw-normal">Please sign in</h1>
-
-                <div class="form-floating">
-                    <input type="text" name="username_email" value="<?=showFormData('username_email')?>" class="form-control rounded-0" placeholder="username/email">
-                    <label for="floatingInput">username/email</label>
-                </div>
-                <?=showError('username_email')?>
-                <div class="form-floating mt-1">
-                    <input type="password" name="password" class="form-control rounded-0" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">password</label>
-                </div>
-                <?=showError('password')?>
-                <?=showError('checkuser')?>
-
-
-                <div class="mt-3 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-primary" type="submit">Sign in</button>
-                    <a href="?signup" class="text-decoration-none">Create New Account</a>
-
-
-                </div>
-                <a href="?forgotpassword&newfp" class="text-decoration-none">Forgot password ?</a>
-            </form>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+        <div class="d-flex align-items-center flex-column">
+            <img src="assets/images/home/logo.ico" alt="logo" class="img-fluid mb-4" style="height: 60px;">
+            <h5 class="card-title mb-3">Iniciar Sesión</h5>
         </div>
+
+          <form method="post" action="assets/php/actions.php?login">
+            <div class="mb-3">
+              <label for="username_email" class="form-label">Usuario o Correo</label>
+              <input type="text" class="form-control" id="username_email" name="username_email" value="<?=showFormData('username_email')?>" placeholder="Enter your username or email">
+              <?=showError('username_email')?>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+              <?=showError('password')?>
+              <?=showError('checkuser')?>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </form>
+          <hr>
+          <div class="text-center">
+            <a href="?forgotpassword&newfp" class="text-decoration-none">Forgot password?</a>
+          </div>
+          <div class="mt-3 text-center">
+            Don't have an account? <a href="?signup" class="text-decoration-none">Sign up</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
