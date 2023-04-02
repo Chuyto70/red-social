@@ -135,7 +135,22 @@ if($not['read_status']==0){
 
     <script src="assets/js/custom.js?v=<?=time()?>"></script>
     
+<script>
+$(document).on("click","#cust_btn",function(){
+  
+  $("#myModal").modal("toggle");
+  
+})
+</script>
+<script>
+$(document).on("click", ".close", function() {
+  $("#myModal").modal("hide");
+});
+</script>
 
+<script>
+  
+</script>
 </body>
 
 </html>

@@ -1,948 +1,998 @@
-<style>
-    * {
-  outline: none;
-}
-
-body {
-  padding: 0;
-}
-
-
-body,
-input,
-button {
-  font-family: Helvetica;
-}
-
-img {
-  display: block;
-  width: 100%;
-  border: 0;
-}
-
-.tb {
-  display: table;
-  width: 100%;
-}
-
-.tr {
-  display: table-row;
-}
-
-.td {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-a {
-  text-decoration: none;
-}
-
-button {
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-}
-
-::placeholder {
-  color: #f1f1f1;
-}
-
-main {
-  width: 1280px;
-  margin: 0 auto;
-  background-color: #e9ebee;
-  box-shadow: 0px 8px 30px #1d2d4f;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-#device-bar-1 {
-  text-align: right;
-  padding: 6px;
-  background-color: #000;
-  overflow: hidden;
-}
-
-#device-bar-1 button {
-  width: 15px;
-  height: 15px;
-  float: left;
-  margin: 6px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-#device-bar-1 button:first-child {
-  background-color: #f35d5b;
-}
-
-#device-bar-1 button:nth-child(2) {
-  background-color: #f6bd3a;
-}
-
-#device-bar-1 button:last-child {
-  background-color: #44cc45;
-}
-
-
-#logo {
-  width: 30px;
-}
-
-#logo a {
-  display: block;
-}
-
-#logo a i {
-  font-size: 34px;
-  color: #fff;
-}
-
-#search-form form {
-  position: relative;
-  width: 280px;
-  font-size: 16px;
-  padding: 8px 15px;
-  padding-right: 37px;
-  background-color: #3b5ca0;
-  border-radius: 20px;
-  margin-left: 15px;
-}
-
-#search-form form input {
-  width: 100%;
-  color: #fff;
-  border: 0;
-  background-color: transparent;
-}
-
-#search-form form button {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  color: #f1f1f1;
-  height: 22px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-#search-form form button i {
-  font-size: 22px;
-}
-
-#f-name-l {
-  width: 1px;
-  color: #fff;
-  font-weight: bold;
-  white-space: pre;
-  padding-right: 20px;
-}
-
-#f-name-l span {
-  padding-right: 28px;
-  border-right: 1px solid #35518b;
-}
-
-#i-links {
-  width: 1px;
-}
-
-#m-td {
-  padding-right: 20px;
-}
-
-#m-td span {
-  position: relative;
-  cursor: pointer;
-}
-
-#m-td span.m-active:before {
-  content: "5";
-  position: absolute;
-  top: -8px;
-  right: 0px;
-  color: #fff;
-  font-size: 12px;
-  padding: 4px 4px 3px 4px;
-  background-color: #ff1e0e;
-  border-radius: 3px;
-  line-height: 1;
-}
-
-#i-links i {
-  color: #fff;
-  font-size: 24px;
-  padding: 0px 8px;
-  vertical-align: middle;
-}
-
-#p-link {
-  display: block;
-  width: 34px;
-  height: 34px;
-  background-color: #f1f1f1;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-#p-link img {
-  width: 100%;
-}
-
-/* Header finished */
-
-/* Profile image header */
-#profile-upper {
-  position: relative;
-}
-
-#profile-d {
-  position: absolute;
-  left: 59px;
-  bottom: 0px;
-  right: 0px;
-  height: 180px;
-  z-index: 2;
-}
-
-#profile-banner-image {
-  height: 360px;
-  overflow: hidden;
-  z-index: 1;
-}
-
-#profile-banner-image img {
-  width: 100%;
-  margin-top: -20%;
-}
-
-#profile-pic {
-  width: 180px;
-  height: 180px;
-  border-radius: 3px;
-  margin-top: 28px;
-  overflow: hidden;
-  box-shadow: 0 0 0 5px #fff;
-}
-
-#profile-pic img {
-  width: 100%;
-}
-
-#u-name {
-  position: absolute;
-  top: 120px;
-  left: 208px;
-  color: #fff;
-  font-size: 36px;
-  font-weight: bold;
-}
-
-#m-btns {
-  position: absolute;
-  right: 56px;
-  bottom: 20px;
-  width: 211px;
-}
-
-#m-btns .td {
-  padding: 0 8px;
-}
-
-.m-btn {
-  cursor: pointer;
-  color: #0e0e0e;
-  font-size: 14px;
-  white-space: pre;
-  padding: 5px 8px 6px 8px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 2px;
-}
-
-.m-btn i {
-  font-size: 16px;
-  margin-right: 1px;
-  vertical-align: middle;
-}
-
-.m-btn span {
-  position: relative;
-  top: 1px;
-}
-
-#edit-profile {
-  position: absolute;
-  right: 20px;
-  bottom: 21px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-#edit-profile i {
-  display: block;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-#black-grd {
-  position: absolute;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  height: 300px;
-  background: linear-gradient(rgba(0, 0, 0, 0) 71%, rgba(0, 0, 0, 0.53));
-  z-index: 1;
-}
-/* Profile image header finished */
-
-/* Content area */
-#main-content {
-  padding: 55px 0px 0px 55px;
-}
-
-#l-col,
-#m-col,
-#r-col {
-  vertical-align: top;
-}
-
-#l-col {
-  width: 340px;
-  padding-top: 6px;
-}
-
-.l-cnt {
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0px 3px 3px #ddd;
-}
-
-.l-mrg {
-  margin-top: 28px;
-}
-.l-i {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  margin-right: 2px;
-  background-size: auto;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-}
-
-#l-i-i {
-  background-image: url("https://imagizer.imageshack.com/img922/7749/C8tmwX.png");
-  background-position: 0 -87px;
-}
-
-#l-i-p {
-  background-image: url("https://imagizer.imageshack.com/img923/7847/sRapnM.png");
-  background-position: 0 0;
-}
-
-#l-i-k {
-  background-image: url("https://imagizer.imageshack.com/img922/5617/QpPVKn.png");
-}
-
-.cnt-label {
-  position: relative;
-  padding-right: 24px;
-  margin-bottom: 15px;
-}
-
-.cnt-label span {
-  position: relative;
-  top: 2px;
-  color: #707070;
-  font-size: 18px;
-}
-
-.lb-action {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  cursor: pointer;
-}
-
-.lb-action i {
-  display: block;
-  color: #ccc;
-  font-size: 18px;
-}
-
-#b-i i {
-  font-size: 24px;
-}
-
-#i-box {
-  color: #797979;
-  font-size: 14px;
-  line-height: 1.3;
-}
-
-#intro-line {
-  margin-top: 17px;
-}
-
-#u-occ {
-  margin: 10px 0px;
-}
-
-#u-occ a {
-  color: #2196f3;
-}
-
-#u-loc i {
-  color: #2196f3;
-  font-size: 16px;
-  margin-left: -3px;
-  margin-right: 2px;
-  margin-top: -1px;
-  vertical-align: middle;
-}
-
-#u-loc a {
-  position: relative;
-  top: 1px;
-  color: #2196f3;
-}
-
-#photos {
-  padding: 2px;
-  margin: 15px -20px -20px -20px;
-}
-
-#photos .td {
-  width: 33.333%;
-  height: 112px;
-  border: 2px solid #fff;
-  box-sizing: border-box;
-  background-color: #f1f1f1;
-  background-position: 50% 25%;
-  background-size: cover;
-}
-
-#photos .tb .tr:nth-child(1) .td:nth-child(1) {
-  background-image: url("https://imagizer.imageshack.com/img922/8637/NN4aPj.jpg");
-}
-
-#photos .tb .tr:nth-child(1) .td:nth-child(2) {
-  background-image: url("https://imagizer.imageshack.com/img923/528/iJy0X5.jpg");
-}
-
-#photos .tb .tr:nth-child(1) .td:nth-child(3) {
-  background-image: url("https://imagizer.imageshack.com/img923/9781/26phSy.jpg");
-}
-
-#photos .tb .tr:nth-child(2) .td:nth-child(1) {
-  background-image: url("https://imagizer.imageshack.com/img921/8417/svxO7y.jpg");
-}
-
-#photos .tb .tr:nth-child(2) .td:nth-child(2) {
-  background-image: url("https://imagizer.imageshack.com/img921/6488/i2Hb4U.jpg");
-}
-
-#photos .tb .tr:nth-child(2) .td:nth-child(3) {
-  background-image: url("https://imagizer.imageshack.com/img921/2453/J7PICR.jpg");
-}
-
-#photos .tb .tr:nth-child(3) .td:nth-child(1) {
-  background-image: url("https://imagizer.imageshack.com/img921/3021/8uZZY2.jpg");
-}
-
-#photos .tb .tr:nth-child(3) .td:nth-child(2) {
-  background-image: url("https://imagizer.imageshack.com/img923/3992/22mL29.jpg");
-}
-
-#photos .tb .tr:nth-child(3) .td:nth-child(3) {
-  background-image: url("https://imagizer.imageshack.com/img921/2711/JXSt41.jpg");
-}
-
-#k-nm {
-  color: #b8b8b8;
-  font-size: 15px;
-  font-style: normal;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-.q-ad-c {
-  padding: 2px;
-}
-
-.q-ad {
-  display: block;
-  padding: 8px;
-  border: 1px solid #eeeeee;
-  background-color: #fafafa;
-  border-radius: 4px;
-}
-
-.q-ad img {
-  display: inline;
-  width: 24px;
-  height: 24px;
-  margin-right: 5px;
-  vertical-align: middle;
-}
-
-.q-ad span {
-  position: relative;
-  top: 1px;
-  color: #242424;
-  font-size: 14px;
-  text-align: center;
-}
-
-#add_q {
-  color: #858585;
-  text-align: center;
-  margin-top: 10px;
-  background-color: #fff;
-  border-color: #f1f1f1;
-}
-
-#add_q i {
-  font-size: 17px;
-  margin-right: -3px;
-  vertical-align: middle;
-}
-
-#add_q span {
-  color: #858585;
-  font-size: 12.4px;
-  position: relative;
-  top: -1px;
-}
-
-#t-box {
-  font-size: 14px;
-  color: #686868;
-  padding-top: 24px;
-  line-height: 18px;
-}
-
-#t-box a {
-  margin-right: 5px;
-}
-
-#t-box a,
-#t-more {
-  color: #999;
-}
-
-#t-more {
-  cursor: pointer;
-}
-
-#t-more i {
-  font-size: 15px;
-  vertical-align: middle;
-}
-
-#cpy-nt {
-  margin-top: 4px;
-}
-
-#m-col {
-  padding: 0px 55px;
-}
-
-.m-mrg {
-  margin-bottom: 28px;
-}
-
-#p-tabs {
-  position: relative;
-  font-size: 13px;
-  color: #919191;
-  text-align: center;
-  padding: 13px 20px;
-  margin-top: -64px;
-  background-color: #fff;
-  box-shadow: 0px 3px 3px #ddd;
-  z-index: 3;
-}
-
-#p-tabs-m .td {
-  width: 16.6666667%;
-  cursor: pointer;
-}
-
-#p-tabs-m .td.active {
-  color: #ee6000;
-}
-
-#p-tabs-m span {
-  position: relative;
-}
-
-#p-tabs-m .td.active span:after {
-  content: "";
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  bottom: -13px;
-  height: 4px;
-  background-color: #ee6000;
-}
-
-#p-tabs-m .td i {
-  display: block;
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-#p-tab-m {
-  width: 1px;
-  color: #ccc;
-  cursor: pointer;
-}
-
-#p-tab-m i {
-  margin-right: -4px;
-}
-
-#composer {
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0px 3px 3px #ddd;
-}
-
-#c-tabs-cvr {
-  padding-bottom: 12px;
-  border-bottom: 1px solid #ececec;
-}
-
-#c-tabs {
-  width: auto;
-  color: #919191;
-}
-
-#c-tabs .td {
-  position: relative;
-  width: 1px;
-  padding: 0px 15px;
-  white-space: pre;
-  cursor: pointer;
-}
-
-#c-tabs .td:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  width: 1px;
-  height: 12px;
-  margin-top: -6px;
-  background-color: #eaeaea;
-}
-
-#c-tabs .td:first-child {
-  padding-left: 0px;
-}
-
-#c-tabs .td:last-child {
-  padding-right: 0;
-}
-
-#c-tabs .td:last-child:after {
-  display: none;
-}
-
-#c-tabs .td span {
-  position: relative;
-}
-
-#c-tabs .td.active {
-  color: #373737;
-}
-
-#c-tabs .td.active span:after {
-  content: "";
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  bottom: -20px;
-  width: 10px;
-  height: 10px;
-  border: 1px solid transparent;
-  border-color: transparent #ececec #ececec transparent;
-  margin: 0 auto;
-  background-color: #fff;
-  transform: rotateZ(45deg);
-}
-
-#c-tabs .td i {
-  font-size: 21px;
-  margin-right: 4px;
-  vertical-align: middle;
-}
-
-#c-tabs .td span {
-  position: relative;
-  top: 1px;
-  font-size: 15px;
-}
-
-#c-c-main {
-  position: relative;
-  padding-top: 15px;
-}
-
-#p-c-i {
-  width: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-#p-c-i img {
-  display: block;
-  width: 100%;
-}
-
-#c-inp {
-  padding-left: 20px;
-}
-
-#c-inp input {
-  width: 100%;
-  font-size: 20px;
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-
-#c-c-main input::placeholder {
-  color: #666;
-}
-
-#insert_emoji {
-  position: absolute;
-  right: -2px;
-  bottom: -10px;
-  cursor: pointer;
-}
-
-#insert_emoji i {
-  display: block;
-  color: #ccced6;
-  font-size: 21px;
-}
-
-.post {
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0px 3px 3px #ddd;
-}
-
-.p-p-pic {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.p-p-pic img {
-  width: 100%;
-  display: block;
-  border: 0;
-}
-
-.p-r-hdr {
-  vertical-align: top;
-  padding-left: 20px;
-}
-
-.p-u-info {
-  color: #5a5959;
-  font-size: 15px;
-  margin-bottom: 7px;
-}
-
-.p-u-info a {
-  color: #4267b2;
-}
-
-.p-dt {
-  color: #a8a8a8;
-  font-size: 13px;
-}
-
-.p-dt i {
-  font-size: 14px;
-  margin-right: 2px;
-}
-
-.p-dt span {
-  position: relative;
-  top: -2px;
-}
-
-.p-opt {
-  position: relative;
-  right: -3px;
-  width: 1px;
-  color: #ccc;
-  cursor: pointer;
-  vertical-align: top;
-}
-
-.p-cnt-v {
-  display: block;
-  margin: 20px -20px;
-  cursor: pointer;
-}
-
-.p-acts {
-  overflow: hidden;
-}
-
-.p-act {
-  width: 24px;
-  height: 24px;
-  color: #a3a6aa;
-  cursor: pointer;
-}
-
-.p-act span {
-  position: relative;
-  top: 1px;
-  width: 20px;
-  font-size: 15px;
-  color: #a3a6aa;
-}
-
-.like {
-  margin-right: 36px;
-}
-
-.like,
-.comment {
-  width: 50px;
-  float: left;
-}
-
-.p-act i {
-  vertical-align: middle;
-}
-
-.like i,
-.comment i {
-  margin-right: 6px;
-}
-
-.share {
-  float: right;
-  transform: rotateY(180deg);
-  margin-right: -1px;
-}
-
-#loading {
-  text-align: center;
-  padding: 40px 0px;
-}
-
-#loading i {
-  color: #4267b2;
-  font-size: 32px;
-  display: block;
-}
-/* Content area finished */
-
-/* Chat bar */
-#r-col {
-  position: relative;
-  width: 150px;
-}
-
-#chat-bar {
-  position: absolute;
-  top: -55px;
-  right: 55px;
-  bottom: 0px;
-  left: 0px;
-}
-
-#chat-lb {
-  color: #3a5795;
-  font-size: 16px;
-  text-align: center;
-  margin: 23px 0px;
-}
-
-#chat-lb i {
-  font-size: 18px;
-  margin-right: 4px;
-  vertical-align: middle;
-}
-
-#chat-lb span {
-  position: relative;
-  top: 2px;
-}
-
-.on-ct {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  margin: 28px auto 0 auto;
-  border-radius: 50%;
-}
-
-#cts .on-ct:first-child {
-  margin-top: 0px;
-}
-
-.on-ct img {
-  border-radius: 50%;
-}
-
-.on-ct.active:after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  right: 2px;
-  width: 10px;
-  height: 10px;
-  background-color: #2ecd18;
-  border-radius: 50%;
-  box-shadow: 0px 0px 0px 3px #e9ebee;
-  z-index: 1;
-}
-
-#ct-sett {
-  margin-top: 55px;
-}
-
-#ct-sett i {
-  color: #3a5795;
-  padding: 13px;
-  background-color: #d8e4ff;
-  border-radius: 50%;
-  cursor: pointer;
-}
-/* Chat bar finished */
-
-/* Footer */
-#device-bar-2 {
-  padding: 9px 0px 13px 0px;
-  background-color: #000;
-}
-
-#device-bar-2 i {
-  display: block;
-  width: 40px;
-  color: #fff;
-  font-size: 40px;
-  text-align: center;
-  margin: 0 auto;
-}
-/* Footer finished */
-
+<style lang="">
+  body {
+    padding: 0px 0px 0 0px !important;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+  /*==Scroll==*/
+
+  .contenedor-scroll::-webkit-scrollbar {
+    width: 7px;
+    background: rgba(70, 70, 70, 0.393);
+  }
+
+  .contenedor-scroll::-webkit-scrollbar-thumb {
+    background: rgba(166, 166, 166, 0.716);
+    border-radius: 10px;
+    border-right: 2px solid rgba(138, 138, 138, 0.382);
+  }
+
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+  /*==Header y sus movimientos==*/
+
+  header {
+    left: 0;
+    width: 100%;
+    height: 110px;
+    justify-content: space-between;
+    background: black;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    z-index: 100;
+    margin: 0;
+    box-shadow: 0 0 12px rgb(0, 0, 0);
+  }
+
+  header h1 {
+    font-size: 20px;
+    color: white;
+    line-height: 60px;
+    font-weight: 300;
+    transition: all 0.3s ease;
+  }
+
+  header h1 i {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  header nav {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    line-height: 39px;
+    width: 100%;
+    background: #404040;
+    padding: 5px 5%;
+
+  }
+
+  header nav a {
+    color: white;
+    display: inline-block;
+    padding: 10px 15px;
+    line-height: 1;
+    text-decoration: none;
+    border-radius: 15px;
+  }
+
+
+  header nav a:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+
+
+  body.sticky-header {
+    padding-top: 100px;
+  }
+
+  body.sticky-header header {
+    height: 55px;
+    background: #404040;
+  }
+
+  body.sticky-header header h1 {
+    transform: scale(0, 0);
+  }
+
+  /*==Buscador==*/
+  .buscar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 84%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(82, 82, 82);
+    padding: 19px;
+    height: 5px;
+    border-radius: 40px;
+  }
+
+  .buscar_texto {
+    border: none;
+    background: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    float: left;
+    line-height: 20px;
+  }
+
+  .boton {
+    width: 30px;
+    height: 40px;
+    text-decoration: none;
+    color: rgb(118, 118, 118);
+    font-size: 20px;
+  }
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+  /*==Barra izquierda==*/
+
+  .nav {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    height: 100vh;
+    padding: 16px 16px 0;
+    background: #1c1c1c;
+    box-shadow: 5px 0 0 rgba(22, 8, 43, 0.1);
+    z-index: 100;
+    transition: 0.5s;
+    border-right: 1px solid black;
+
+  }
+
+  .nav_container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 48px;
+    overflow: auto;
+    scrollbar-width: none;
+  }
+
+  .nav_container::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .logo_name {
+    display: flex;
+  }
+
+  .logo_name i {
+    font-size: 70;
+    margin-right: 1px;
+    color: #afafaf;
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav_link {
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+
+  .nav_link:hover {
+    color: #494949;
+  }
+
+  .nav_icon {
+    width: 20px;
+    font-size: 19px;
+  }
+
+
+  .nav_subititle {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a5a1aa;
+  }
+
+  .nav_link {
+    border-bottom: 1px solid #ccc;
+  }
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+  /*==Left-Sidebar==*/
+  .logo-barra img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 5%;
+  }
+
+  .left-sidebar {
+    flex-basis: 25%;
+    position: sticky;
+    top: 32px;
+    align-self: flex-start;
+  }
+
+  .right-sidebar {
+    flex-basis: 25%;
+    position: sticky;
+    top: 70px;
+    align-self: flex-start;
+    background: #404040;
+    padding: 20px;
+    border-radius: 4px;
+    color: #9c9c9c;
+  }
+
+  .main-content {
+    flex-basis: 45%;
+  }
+
+  .imp-links a,
+  .shortcut-links a {
+    text-decoration: none;
+    display: flex;
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    width: fit-content;
+  }
+
+  .imp-links a img {
+    width: 20px;
+    margin-right: 15px;
+  }
+
+  .imp-links a:last-child {
+    color: #757474;
+  }
+
+  .imp-links {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .shortcut-links a img {
+    width: 25px;
+    border-radius: 4px;
+    margin-right: 15px;
+  }
+
+  .shortcut-links p {
+    margin: 25px 0px;
+    color: #aaaaaa;
+  }
+
+
+  /*==Right-Sidebar==*/
+
+  .sidebar-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .right-sidebar h4 {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .sidebar-title a {
+    text-decoration: none;
+    color: #1876f2;
+    font-size: 16px;
+  }
+
+  .event {
+    display: flex;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .left-event {
+    border-radius: 10px;
+    height: 65px;
+    width: 65px;
+    margin-right: 15px;
+    padding-top: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .event p {
+    font-size: 12px;
+  }
+
+  .event a {
+    font-size: 12px;
+    text-decoration: none;
+    color: #1876f2;
+  }
+
+  .left-event span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #1876f2;
+    color: #fff;
+    font-size: 10px;
+    padding: 4px 0;
+  }
+
+  .sidebar-title {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .sidebar-ads {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+  /*====Barra derecha=====*/
+
+
+  .sidebar-2 {
+    border-left: 1px solid black;
+
+    right: 0%;
+    width: 75px;
+    height: 100vh;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+    top: 60px;
+    position: fixed;
+
+  }
+
+
+  .brand,
+  .list-item-text {
+    display: none;
+  }
+
+
+  .sidebar-top,
+  .sidebar-center {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    border-bottom: 1px solid #4b4b4b;
+    padding: 10px 0;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-center {
+    padding: 0;
+  }
+
+  .sidebar-bottom {
+    justify-content: center;
+    border: none;
+  }
+
+  .logoL {
+    font-size: 35px;
+    margin-right: 10px;
+    cursor: pointer;
+    padding-left: 10px;
+  }
+
+  .brand {
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+
+  .list-item {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .sidebar-2 a {
+    text-decoration: none;
+    color: white;
+  }
+
+  .list-item-icon {
+    width: 10px;
+    font-size: 15px;
+  }
+
+  .list-item:hover,
+  .list-item.active {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+  /*==Main perfil==*/
+
+
+  .perfil-usuario {
+    background: linear-gradient(#7a797944, transparent);
+    color: rgb(255, 255, 255);
+  }
+
+  .perfil-usuario .sombra {
+    position: absolute;
+    display: block;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .5));
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    left: 0;
+  }
+
+  .perfil-usuario .portada-perfil,
+  .perfil-usuario .sombra {
+    border-radius: 0 0 20px 20px;
+  }
+
+  .perfil-usuario img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .contenedor-perfil {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .perfil-usuario .contenedor-perfil {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+
+  .perfil-usuario .portada-perfil {
+    display: block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 20rem;
+    margin-bottom: .5rem;
+  }
+
+  .perfil-usuario .avatar-perfil {
+    display: block;
+    width: 230px;
+    height: 230px;
+    background-color: #D9DCF1;
+    position: absolute;
+    bottom: -65px;
+    left: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 8px solid #FFFFFF;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, .2);
+
+  }
+
+  .perfil-usuario .cambiar-foto {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, .5);
+    height: 57%;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: all ease-in 200ms;
+  }
+
+  .perfil-usuario .cambiar-foto i {
+    margin-bottom: .5rem;
+    font-size: 2rem;
+  }
+
+  .perfil-usuario .avatar-perfil:hover .cambiar-foto {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .perfil-usuario .datos-perfil {
+    position: absolute;
+    display: block;
+    width: calc(100% - 230px - 8rem);
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+  }
+
+  .perfil-usuario .titulo-usuario {
+    font-size: 2.3rem;
+    white-space: nowrap;
+    margin-bottom: .5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .perfil-usuario .bio-usuario {
+    font-size: 1em;
+    margin-bottom: .75rem;
+  }
+
+  .perfil-usuario .lista-perfil {
+    list-style: none;
+  }
+
+  .perfil-usuario .lista-perfil li {
+    display: inline-block;
+    font-size: 1em;
+    margin-right: 1rem;
+  }
+
+  .perfil-usuario .opcciones-perfil {
+    display: block;
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+  }
+
+  .perfil-usuario .opcciones-perfil button {
+    border: 0;
+    padding: 8px 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .perfil-usuario .menu-perfil ul {
+    display: flex;
+    list-style: none;
+    margin-left: calc(200px + 8rem);
+    width: calc(100% - 200px - 8rem);
+  }
+
+  .perfil-usuario .menu-perfil ul li {
+    margin-right: 1rem;
+  }
+
+  .perfil-usuario .menu-perfil a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px 10px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all ease-in 100ms;
+  }
+
+  .perfil-usuario .menu-perfil a:hover {
+    background-color: #a5a5a5;
+    color: #fff;
+  }
+
+  .perfil-usuario .icono-perfil {
+    display: none;
+    margin-right: .75rem;
+  }
+
+  /*==Main-Datos==*/
+
+
+
+  .seccion-perfil-usuario .perfil-usuario-footer,
+  .seccion-perfil-usuario .perfil-usuario-bio {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem 2rem;
+    box-shadow: 0 0 12px rgb(0, 0, 0);
+    background-color: rgb(53, 53, 53);
+    border-radius: 10px;
+    width: 100%;
+
+  }
+
+  .seccion-perfil-usuario .lista-datos {
+    width: 50%;
+    list-style: none;
+  }
+
+  .seccion-perfil-usuario .lista-datos li {
+    padding: 10px 0;
+  }
+
+  .seccion-perfil-usuario .lista-datos li>.icono {
+    margin-right: 1.5rem;
+    font-size: 1rem;
+    vertical-align: middle;
+  }
+
+
+
+  /*======main biografica==========*/
+
+
+  .seccion-perfil-publicacion .perfil-usuario-body .titulo {
+    display: block;
+    width: 100%;
+    font-size: 1.75em;
+    margin-bottom: rem;
+    text-align: center;
+
+  }
+
+  .seccion-perfil-publicacion .perfil-usuario-body .texto {
+    color: #b5b5b5;
+    font-size: 0.95em;
+  }
+
+  .seccion-perfil-publicacion .perfil-usuario-footer,
+  .seccion-perfil-publicacion .perfil-usuario-bio {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.544);
+    background-color: rgb(75, 75, 75);
+    border-radius: 10px;
+    width: 100%;
+
+  }
+
+
+  /*======main publicacion==========*/
+
+  .container2 {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0%;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+  }
+
+
+
+  .main-content {
+    flex-basis: 100%;
+    width: 60%;
+  }
+
+
+  .write-post-container {
+    width: 100%;
+    background: #404040;
+    border-radius: 6px;
+    padding: 20px;
+    color: rgb(165, 165, 165);
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-profile img {
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .user-profile p {
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .user-profile small {
+    font-size: 12px;
+  }
+
+  .post-input-container {
+    padding-left: 55px;
+    padding-top: 20px;
+
+  }
+
+  .post-input-container textarea {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    resize: none;
+  }
+
+  .add-post-links {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .add-post-links a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: rgb(192, 192, 192);
+    margin-right: 30px;
+    font-size: 13px;
+  }
+
+  .add-post-links a img {
+    width: 20px;
+    margin-right: 10px;
+  }
+
+  .post-container {
+    width: 100%;
+    background: #404040;
+    border-radius: 6px;
+    padding: 20px;
+    color: #aaaaaa;
+    margin: 20px 0;
+  }
+
+  .user-profile span {
+    font-size: 13px;
+    color: #9c9c9c;
+  }
+
+  .post-text {
+    color: #fff;
+    margin: 15px 0;
+    font-size: 15px;
+  }
+
+  .post-text span {
+    color: forestgreen;
+    font-weight: 500;
+  }
+
+  .post-text a {
+    color: #1876f2;
+    text-decoration: none;
+  }
+
+  .post-img {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+
+  .post-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .activity-icons div img {
+    width: 18px;
+    margin-right: 10px;
+  }
+
+  .activity-icons div {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+  }
+
+  .post-row a {
+    color: rgb(201, 198, 198);
+  }
+
+
+
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+  /*==Footer==*/
+
+  .footer {
+    text-align: center;
+    color: rgb(122, 121, 121);
+    padding: 10px 0 20px;
+    font-size: 13px;
+  }
+
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+  /*==Media de Barra1==*/
+
+
+
+  @media screen and (min-width:768px) {
+    body {
+      padding: 110px 0px 0 0px;
+    }
+
+
+
+
+    .nav {
+      left: 0;
+      padding: 19px 27px 0;
+      width: 75px;
+    }
+
+    main {
+      padding-top: 50px;
+      padding-left: 0;
+    }
+
+    .nav:hover {
+      width: 265px;
+    }
+
+    .nav .nav_subititle,
+    .nav .logo_name,
+    .nav .nav_dropdown-icon,
+    .nav .navtop .nav_link:nth-child(4),
+    .nav .subscribe-contain {
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    .nav:hover .nav_subititle,
+    .nav:hover .logo_name,
+    .nav:hover .nav_dropdown-icon,
+    .nav:hover .navtop .nav_link:nth-child(4),
+    .nav:hover .subscribe-contain {
+      opacity: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+    }
+  }
+
+  @media screen and (max-width:420px) {
+    header .search {
+      width: 70%;
+    }
+
+    header .none,
+    header .user {
+      display: none;
+    }
+
+    .grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    main {
+      padding-top: 20px;
+      padding-left: 50px;
+    }
+  }
+
+  @media screen and (min-width:1080px) {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 20px;
+    }
+  }
+
+
+  /*==Media de perfil==*/
+
+
+  @media (max-width: 780px) {
+    .perfil-usuario .contenedor-perfil {
+      width: 100%;
+    }
+
+    .perfil-usuario .avatar-perfil {
+      left: calc(50% - 115px)
+    }
+
+    .perfil-usuario .datos-perfil {
+      bottom: 200px;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .perfil-usuario .bio-usuario {
+      font-size: 1em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .perfil-usuario .titulo-usuario {
+      font-size: 2.1rem;
+    }
+
+    .perfil-usuario .portada-perfil {
+      height: 28rem;
+    }
+
+    .perfil-usuario .menu-perfil ul {
+      flex-direction: column;
+    }
+
+    .perfil-usuario .lista-perfil {
+      display: block;
+    }
+
+    .perfil-usuario .menu-perfil {
+      margin-top: 2rem;
+    }
+
+    .perfil-usuario .menu-perfil ul {
+      display: flex;
+      list-style: none;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 2.5rem;
+      width: 70%;
+      background-color: rgb(147, 142, 142);
+      border-radius: 12px;
+      box-shadow: 0 0 12px 2px rgba(0, 0, 0, .1);
+    }
+
+    .perfil-usuario .icono-perfil {
+      display: inline-block;
+    }
+
+    .seccion-perfil-usuario .lista-datos {
+      width: 100%;
+    }
+
+  }
 </style>
-
-
 
 
 <?php
@@ -950,404 +1000,325 @@ global $profile;
 global $profile_post;
 global $user;
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pefil NavHer</title>
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous" />
+  <link rel="icon" href="imagenes/logo.ico">
+  <link rel="stylesheet" href="perfil.css">
+</head>
+
+<body>
 
 
-<div id="profile-upper">
-    <div id="profile-banner-image">
-      <img src="https://imagizer.imageshack.com/img921/9628/VIaL8H.jpg" alt="Banner image">
-    </div>
-    <div id="profile-d">
-        <div id="profile-pic" class="d-flex justify-content-center align-items-center">
-        <img src="assets/images/profile/<?=$profile['profile_pic']?>" class="img-fluid">
-    </div>
 
-      <div id="u-name"><?=$profile['first_name']?> <?=$profile['last_name']?></div>
-      <div class="tb" id="m-btns">
-        <div class="td">
-          <div class="m-btn"><i class="material-icons">Cambiar portada</i></div>
+
+
+  <!--    Barra izquierda     -->
+
+  <section class="nav" id="navbar">
+    <a href="social.html" class="nav_link nav_logo ">
+      <i class="fa-solid fa-bars nav_icon"></i>
+      <span class="logo_name">
+        <i class="logo-barra"><img src="imagenes/logo.png" alt=""></i>
+        NavHer
+      </span>
+    </a>
+    <nav class="nav_container">
+      <div class="left-sidebar">
+        <div class="imp-links">
+          <a href="#"><img src="imagenes/play.png"> Videos</a>
+
+          <a href="#"><img src="imagenes/logo.png"> Noticias</a>
+
+          <a href="#"><img src="imagenes/stream.png"> Stream</a>
+
+          <a href="amigos.html"><img src="imagenes/amigos.png"> Amigos</a>
+
+          <a href="game.html"><img src="imagenes/juegos.png"> Games</a>
+
+          <a href="#">Mas Categorias</a>
         </div>
-        <!-- <div class="td">
-          <div class="m-btn"><i class="material-icons">lock</i><span>Privacy</span></div>
-        </div> -->
+        <div class="shortcut-links">
+          <p>Conectados</p>
+
+          <a href="#"><img src="imagenes/tiktok.png"> TikTok </a>
+
+          <a href="#"><img src="imagenes/youtube.png"> Youtube </a>
+
+          <a href="#"><img src="imagenes/face.png"> Facebook </a>
+
+          <a href="#"><img src="imagenes/twitter.png"> Twitter </a>
+
+          <a href="fundadores.html"><img src="imagenes/logo.png"> Fundadores </a>
+        </div>
+
       </div>
-      <!-- <div id="edit-profile"><i class="material-icons">camera_alt</i></div> -->
-    </div>
-    <div id="black-grd"></div>
-  </div>
+    </nav>
+  </section>
 
+  <!--    Main     -->
 
-
-
-
-
-
-
-
-  <div id="main-content">
-    <div class="tb">
-      <div class="td" id="l-col">
-        <div class="l-cnt">
-          <div class="cnt-label">
-            <i class="l-i" id="l-i-i"></i>
-            <span>Biografía</span>
-            <div class="lb-action"><i class="material-icons">editar</i></div>
-          </div>
-          <div id="i-box">
-            <div id="intro-line">Front-end Engineer</div>
-            <div id="u-occ">I love making applications with Angular.</div>
-            <div id="u-loc"><i class="material-icons">location_on</i><a href="#">Lima</a>, <a href="#">Perú</a></div>
-          </div>
-
-          <div class="d-flex gap-5 align-items-center">
-                        <span style="font-size: xx-large;"><?=$profile['first_name']?> <?=$profile['last_name']?></span>
-                        
-                        <?php
-if($user['id']!=$profile['id']){
-    ?>
-  <div class="dropdown">
-                            <span class="" style="font-size:xx-large" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i> </span>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?=$profile['id']?>)"><i class="bi bi-chat-fill"></i> Message</a></li>
-                                <li><a class="dropdown-item " href="assets/php/actions.php?block=<?=$profile['id']?>&username=<?=$profile['username']?>"><i class="bi bi-x-circle-fill"></i> Block</a></li>
-                            </ul>
-                        </div>
-    <?php
-}
-                        ?>
-                      
-
-
-                    </div>
-                    <span style="font-size: larger;" class="text-secondary">@<?=$profile['username']?></span>
-                    <?php
+  <section class="perfil-usuario">
+    <div class="contenedor-perfil">
+      <div class="portada-perfil" style="background-image: url(imagenes/con.jpeg);">
+        <div class="sombra"></div>
+        <div class="avatar-perfil">
+          <img src="assets/images/profile/<?= $profile['profile_pic'] ?>" alt="Profile pic">
+          <a href="#" class="cambiar-foto">
+            <i class="fas fa-camera"></i>
+            <span>Cambiar foto</span>
+          </a>
+        </div>
+        <div class="datos-perfil">
+          <h4 class="titulo-usuario"><?= $profile['first_name'] ?> <?= $profile['last_name'] ?></h4>
+          <p class="bio-usuario"><i>INSTITUCION:</i> UAM-1</p>
+          <ul class="lista-perfil">
+          <?php
 if(!checkBS($profile['id'])){
     ?>
- <div class="d-flex gap-2 align-items-center my-3">
-
-<a class="btn btn-sm btn-primary"><i class="bi bi-file-post-fill"></i> <?=count($profile_post)?> Posts</a>
-<a class="btn btn-sm btn-primary <?=count($profile['followers'])<1?'disabled':''?>" data-bs-toggle="modal" data-bs-target="#follower_list"><i class="bi bi-people-fill"></i> <?=count($profile['followers'])?> Followers</a>
-<a class="btn btn-sm btn-primary <?=count($profile['following'])<1?'disabled':''?>" data-bs-toggle="modal" data-bs-target="#following_list"><i class="bi bi-person-fill"></i> <?=count($profile['following'])?> Following</a>
-
-<?php
-
-
-if($user['id']!=$profile['id']){
-?>
- <div class="d-flex gap-2 align-items-center my-1">
-<?php
-if(checkBlockStatus($user['id'],$profile['id'])){
-?> 
-<button class="btn btn-sm btn-danger unblockbtn" data-user-id='<?=$profile['id']?>' >Unblock</button>
-
-<?php
-}else if(checkBlockStatus($profile['id'],$user['id'])){ ?>
-    <div class="alert alert-danger" role="alert">
-    <i class="bi bi-x-octagon-fill"></i> @<?=$profile['username']?> blocked you !
-</div>
-   <?php }else if(checkFollowStatus($profile['id'])){
-   ?>
-<button class="btn btn-sm btn-danger unfollowbtn" data-user-id='<?=$profile['id']?>' >Unfollow</button>
-   
-   <?php
-}else{
-    ?>
-<button class="btn btn-sm btn-primary followbtn" data-user-id='<?=$profile['id']?>' >Follow</button>
-
-    <?php
+            <li><?=count($profile['followers'])?> Seguidores</li>
+            <li> <?=count($profile['following'])?> Siguiendo</li>
+            <li><?=count($profile_post)?> Publicaciones</li>
+            <?php
 }
 ?>
 
+            <li>
+              <?php
+              if ($user['id'] != $profile['id']) {
+              ?>
+                <div class="dropdown">
+                  <span class="" style="font-size:xx-large" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i> </span>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Message</a></li>
+                    <li><a class="dropdown-item " href="assets/php/actions.php?block=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Block</a></li>
+                  </ul>
+                </div>
+              <?php
+              }
+              ?>
+            </li>
 
-
-</div>
-<?php
-}
-?>
-</div>
-    <?php
-
-}
-                    ?>
-                   
-
-                   
-
-                    
+          </ul>
         </div>
-        <div class="l-cnt l-mrg">
-          <div class="cnt-label">
-            <i class="l-i" id="l-i-p"></i>
-            <span>Fotos</span>
-            <!-- <div class="lb-action" id="b-i"><i class="material-icons">keyboard_arrow_down</i></div> -->
-          </div>
-          <div id="photos">
-            <div class="tb">
-              <div class="tr">
-                <div class="td"></div>
-                <div class="td"></div>
-                <div class="td"></div>
-              </div>
-              <div class="tr">
-                <div class="td"></div>
-                <div class="td"></div>
-                <div class="td"></div>
-              </div>
-              <div class="tr">
-                <div class="td"></div>
-                <div class="td"></div>
-                <div class="td"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="l-cnt l-mrg">
-          <div class="cnt-label">
-            <i class="l-i" id="l-i-k"></i>
-            <span>Did You Know<i id="k-nm">1</i></span>
-          </div>
-          <div>
-            <div class="q-ad-c">
-              <a href="#" class="q-ad">
-                <img src="https://imagizer.imageshack.com/img923/1849/4TnLy1.png">
-                <span>My favorite superhero is...</span>
-              </a>
-            </div>
-            <div class="q-ad-c">
-              <a href="#" class="q-ad" id="add_q">
-                <i class="material-icons">add</i>
-                <span>Add Answer</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div id="t-box">
-          <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a> <a href="#">Ad Choices</a> <a href="#">Cookies</a> <span id="t-more">More<i class="material-icons">arrow_drop_down</i></span>
-          <div id="cpy-nt">Facebook &copy; <span id="curr-year"></span></div>
+        <div class="opcciones-perfil">
+          <button type="">Cambiar portada</button>
+          <button type=""><i class="fas fa-wrench"></i></button>
         </div>
       </div>
+      <div class="menu-perfil">
+        <ul>
+          <li><a href="social.html" title=""><i class="icono-perfil fas fa-bullhorn"></i> Publicaciones</a></li>
+          <li><a href="#" title=""><i class="icono-perfil fas fa-info-circle"></i> Informacion</a></li>
+          <li><a href="#" title=""><i class="icono-perfil fas fa-grin"></i> Amigos 2</a></li>
+          <li><a href="#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
+        </ul>
+      </div>
 
-
-      <div class="td" id="m-col">
-        <div class="m-mrg" id="p-tabs">
-          <div class="tb">
-            <div class="td">
-              <div class="tb" id="p-tabs-m">
-                <!-- <div class="td active"><i class="material-icons">av_timer</i><span>TIMELINE</span></div>
-                <div class="td"><i class="material-icons">people</i><span>FRIENDS</span></div> -->
-      
-
-                <div class="td"><i class="material-icons">Publicación</i></div>    
-                <div class="td"><i class="material-icons">Información</i></div>                
-                <div class="td"><i class="material-icons">Amigos</i></div>
-                <div class="td"><i class="material-icons">Fotos</i></div>
-              </div>
-            </div>
-            <!-- <div class="td" id="p-tab-m"><i class="material-icons">keyboard_arrow_down</i></div> -->
-          </div>
+      <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-footer">
+          <ul class="lista-datos">
+            <li><i class="icono fas fa-map-signs"></i>Direccion de usuario:</li>
+            <li><i class="icono fas fa-phone-alt"></i>Telefono:</li>
+            <li><i class="icono fas fa-briefcase"></i>Trabaja en: CEO de NAVHER, NEZZ, AVADISK</li>
+            <li><i class="icono fas fa-building"></i>Cargo: CEO</li>
+          </ul>
+          <ul class="lista-datos">
+            <li><i class="icono fas fa-map-marker-alt"></i>Ubicacion:</li>
+            <li><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: 09/09/2003</li>
+            <li><i class="icono fas fa-user-check"></i>Registro: 19/12/2022</li>
+            <li><i class="icono fas fa-share-alt"></i>Redes sociales:</li>
+          </ul>
         </div>
-        <div class="m-mrg" id="composer">
-          <div id="c-tabs-cvr">
-            <div class="tb" id="c-tabs">
-              <div class="td active"><i class="material-icons">Publicar</i></div>                
-              <!-- <div class="td active"><i class="material-icons">subject</i><span>Make Post</span></div> -->
-              <!-- <div class="td"><i class="material-icons">camera_enhance</i><span>Photo/Video</span></div>
-              <div class="td"><i class="material-icons">videocam</i><span>Live Video</span></div>
-              <div class="td"><i class="material-icons">event</i><span>Life Event</span></div> -->
+      </section>
+
+
+
+
+      <section class="seccion-perfil-publicacion">
+        <div class="perfil-usuario-footer">
+          <div class="perfil-usuario-body">
+            <div class="perfil-usuario-bio">
+              <h3 class="titulo">Biografia</h3>
+              <p class="texto">Las redes sociales son plataformas digitales formadas por comunidades de individuos con intereses, actividades o relaciones en común (como amistad, parentesco, trabajo). Las redes sociales permiten el contacto entre personas y funcionan como un medio para comunicarse e intercambiar información.
+
+                Los individuos no necesariamente se tienen que conocer antes de entrar en contacto a través de una red social, sino que pueden hacerlo a través de ella, y ese es uno de los mayores beneficios de las comunidades virtuales.
+
+
+
+                Fuente: https://concepto.de/redes-sociales/#ixzz7qVpVPdoC</p>
             </div>
           </div>
-          <div id="c-c-main">
-            <div class="tb">
-              <div class="td" id="p-c-i"><img src="assets/images/profile/<?=$profile['profile_pic']?>" alt="Profile pic"></div>
-              <div class="td" id="c-inp">
-                <input type="text" placeholder="¿en que estás pensando?">
+      </section>
+
+
+      <!--    Main publicaciones     -->
+
+
+      <div class="container2">
+
+        <div class="main-content">
+          <div class="write-post-container">
+            <div class="user-profile">
+              <img src="imagenes/pollolen.jfif" alt="">
+
+              <div>
+                <p><?= $profile['first_name'] ?> <?= $profile['last_name'] ?></p>
+                <small>CEO <i class="fas fa-caret-down"></i></small>
               </div>
             </div>
-            <div id="insert_emoji"><i class="material-icons">insertar emoticón</i></div>
+
+            <div class="post-input-container">
+              <textarea rows="3" placeholder="Cuentanos Tu Vida!"></textarea>
+
+              <div class="add-post-links">
+                <a href="#"><img src="imagenes/compartir.png" alt="">Informar</a>
+              </div>
+
+              <div class="add-post-links">
+                <a href="#"><img src="imagenes/compartir.png" alt="">Pasear</a>
+              </div>
+            </div>
+
           </div>
-        </div>
-        <div>
-        <?php
-               
-               foreach($profile_post as $post){
-                   ?>
-          <div class="post">
-            <div class="tb">
-              <a href="#" class="td p-p-pic"><img src="assets/images/profile/<?=$profile['profile_pic']?>" alt="Rajeev's profile pic"></a>
-              <div class="td p-r-hdr">
-                <div class="p-u-info">
-                    <p><?=$profile['first_name']?> <?=$profile['last_name']?></p>
-                    <!-- <a href="#">Rajeev Singh</a> shared a memory with <a href="#">Himalaya Singh</a> -->
-                </div>
-                <div class="p-dt">
-                  <!-- <i class="material-icons">calendar_today</i> -->
-                  <span>Enero 28, 2015</span>
-                </div>
-              </div>
-              <div class="td p-opt"><i class="material-icons">Compartió</i></div>
-            </div>
-            <a href="#" class="p-cnt-v">
-              <img src="assets/images/posts/<?=$post['post_img']?>">
-            </a>
+
+          <!-- <div class="post-container">
+    <div class="post-row">
+        <div class="user-profile">
+            <img src="imagenes/pollolen.jfif" alt="">
+
             <div>
+            <a href="perfil.html">
+                <p>Yoshi Manuel</p>
+                <small>CEO <i class="fas fa-caret-down"></i></small>
 
-
-            <div class="td p-r-hdr">
-                <div class="p-u-info">
-                  <p><?=$post['post_text']?></p>
-                </div>
-              </div>
-
-
-              <div class="p-acts">
-                <div class="p-act like"><i class="material-icons">Comentar</i></div>
-                <!-- <div class="p-act like"><i class="material-icons">thumb_up_alt</i><span>25</span></div> -->
-                <!-- <div class="p-act comment"><i class="material-icons">comment</i><span>1</span></div> -->
-                <!-- <div class="p-act share"><i class="material-icons">dasfasdf</i></div> -->
-              </div>
+                <span>ceo</span></a>
             </div>
-          </div>
-          <hr>
-          <?php
-}
-                          ?>
         </div>
-        <div id="loading"><i class="material-icons">autorenew</i></div>
-      </div>
-      <div class="td" id="r-col">
-        <div id="chat-bar">
-          <!-- <div id="chat-lb"><i class="material-icons">contacts</i><span>Contacts</span></div> -->
-          <div id="chat-lb"><i style="color:white" class="material-icons">Contactos</i></div>
-          <div id="cts">
-            <div class="on-ct active">
-              <a href="#"><img src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"></a>
-            </div>
-            <div class="on-ct active">
-              <a href="#"><img src="https://imagizer.imageshack.com/img923/332/1abR4H.png"></a>
-            </div>
-            <div class="on-ct">
-              <a href="#"><img src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"></a>
-            </div>
-            <div class="on-ct active">
-              <a href="#"><img src="https://imagizer.imageshack.com/img923/332/1abR4H.png"></a>
-            </div>
-            <div class="on-ct active">
-              <a href="#"><img src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"></a>
-            </div>
-            <div class="on-ct">
-              <a href="#"><img src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"></a>
-            </div>
-            <div class="on-ct">
-              <a href="#"><img src="https://imagizer.imageshack.com/img923/332/1abR4H.png"></a>
-            </div>
-            <div class="on-ct" id="ct-sett"><i class="material-icons">settings</i></div>
-          </div>
-        </div>
-      </div>
+        <a href="#"><i class="fas fa-ellipsis-v"></i></a>
     </div>
-  </div>
-  <div id="device-bar-2"><i class="fab fa-apple"></i></div>
 
+    <p class="post-text">Trabajando Pa</a></p>
 
+    <img src="imagenes/yosh.jpeg" class="post-img">
 
+    <div class="post-row">
+        <div class="activity-icons">
+            <div><img src="imagenes/corazon.png" alt="">0</div>
 
-  
-  
-    <!-- Modal -->
-    
-    
+            <div><img src="imagenes/mensaje.png" alt="">0</div>
 
-
-    <!-- this is for follower list -->
-    <div class="modal fade" id="follower_list" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Followers</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <?php
-foreach($profile['followers'] as $f){
-    $fuser = getUser($f['follower_id']);
-    $fbtn='';
-    if(checkFollowStatus($f['follower_id'])){
-        $fbtn = '<button class="btn btn-sm btn-danger unfollowbtn" data-user-id='.$fuser['id'].' >Unfollow</button>';
-    }else if($user['id']==$f['follower_id']){
-        $fbtn='';
-    }else{
-        $fbtn = '<button class="btn btn-sm btn-primary followbtn" data-user-id='.$fuser['id'].' >Follow</button>';
-
-    }
-    ?>
-<div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profile/<?=$fuser['profile_pic']?>" alt="" height="40" class="rounded-circle border">
-                        </div>
-                        <div>&nbsp;&nbsp;</div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <a href='?u=<?=$fuser['username']?>' class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;"><?=$fuser['first_name']?> <?=$fuser['last_name']?></h6></a>
-                            <p style="margin:0px;font-size:small" class="text-muted">@<?=$fuser['username']?></p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <?=$fbtn?>
-
-                    </div>
-                </div>
-    <?php
-}
-                ?>
-            </div>
-   
+            <div><img src="imagenes/compartir.png" alt="">0</div>
         </div>
-  </div>
-</div>
+        
+    </div>
 
+</div> -->
+          <?php
 
+          foreach ($profile_post as $post) {
+          ?>
 
-<!-- this is for following list -->
-<div class="modal fade" id="following_list" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Following</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <?php
-foreach($profile['following'] as $f){
-    $fuser = getUser($f['user_id']);
-    $fbtn='';
-    if(checkFollowStatus($f['user_id'])){
-        $fbtn = '<button class="btn btn-sm btn-danger unfollowbtn" data-user-id='.$fuser['id'].' >Unfollow</button>';
-    }else if($user['id']==$f['user_id']){
-        $fbtn='';
-    }else{
-        $fbtn = '<button class="btn btn-sm btn-primary followbtn" data-user-id='.$fuser['id'].' >Follow</button>';
+            <div class="post-container">
+              <div class="post-row">
+                <div class="user-profile">
+                  <img src="assets/images/profile/<?= $profile['profile_pic'] ?>" alt="Rajeev's profile pic">
 
-    }
-    ?>
-<div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profile/<?=$fuser['profile_pic']?>" alt="" height="40" class="rounded-circle border">
-                        </div>
-                        <div>&nbsp;&nbsp;</div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <a href='?u=<?=$fuser['username']?>' class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;"><?=$fuser['first_name']?> <?=$fuser['last_name']?></h6></a>
-                            <p style="margin:0px;font-size:small" class="text-muted">@<?=$fuser['username']?></p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <?=$fbtn?>
+                  <div>
+                    <p><?= $profile['first_name'] ?> <?= $profile['last_name'] ?></p>
+                    <small>Empresa <i class="fas fa-caret-down"></i></small>
 
-                    </div>
+                    <span>ceo</span>
+                  </div>
                 </div>
-    <?php
-}
-                ?>
+                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+              </div>
+
+              <p class="post-text"><?= $post['post_text'] ?></p>
+
+              <img src="assets/images/posts/<?= $post['post_img'] ?>">
+
+              <!-- <div class="post-row">
+          <div class="activity-icons">
+              <div><img src="imagenes/logo.png" alt="">0</div>
+
+              <div><img src="imagenes/logo.png" alt="">0</div>
+
+              <div><img src="imagenes/logo.png" alt="">0</div>
+          </div>
+          
+      </div> -->
+
             </div>
-   
+          <?php
+          }
+          ?>
+
         </div>
+
+
+
+      </div>
+  </section>
+
+
+
+  <!--    Barra-Derecha      -->
+
+  <div class="sidebar-2">
+
+    <a href="social.html">
+      <div class="sidebar-top">
+        <i class="logoL fa-solid fa-house"> <a href="social.html"></a></i>
+        <span class="brand">Inicio</span>
+    </a>
   </div>
-</div>
+  </a>
+
+  <div class="sidebar-center">
+    <ul class="list">
+
+      <a href="#">
+        <li class="list-item">
+          <i class="list-item-icon fa-solid fa-user"></i>
+          <span class="list-item-text">Perfil</span>
+        </li>
+      </a>
+
+      <a href="Eventos.html">
+        <li class="list-item">
+          <i class="list-item-icon fa-solid fa-calendar"></i>
+          <span class="list-item-text">envetos</span>
+        </li>
+      </a>
+
+      <a href="#">
+        <li class="list-item">
+          <i class="list-item-icon fa-solid fa-user-group"></i>
+          <span class="list-item-text">Amigos</span>
+        </li>
+      </a>
+
+      <a href="#">
+        <li class="list-item">
+          <i class="list-item-icon fa-solid fa-bomb"></i>
+          <span class="list-item-text">P</span>
+        </li>
+      </a>
+
+
+    </ul>
+  </div>
+  </div>
+
+  <div class="footer">
+    <p>Copyright 2022 AvaDisk</p>
+  </div>
+  s
