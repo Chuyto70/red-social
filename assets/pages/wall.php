@@ -164,19 +164,19 @@ global $follow_suggestions;
                 <form method="post" action="assets/php/actions.php?addpost" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="form-group">
-                            <button id="cust_btn" rows="6" type="button" class="w-100">
+                          
                                 <textarea name="post_text" class="form-control" rows="6" placeholder="¿Qué estás pensando?" style="background-color:#ddd;" id="post_textarea"></textarea>
-                            </button>
+                        
                         </div>
 
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="post_img" id="select_post_img">
                             <label class="custom-file-label" for="select_post_img">Selecionar imagen</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Publicar</button> -->
+                    <button type="submit" class="btn btn-primary">Publicar</button>
                 </form>
             </div>
         </div>
@@ -190,47 +190,6 @@ global $follow_suggestions;
         <!-- Modal -->
 
 
-        <div class="container">
-            <!-- Trigger the modal with a button -->
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content container-fluid bg-dark text-white">
-
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Publicar</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-
-            <div class="modal-body public-area">
-                <form method="post" action="assets/php/actions.php?addpost" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <textarea name="post_text" class="form-control" rows="6" placeholder="¿Qué estás pensando?" style="background-color:#ddd;" id="post_textarea"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                       
-                        <input id="select_post_img" name="post_img" type="file" class="file" data-browse-on-zone-click="true">
-                          
-                      
-                       
-                    </div>
-                    <button type="submit" class="btn btn-primary">Publicar</button>
-                </form>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-
-        </div>
 
 
         <!-- fin modal -->
