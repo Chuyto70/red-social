@@ -190,7 +190,10 @@ if(isset($_GET['updateprofile'])){
     if($response['status']){
        
         if(updateProfile($_POST,$_FILES['profile_pic'])){
-            header("location:../../?editprofile&success");
+            $user = $_GET['u'];
+            $parametro = $_SERVER['PHP_SELF'];
+
+            header("location:../../");
 
         }else{
             echo "something is wrong";
@@ -210,7 +213,7 @@ if(isset($_GET['addpost'])){
 
    if($response['status']){
 if(createPost($_POST,$_FILES['post_img'])){
-    header("location:../../?new_post_added");
+    header("location:../../?");
 }else{
     echo "something went wrong";
 }

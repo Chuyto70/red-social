@@ -91,30 +91,50 @@ if($not['read_status']==0){
   </div>
   <div class="offcanvas-body" id="chatlist">
 
-   
-
     
   </div>
 </div>
 
 <div class="modal fade" id="chatbox" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    
     <div class="modal-content">
       <div class="modal-header">
-        <a href="" id="cplink" class="text-decoration-none text-dark"><h5 class="modal-title" id="exampleModalLabel"><img src="assets/images/profile/default_profile.jpg" id="chatter_pic" height="40" width="40" class="m-1 rounded-circle border"><span id="chatter_name"></span>(@<span id="chatter_username">loading..</span>)</h5></a>
+        <a href="" id="cplink" class="text-decoration-none text-dark">
+
+          <div class="modal-title d-flex gap-2" id="exampleModalLabel">
+            <img src="assets/images/profile/default_profile.jpg" id="chatter_pic" height="40" width="40" class="m-1 rounded-circle border">
+            <div class="d-flex flex-column">
+
+              <span
+              style="font-weight: bold;" 
+              id="chatter_name" clas></span>
+              <span>
+                (@<i
+                    style="font-weight: 100;" 
+                    id="chatter_username">loading..</i>)</span> 
+            </div>
+        </div></a>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column-reverse gap-2" id="user_chat">
       loading..
+    
+  
+
       </div>
-      <div class="modal-footer">
+      <div 
+      style="padding: 0 !important;"
+      class="modal-footer">
          
           <p class="p-2 text-danger mx-auto" id="blerror" style="display:none"> 
           <i class="bi bi-x-octagon-fill"></i> you are not allowed to send msg to this user anymore
 
 </div>
-      <div class="input-group p-2 " id="msgsender">
-                            <input type="text" class="form-control rounded-0 border-0" id="msginput" placeholder="say something.."
+      <div class="input-group p-3 " id="msgsender">
+                            <input
+                            style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;"
+                             type="text" class="form-control rounded border-0  " id="msginput" placeholder="say something.."
                                 aria-label="Recipient's username" aria-describedby="button-addon2">
                             <button class="btn btn-outline-primary rounded-0 border-0" id="sendmsg" data-user-id="0" type="button"
                                 >Send</button>
@@ -151,6 +171,8 @@ $(document).on("click", ".close", function() {
 <script>
   
 </script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

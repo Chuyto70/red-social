@@ -207,6 +207,10 @@ function getUnreadNotificationsCount(){
     return '<time style="font-size:small" class="timeago text-muted text-small" datetime="'.$time.'"></time>';
   }
 
+  function show_description($description){
+    return '<span>'.$description.'</span>';
+  }
+
   function setNotificationStatusAsRead(){
        $cu_user_id = $_SESSION['userdata']['id'];
       global $db;

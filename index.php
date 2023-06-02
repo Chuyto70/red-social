@@ -10,6 +10,7 @@ if(isset($_SESSION['Auth'])){
     $user = getUser($_SESSION['userdata']['id']);
     $posts = filterPosts();
     $follow_suggestions = filterFollowSuggestion();
+    $profile = getUserByUsername($_SESSION['userdata']['username']);
 }
 
 $pagecount = count($_GET);
@@ -48,6 +49,10 @@ if(isset($_SESSION['Auth']) && $user['ac_status']==1 && !$pagecount){
     }
  
   
+}elseif($_GET['eventos']){
+    showPage('header',['page_title'=>'Eventos']);
+   
+    showPage('eventos');
 }elseif(isset($_GET['signup'])){
     showPage('header',['page_title'=>'Pictogram - SignUp']);
     showPage('signup');

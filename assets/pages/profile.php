@@ -10,6 +10,278 @@
   }
 
 
+  #miModal{
+    display: none;
+    position: fixed;
+    z-index:110;
+    overflow: auto;
+    left: 0;
+    top:0;
+    width: 100%;
+    height:100%;
+    background: rgba(0, 0, 0, 0.607);
+  }
+  #flex{
+    width: 100%;
+    height:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .contenido-modal{
+    position: relative;
+    background-color: #fefefe00;
+    margin: auto;
+    width: 0%;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .4);
+    animation-name: modal;
+    animation-duration: 1s;
+  }
+  .emergente-containercom{
+    font-size: 18px;
+    font-family: 'open sans',sans-serif;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    min-height: 10%;
+    color: rgb(235, 235, 235);
+    position: relative;
+}
+.public-emer-container{
+    background-color:#404040;
+    padding: 50px 30px;
+    max-width: 800px;
+    width: 100vw;
+    border-radius: 10px;
+    -webkit-border-radius: 20px;
+    -ms-border-radius:10px;
+    -o-border-radius: 10px;
+}
+ #close{
+    color: #f2f2f2;
+    font-size:30px;
+    font-weight: bold;
+  }
+  #close:hover{
+    color:#7f8c8d;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #user-profile{
+  display: flex;
+  align-items: center;
+}
+
+#user-profile a{
+  text-decoration: none;
+}
+#user-profile img{
+  width: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#user-profile p{
+  margin-bottom: -5px;
+  font-weight: 500;
+  color: #fff;
+}
+
+#user-profile small{
+  font-size: 12px;
+}
+
+.vinculo-e {
+  color: #aaaaaa;
+}
+
+.public-area{
+    position: relative;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.placeholder{
+    position: absolute;
+    top: -0.2rem;
+    font-size: 130%;
+    color: rgb(165, 165, 165);
+    pointer-events: none;
+    background-color: transparent;
+}
+.input-editable{
+    outline: none;
+    color: rgb(255, 255, 255);
+    font-size: 100%;
+    height: 10vh;
+}
+
+.emergente-yr12{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #404040;
+}
+.wrapper-s12{
+    background: #404040;
+    padding: 30px;
+    width: 500px;
+    border-radius: 5px;
+}
+.wrapper-s12 form {
+    height: 167px;
+    display: flex;
+    margin: 30px 0;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 2px dashed #ffffff;
+}
+.public-btn{
+    background-color: rgb(52, 52, 52);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border: transparent;
+    font-size: 100%;
+    opacity: 0.5;
+}
+
+.progress-area .row .content{
+    width: 100%;
+    margin-left: 15px;
+  }
+  .progress-area .details{
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    justify-content: space-between;
+  }
+  .progress-area .content .progress-bar{
+    height: 6px;
+    width: 100%;
+    margin-bottom: 4px;
+    background: #fff;
+    border-radius: 30px;
+  }
+.uploaded-area{
+    max-height: 130px;
+    overflow-y: scroll;
+  }
+  .uploaded-area.onprogress{
+    max-height: 150px;
+  }
+  .uploaded-area::-webkit-scrollbar{
+    width: 0px;
+  }
+  .uploaded-area .row .content{
+    display: flex;
+    align-items: center;
+  }
+  .uploaded-area .row .details{
+    display: flex;
+    margin-left: 15px;
+    flex-direction: column;
+  }
+  .uploaded-area .row .details .size{
+    color: #ffffff94;
+    font-size: 11px;
+  }
+  .uploaded-area i.fa-check{
+    font-size: 16px;
+  }
+
+  .privacy{
+    margin-top: 20px;
+    font-size: 90%;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transiton: 0.5s;
+    -o-transition: 0.5s;
+    padding: 5px 10px;
+    width: 50%;
+    cursor: pointer;
+}
+.footer-box{
+    border-top: 1px solid #737476;
+    margin: 20px 5px;
+}
+.footer-icons{
+    display: flex;
+    list-style: none;
+}
+
+.footer-icons li{
+    margin: 20px 5px;
+    position: relative;
+    right: 8px;
+    font-size: 100%;
+    border-radius: 60%;
+    -webkit-border-radius: 60%;
+    -moz-border-radius: 60%;
+    -ms-border-radius: 60%;
+    -o-border-radius: 60%;
+    cursor: pointer;
+   
+}
+
+.footer-icons li i{
+    padding: 10px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3ms;
+    -ms-trasition: 0.3s;
+    -o-transition: 0,3s;
+}
+
+.footer-icons li i:hover{
+    background-color: #00000038;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.puclic-limits{
+    float: right;
+    transform: translateY(-4.3rem);
+    -webkit-transform: translateY(-4.3rem);
+    -moz-transform: translateY(-4.3rem);
+    -ms-transform: translateY(-4.3rem);
+    -o-transform: translateY(-4.3rem);
+
+}
+
+.puclic-limits .counter-limit{
+    border-right: 1px solid rgb(255, 255, 255);
+    padding: 0 18px;
+    margin: 0 15px;
+    font-size: 100%;
+    color: #ffffff;
+    visibility: hidden;
+}
+
+.form_modal:where(i, p){
+    color: #ffffff;
+  }
+  .form_modal i{
+    font-size: 50px;
+  }
+  .form_modal p{
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  .form_modal i {
+    font-size: 50px;
+}
 
   /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -187,6 +459,7 @@
 
   .nav_link:hover {
     color: #494949;
+    border-bottom: 1px solid #ccc;
   }
 
   .nav_icon {
@@ -254,6 +527,7 @@
 
   .imp-links a img {
     width: 20px;
+    height: 20px;
     margin-right: 15px;
   }
 
@@ -481,7 +755,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 70%;
   }
 
   .perfil-usuario .portada-perfil {
@@ -858,7 +1132,7 @@
 
     .nav {
       left: 0;
-      padding: 19px 27px 0;
+      padding: 19px 22px 0;
       width: 75px;
     }
 
@@ -992,6 +1266,100 @@
     }
 
   }
+  .noshow_navbar{
+    display: none;
+  }
+  #modificarInput{
+    max-width: 270px !important;
+  }
+
+
+  .unfollowbtn, .followbtn{
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0 16px;
+    display: flex;
+    gap: 5px;
+    color: #212529;
+  }
+  .unfollowbtn:hover, .followbtn:hover{
+    color: #1e2125;
+    background-color: #e9ecef;
+  }
+  .background_bubble_chat{
+    background-color: #6e6b6b75 !important;
+  }
+
+  .write-post-container {
+    width: 100%;
+    background: #404040;
+    border-radius: 6px;
+    padding: 20px;
+    color: rgb(165, 165, 165);
+  }
+   .user-profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-profile img {
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .user-profile p {
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .user-profile small {
+    font-size: 12px;
+  }
+  #post_textarea{
+    outline: none !important;
+    box-shadow: none !important;
+    caret-color: white;
+    color: white;
+    border-bottom: 1px solid rgb(213 193 193 / 50%)  !important;
+    resize: none;
+  }
+
+  #select_post_img{
+    display: none !important;
+    cursor: pointer;
+  }
+  .cursor {
+    cursor: pointer;
+  }
+  .imagen_post{
+    cursor: pointer !important;
+  }
+  #modal_contenido{
+    background-color: #191919;
+    color: white    ;
+  }
+
+  .text_size_small{
+    font-size: 12px !important;
+  }
+  .background_bubble_chat{
+    background-color: #6e6b6b75 !important;
+  }
+  #button-addon2:hover{
+    background-color: #0d6efd !important;
+  }
+ ::-webkit-scrollbar {
+ width: 7px;
+  background: rgba(70, 70, 70, 0.393);
+}
+::-webkit-scrollbar-thumb{
+  background: rgba(166, 166, 166, 0.716);
+  border-radius: 10px;
+  border-right: 2px solid rgba(138, 138, 138, 0.382);
+}
 </style>
 
 
@@ -1010,53 +1378,159 @@ global $user;
   <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous" />
-  <link rel="icon" href="imagenes/logo.ico">
-  <link rel="stylesheet" href="perfil.css">
+  <link rel="icon" href="assets/images/home/logo.ico">
+  <!-- <link rel="stylesheet" href="perfil.css"> -->
 </head>
 
 <body>
 
 
+<nav 
+style="  position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;"
+class="navbar navbar-expand-lg navbar-light bg-black ">
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="form-group">
+            <h3 class="text-center text-white fs-6">AvaDisk(<span class="fst-italic">NAVHER</span>)</h3>
+        </div>
+    </div>  
+</nav>
 
+<nav
+style="position: fixed;
+    top: 43px;
+    width: 100%;
+    z-index: 100;
+    background-color: #1c1c1c;"
+ class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0 " >
+        <div class="col-lg-11 col-sm-12 col-md-10 d-flex flex-lg-row flex-md-row flex-sm-column justify-content-between">
+            <div class="d-flex justify-content-between col-lg-7 col-sm-12">
+                <a class="navbar-brand" href="?">
+                <img src="assets/images/home/logo.png" alt="" height="28">
+
+                </a>
+
+                <form style="position: relative;"  class="d-flex align-items-center col-4 justify-self-end" id="searchform" >
+                    <div class="form-control d-flex align-items-center py-0 px-3" style="background-color: #d9d9d9;">
+                    <input style="background-color: #d9d9d9;" class="form-control border-0 shadow-none" type="search" id="search" placeholder="Buscar.."
+                        aria-label="Search" autocomplete="off">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+</svg>
+                    </div>
+                    
+
+<div class="bg-white text-end rounded border shadow py-2 px-1 mt-5" style="display:none;position:absolute;z-index:+99; top:-1px; width:100%;" id="search_result" data-bs-auto-close="true">
+<button type="button" class="btn-close" aria-label="Close" id="close_search"></button>
+<div id="sra" class="text-start">
+<p class="text-center text-muted">enter name or username</p>
+
+</div>
+</div>
+                </form>
+
+            </div>
+
+
+            <ul class="navbar-nav flex-row justify-content-evenly mb-lg-1 mb-sm-0 gap-4">
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="?"><i class="bi bi-house-door-fill "  style="color: white; font-size: 1.4rem;"></i></a>
+                </li>
+               
+                <li class="nav-item">
+                  
+                    
+                    <?php
+if(getUnreadNotificationsCount()>0){
+    ?>
+ <a class="nav-link text-dark position-relative" id="show_not" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample">
+                    <i class="bi bi-bell-fill" style="color: white; font-size: 1.4rem;"></i>
+  <span class="un-count position-absolute start-10 translate-middle badge p-1 rounded-pill bg-danger">
+   <small><?=getUnreadNotificationsCount()?></small>
+  </span>
+</a>
+
+    <?php
+}else{
+    ?>
+  <a class="nav-link text-dark" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample"><i class="bi bi-bell-fill" style="color: white; font-size: 1.4rem;"></i></a>
+    <?php
+}
+                    ?>
+                   
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" data-bs-toggle="offcanvas" href="#message_sidebar" href="#"><i class="bi bi-chat-right-dots-fill" style="color: white; font-size: 1.4rem;"></i>  <span class="un-count position-absolute start-10 translate-middle badge p-1 rounded-pill bg-danger" id="msgcounter">
+  
+  </span></a>
+                </li>
+                <li class="nav-item dropdown dropstart">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="assets/images/profile/<?=$user['profile_pic']?>" alt="" height="30" width="30" class="rounded-circle border">
+                    </a>
+                    <ul class="dropdown-menu position-absolute top-100 end-50 bg-black" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item text-white" href="?u=<?=$user['username']?>"><i class="bi bi-person" style="color: white; font-size: 1.4rem;"></i>Perfil</a></li>
+                        <hr>
+                        <li><a class="dropdown-item text-white" href="?editprofile"><i class="bi bi-pencil-square"></i>Editar perfil</a></li>
+                        <hr>
+                        
+                        <li><a class="dropdown-item text-white" href="assets/php/actions.php?logout"><i class="bi bi-box-arrow-in-left" style="color: white; font-size: 1.4rem;"></i>Salir</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+
+        </div>
+    </nav>
 
 
   <!--    Barra izquierda     -->
 
-  <section class="nav" id="navbar">
-    <a href="social.html" class="nav_link nav_logo ">
+  <section  
+  style="margin-top:95px;"
+  class="nav position-fixed top-0" id="navbar">
+    <a
+    style="width: 100%;"
+     href="social.html" class="nav_link nav_logo ">
       <i class="fa-solid fa-bars nav_icon"></i>
       <span class="logo_name">
-        <i class="logo-barra"><img src="imagenes/logo.png" alt=""></i>
+        <i class="logo-barra"><img src="assets/images/home/logo.png" alt=""></i>
         NavHer
       </span>
     </a>
     <nav class="nav_container">
       <div class="left-sidebar">
         <div class="imp-links">
-          <a href="#"><img src="imagenes/play.png"> Videos</a>
+         <!-- <a href="#"><img src="assets/images/home/play.png"> Videos</a>-->
 
-          <a href="#"><img src="imagenes/logo.png"> Noticias</a>
+          <a href="#"><img src="assets/images/home/logo.png"> Noticias</a>
 
-          <a href="#"><img src="imagenes/stream.png"> Stream</a>
+          <!-- <a href="#"><img src="assets/images/home/stream.png"> Stream</a>-->
 
-          <a href="amigos.html"><img src="imagenes/amigos.png"> Amigos</a>
+          <a href="amigos.html"><img src="assets/images/home/amigos.png"> Amigos</a>
 
-          <a href="game.html"><img src="imagenes/juegos.png"> Games</a>
+          <!-- <a href="game.html"><img src="assets/images/home/juegos.png"> Games</a>-->
 
           <a href="#">Mas Categorias</a>
         </div>
         <div class="shortcut-links">
-          <p>Conectados</p>
+         <!-- <p>Conectados</p>-->
 
-          <a href="#"><img src="imagenes/tiktok.png"> TikTok </a>
+         <!--  <a href="#"><img src="assets/images/home/tiktok.png"> TikTok </a>
 
-          <a href="#"><img src="imagenes/youtube.png"> Youtube </a>
+          <a href="#"><img src="assets/images/home/youtube.png"> Youtube </a>
 
-          <a href="#"><img src="imagenes/face.png"> Facebook </a>
+          <a href="#"><img src="assets/images/home/face.png"> Facebook </a>
 
-          <a href="#"><img src="imagenes/twitter.png"> Twitter </a>
-
-          <a href="fundadores.html"><img src="imagenes/logo.png"> Fundadores </a>
+          <a href="#"><img src="assets/images/home/twitter.png"> Twitter </a>-->
+          <p>Informacion</p>
+          <a href="fundadores.html"><img src="assets/images/home/logo.png"> Fundadores </a>
         </div>
 
       </div>
@@ -1067,17 +1541,47 @@ global $user;
 
   <section class="perfil-usuario">
     <div class="contenedor-perfil">
-      <div class="portada-perfil" style="background-image: url(imagenes/con.jpeg);">
+      <div 
+      class="portada-perfil" style="background-image: url(assets/images/home/mundo.jpg);margin-top: 86px;">
         <div class="sombra"></div>
         <div class="avatar-perfil">
-          <img src="assets/images/profile/<?= $profile['profile_pic'] ?>" alt="Profile pic">
-          <a href="#" class="cambiar-foto">
-            <i class="fas fa-camera"></i>
-            <span>Cambiar foto</span>
-          </a>
+          <img style="object-fit: cover;" src="assets/images/profile/<?= $profile['profile_pic'] ?>" alt="Profile pic">
+          <form id="form_file_profile" method="post" action="assets/php/actions.php?updateprofile" enctype="multipart/form-data">
+
+            <input hidden type="text" name="first_name" value="<?= $profile['first_name'] ?>">
+            <input hidden type="text" name="last_name" value="<?= $profile['last_name'] ?>">
+            <input hidden type="text" name="username" value="<?= $profile['username'] ?>">
+            <label for="formFile" style="cursor: pointer;" class="cambiar-foto">
+              
+
+              <i class="fas fa-camera"></i>
+              <span >Cambiar foto</span>
+             <input hidden class="form-control" type="file" name="profile_pic" id="formFile">
+            </label>
+          </form>
+         
+
+          <script>
+
+            let inputFile = document.querySelector('#formFile')
+            let form_file_profile =document.querySelector('#form_file_profile')
+            inputFile.addEventListener('change', (e)=>{
+              e.preventDefault()
+              form_file_profile.submit()
+              
+            })
+        </script>
+
         </div>
         <div class="datos-perfil">
-          <h4 class="titulo-usuario"><?= $profile['first_name'] ?> <?= $profile['last_name'] ?></h4>
+          <h4 class="titulo-usuario"><?= $profile['first_name'] ?> <?= $profile['last_name'] ?>
+          <?php if($profile['id'] == $user['id']){ ?>
+            <a href="?editprofile" style="cursor: pointer;"
+           class="bi bi-three-dots-vertical text-white"></a>
+          <?php }?>
+         
+
+          </h4>
           <p class="bio-usuario"><i>INSTITUCION:</i> UAM-1</p>
           <ul class="lista-perfil">
           <?php
@@ -1099,6 +1603,27 @@ if(!checkBS($profile['id'])){
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Message</a></li>
                     <li><a class="dropdown-item " href="assets/php/actions.php?block=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Block</a></li>
+
+                    <li>       
+                        <?php 
+                          
+                        ?>            
+                            <?php  
+
+                              if(in_array($user['id'], array_column($profile['followers'], 'follower_id'))){
+                                
+                              
+                            ?>
+                             <button class="unfollowbtn" data-user-id='<?= $profile['id'] ?>'>
+                             <i class="bi bi-dash-circle-fill"></i>Unfollow</button>  
+                             
+                            <?php } else{ ?>
+                              <button class=" followbtn" data-user-id='<?= $profile['id'] ?>'>  
+                              <i class="bi bi-plus-square-fill"></i>Follow</button>  
+                              <?php } ?>
+
+
+                    </li>
                   </ul>
                 </div>
               <?php
@@ -1115,27 +1640,42 @@ if(!checkBS($profile['id'])){
       </div>
       <div class="menu-perfil">
         <ul>
-          <li><a href="social.html" title=""><i class="icono-perfil fas fa-bullhorn"></i> Publicaciones</a></li>
-          <li><a href="#" title=""><i class="icono-perfil fas fa-info-circle"></i> Informacion</a></li>
-          <li><a href="#" title=""><i class="icono-perfil fas fa-grin"></i> Amigos 2</a></li>
+         
           <li><a href="#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
         </ul>
       </div>
 
       <section class="seccion-perfil-usuario">
-        <div class="perfil-usuario-footer">
+        <div style="flex-wrap: nowrap !important;" class="perfil-usuario-footer">
+
           <ul class="lista-datos">
-            <li><i class="icono fas fa-map-signs"></i>Direccion de usuario:</li>
+            <li ><i class="icono fas fa-map-signs"></i>Direccion de usuario:</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
             <li><i class="icono fas fa-phone-alt"></i>Telefono:</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
             <li><i class="icono fas fa-briefcase"></i>Trabaja en: CEO de NAVHER, NEZZ, AVADISK</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
             <li><i class="icono fas fa-building"></i>Cargo: CEO</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
           </ul>
           <ul class="lista-datos">
+            
             <li><i class="icono fas fa-map-marker-alt"></i>Ubicacion:</li>
-            <li><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: 09/09/2003</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
+            <li id="valorAModificar"><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: 09/09/2003</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
             <li><i class="icono fas fa-user-check"></i>Registro: 19/12/2022</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
             <li><i class="icono fas fa-share-alt"></i>Redes sociales:</li>
+            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
           </ul>
+          <div style="align-self: flex-end;">
+
+            <button id="guardarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px; display:none;" class="py-2 px-4 text-white">Guardar</button>
+
+            <button id="modificarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px;" class="py-2 px-4 text-white">Modificar</button>
+          </div>
+
         </div>
       </section>
 
@@ -1147,13 +1687,16 @@ if(!checkBS($profile['id'])){
           <div class="perfil-usuario-body">
             <div class="perfil-usuario-bio">
               <h3 class="titulo">Biografia</h3>
-              <p class="texto">Las redes sociales son plataformas digitales formadas por comunidades de individuos con intereses, actividades o relaciones en común (como amistad, parentesco, trabajo). Las redes sociales permiten el contacto entre personas y funcionan como un medio para comunicarse e intercambiar información.
+              <p class="texto">
+                
+                Las redes sociales son plataformas digitales formadas por comunidades de individuos con intereses, actividades o relaciones en común (como amistad, parentesco, trabajo). Las redes sociales permiten el contacto entre personas y funcionan como un medio para comunicarse e intercambiar información.
 
                 Los individuos no necesariamente se tienen que conocer antes de entrar en contacto a través de una red social, sino que pueden hacerlo a través de ella, y ese es uno de los mayores beneficios de las comunidades virtuales.
 
 
 
                 Fuente: https://concepto.de/redes-sociales/#ixzz7qVpVPdoC</p>
+                
             </div>
           </div>
       </section>
@@ -1167,7 +1710,10 @@ if(!checkBS($profile['id'])){
         <div class="main-content">
           <div class="write-post-container">
             <div class="user-profile">
-              <img src="imagenes/pollolen.jfif" alt="">
+              <img 
+              style="height: 45px;
+                    object-fit: cover;"
+               src="assets/images/profile/<?=$user['profile_pic'] ?> " alt="">
 
               <div>
                 <p><?= $profile['first_name'] ?> <?= $profile['last_name'] ?></p>
@@ -1175,20 +1721,32 @@ if(!checkBS($profile['id'])){
               </div>
             </div>
 
-            <div class="post-input-container">
-              <textarea rows="3" placeholder="Cuentanos Tu Vida!"></textarea>
+            <form class="post-input-container " 
+                  method="post" 
+                  action="assets/php/actions.php?addpost">
+
+              <textarea 
+              name="post_text"
+              id="post_textarea"
+              rows="3" placeholder="Cuentanos Tu Vida!"></textarea>
 
               <div class="add-post-links">
-                <a href="#"><img src="imagenes/compartir.png" alt="">Informar</a>
+                <a href="#"><img src="assets/images/home/compartir.png" alt="">Informar</a>
               </div>
 
               <div class="add-post-links">
-                <a href="#"><img src="imagenes/compartir.png" alt="">Pasear</a>
+                <a href="#"><img src="assets/images/home/compartir.png" alt="" />Pasear</a>
               </div>
-            </div>
+            </form>
 
           </div>
 
+       </div>
+                         <!-------- modal ------->
+
+              
+        </div>
+        
           <!-- <div class="post-container">
     <div class="post-row">
         <div class="user-profile">
@@ -1224,12 +1782,16 @@ if(!checkBS($profile['id'])){
           <?php
 
           foreach ($profile_post as $post) {
+            $likes = getLikes($post['id']);
+            $comments = getComments($post['id']);
           ?>
 
             <div class="post-container">
               <div class="post-row">
                 <div class="user-profile">
-                  <img src="assets/images/profile/<?= $profile['profile_pic'] ?>" alt="Rajeev's profile pic">
+                  <img
+                  style="height: 45px; object-fit: cover;" 
+                  src="assets/images/profile/<?= $profile['profile_pic'] ?>" alt="">
 
                   <div>
                     <p><?= $profile['first_name'] ?> <?= $profile['last_name'] ?></p>
@@ -1238,24 +1800,191 @@ if(!checkBS($profile['id'])){
                     <span>ceo</span>
                   </div>
                 </div>
-                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                <div class="p-2">
+                        <?php
+                        if ($post['user_id'] == $user['id']) {
+                        ?>
+
+                            <div class="dropdown">
+
+                                <i class="bi bi-three-dots-vertical" id="option<?= $post['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false"></i>
+
+                                <ul class="dropdown-menu" aria-labelledby="option<?= $post['id'] ?>">
+                                    <li><a class="dropdown-item text-secondary" href="assets/php/actions.php?deletepost=<?= $post['id'] ?>"><i class="bi bi-trash-fill"></i> Delete Post</a></li>
+                                </ul>
+                            </div>
+                        <?php
+                        }?>
+                          
+                    </div>
               </div>
 
               <p class="post-text"><?= $post['post_text'] ?></p>
 
               <img src="assets/images/posts/<?= $post['post_img'] ?>">
+              
+               <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between">
+                
 
-              <!-- <div class="post-row">
-          <div class="activity-icons">
-              <div><img src="imagenes/logo.png" alt="">0</div>
+                <div class="d-flex align-items-center">
+                  <span>
+                        <?php
+                        if (checkLikeStatus($post['id'])) {
+                            $like_btn_display = 'none';
+                            $unlike_btn_display = '';
+                        } else {
+                            $like_btn_display = '';
+                            $unlike_btn_display = 'none';
+                        }
+                        ?>
+                       
+                        <svg 
+                            style="display:<?= $unlike_btn_display ?>"
+                            data-post-id='<?= $post['id'] ?>'
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="16" 
+                            height="16" 
+                            fill="currentColor" 
+                            class="bi bi-heart-fill unlike_btn text-danger" 
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
 
-              <div><img src="imagenes/logo.png" alt="">0</div>
 
-              <div><img src="imagenes/logo.png" alt="">0</div>
-          </div>
-          
-      </div> -->
+                        <svg 
+                            style="display:<?= $like_btn_display ?>" data-post-id='<?= $post['id'] ?>'
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+                            fill="currentColor" 
+                            width="16" 
+                            height="16" 
+                            class="bi bi-heart like_btn" 
+                            viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                         <span
+                         style="font-size: small;" 
+                         id="likecount<?= $post['id'] ?>"><?= count($likes) ?>
+                        </span>
+                    </span> 
+                    &nbsp;&nbsp;
+                    
+                    <svg 
+                        class="bi bi-chat-left d-flex align-items-center mt-1" 
+                        style="font-size:small"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#postview<?= $post['id'] ?>"
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="16" 
+                        height="16" 
+                        fill="currentColor" 
+                        viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <span class="mx-2 text-small" style="font-size:small" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
+                    </svg>
+                    
+                 <div>
+                </div>
+               
+            </div>
 
+            <span style="font-size:small" class="text-muted"> <?= show_time($post['created_at']) ?></span>
+            </div>
+                        
+               <?php if(count($comments) > 0){
+                ?>    
+            
+                
+            <div id="contenedo_principal_comentarios" style="height:160px; max-height:100%; overflow-y: scroll; ">
+                 <?php foreach ($comments as $comment) {
+                                        $cuser = getUser($comment['user_id']);
+                                    ?>
+                                        <div class="d-flex align-items-center p-1 gap-1">
+                                            <div class="align-self-start pt-2">
+                                                <img 
+                                                style="width: 30px; height:30px;"
+                                                src="assets/images/profile/<?= $cuser['profile_pic'] ?>" alt=""  class="rounded-circle border">
+                                            </div>
+                                       
+                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word;">
+
+                                                <h6 style="margin: 0px;">
+                                                    <a href="?u=<?= $cuser['username'] ?>" class="text-decoration-none text-dark text-muted text_size_small">@<?= $cuser['username'] ?></a> 
+                                                </h6>
+                                                
+                                                <p 
+                                                class="text_size_small" 
+                                                style=" color: #aaaaaa;
+                                                        padding: 10px 15px;
+                                                        display: inline-block;
+                                                        max-width: 100%;
+                                                        margin-bottom: 0.25rem;
+                                                        font-size: 0.9rem;
+                                                        position: relative;
+                                                        padding-right: 1.65rem;" ><?= $comment['comment'] ?></p> 
+                                              
+                                            </div>
+                                        </div>
+                                        <div id="bubbleChatPadre" class="d-flex justify-content-end align-items-center gap-2 px-1 mb-2">
+                                            <div style="display: inline-block;
+                                                        border: 0;
+                                                        padding: 3px 8px;
+                                                        font-size: .8rem;
+                                                        border-radius: 8px;
+                                                        cursor: pointer;
+                                                        background: #38383878; ">
+                                                <i class="bi bi-hand-thumbs-up-fill"></i>   
+                                                5
+                                            </div>
+                                            <button
+                                             id="responder_chat"
+                                             style="display: inline-block;
+                                                    border: 0;
+                                                    padding: 3px 8px;
+                                                    font-size: .8rem;
+                                                    border-radius: 8px;
+                                                    cursor: pointer;
+                                                    background: #38383878;"
+                                             class="text-white text_size_small" >responder</button>
+
+                                            <p style="margin:0px;" class="text-muted">(<?= show_time($comment['created_at']) ?>)</p>
+                                        </div>
+
+                                    <?php
+                                    }
+                                    ?>
+            </div>
+               <?php }else{
+                
+               ?>
+                <div style="height:0; max-height:100%; overflow-y: scroll; ">
+                </div>
+                <?php } ?>
+                
+                <div class="input-group p-2 gap-2 align-items-center">
+
+                     <img 
+                     style="width: 30px !important; height: 30px !important;"
+                     src="assets/images/profile/<?= $user['profile_pic'] ?>" alt="" class="rounded-circle border">
+                        
+                    <input
+                    style="outline:none;
+                           height: 30px;
+                           background-color: #515151;
+                           flex-grow: 1;
+                           flex-basis: 0;
+                           padding: 8px 10px;
+                           font-size: .9rem;
+                           border-radius: 8px;
+                           margin-right: 0.5rem;
+                           margin-left: 0.5rem;
+                           color:#aaaaaa;"
+                     type="text" class="form-control  rounded border-0 shadow-none comment-input"  aria-label="Recipient's username" aria-describedby="button-addon2">
+
+                    <button 
+                     style="width:20%;
+                            background-color: #515151;" 
+                    class="btn btn-outline-primary rounded-0 border-0 add-comment" data-page='wall' data-cs="comment-section<?= $post['id'] ?>" data-post-id="<?= $post['id'] ?>" type="button" id="button-addon2"><i class="bi bi-send-fill text-light"></i></button>
+                </div>
             </div>
           <?php
           }
@@ -1272,11 +2001,14 @@ if(!checkBS($profile['id'])){
 
   <!--    Barra-Derecha      -->
 
-  <div class="sidebar-2">
+  <div
+  style="    margin-top: 95px;"
+   class="sidebar-2 position-fixed top-0" >
 
-    <a href="social.html">
+    <a 
+    href="/facebook99">
       <div class="sidebar-top">
-        <i class="logoL fa-solid fa-house"> <a href="social.html"></a></i>
+        <i class="logoL fa-solid fa-house"> </i>
         <span class="brand">Inicio</span>
     </a>
   </div>
@@ -1306,12 +2038,12 @@ if(!checkBS($profile['id'])){
         </li>
       </a>
 
-      <a href="#">
+      <!-- <a href="#">
         <li class="list-item">
           <i class="list-item-icon fa-solid fa-bomb"></i>
           <span class="list-item-text">P</span>
         </li>
-      </a>
+      </a> -->
 
 
     </ul>
@@ -1321,4 +2053,74 @@ if(!checkBS($profile['id'])){
   <div class="footer">
     <p>Copyright 2022 AvaDisk</p>
   </div>
-  s
+
+  <div id="miModal" class="modal">
+            <div class="flex" id="flex">
+                <div class="contenido-modal">
+                    
+                    <div class="emergente-containercom">
+                        <div class="public-emer-container">
+                            <span class="close" id="close">&times;</span>
+
+
+                            <div class="user-profile" id="user-profile">
+                                <img src="avatars/" alt="">
+            
+                                    <div>
+                                        <a href="perfil.html">
+                                        <p></p></a>
+                                        <div>
+                                        <a href="perfil.html" class="vinculo-e">
+                                        <small></small></a></div>
+                                    </div>
+                                </div>
+
+
+                            <div class="public-area">
+                                
+                                <span class="placeholder">Cuentanos tu dia </span>
+                                <div class="input-editable" contenteditable="true"></div>            
+                            </div>
+                
+                
+                    <div class="emergente-yr12">
+                
+                    <div class="wrapper-s12">
+                        <form class="form-file form_modal" id="posteo_imagen"  method="post"  enctype="multipart/form-data"
+                        action="assets/php/actions.php?addpost" >
+                        <input type="text" name="post_text" id="post_textarea" hidden />
+                        <input type="file"  name="post_img" id="select_post_img" 
+                        class="file-input" hidden>
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Browse File To upload</p>
+                        </form>
+                        <section class="progress-area"></section>
+                        <section class="uploaded-area"></section>
+                    </div>
+                
+                </div>
+                
+                
+                <div class="privacy">
+                    <i class="fas fa-globe-asia"></i>
+                    <span>Every can reply</span>
+                </div>
+                <div class="footer-box">
+                    <ul class="footer-icons">
+                        <li><i class="far fa-file-image"></i></li>
+                        <li><i class="fas fa-map-marker-alt"></i></li>
+                        <li><i class="far fa-grin"></i></li>
+                        <li><i class="far fa-calendar"></i></li>
+                        <li><i class="fas fa-user"></i></li>
+                    </ul>
+                </div>
+                <div class="puclic-limits">
+                    <span class="counter-limit">400</span>
+                    <button type="submit" form="posteo_imagen" class="public-btn ">Publicar</button>
+                </div>
+                </div>
+                <script src="https://kit.fontawesome.com/c4254e24a8.js"></script>
+         
+                </div>
+                </div>
+                

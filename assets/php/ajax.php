@@ -68,16 +68,20 @@ updateMessageReadStatus($_POST['chatter_id']);
 foreach($messages as $cm){
 if($cm['from_user_id']==$_SESSION['userdata']['id']){
     $cl1 = 'align-self-end bg-primary text-light';
-    $cl2 = 'text-light';
+    $cl2 = 'align-self-end text-muted';
 
 }else{
     $cl1 = '';
     $cl2 = 'text-muted';
 }
 
-    $chatmsg.=' <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'">'.$cm['msg'].'<br>
-    <span style="font-size:small" class="'.$cl2.'">'.gettime($cm['created_at']).'</span>
-</div>';
+    $chatmsg.='
+    <div class="d-flex flex-column">
+    <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'">'.$cm['msg'].'</div>
+    <i style="display:inline-block; font-size:small; position:realtive; right:0;" class="'.$cl2.'">'.gettime($cm['created_at']).'
+    </i> 
+    </div><br>
+    ';
 }
 $json['chat']['msgs']=$chatmsg;
 $json['chat']['userdata']=getUser($_POST['chatter_id']);
@@ -188,15 +192,59 @@ if(isset($_GET['addcomment'])){
       $cuser = getUser($_SESSION['userdata']['id']);
       $time = date("Y-m-d H:i:s");
             $response['status']=true;
-            $response['comment']='<div class="d-flex align-items-center p-2">
-            <div><img src="assets/images/profile/'.$cuser['profile_pic'].'" alt="" height="40" class="rounded-circle border">
+            $response['comment']='
+            <div>
+            <div class="d-flex align-items-center p-1 gap-1">
+             <div class="align-self-start pt-2">
+                <img src="assets/images/profile/'.$cuser['profile_pic'].'" alt="" height="25" width="25" class="rounded-circle border">
+             </div>
+                                       
+                <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word;">
+
+                     <h6 style="margin: 0px;">
+                     <a href="?u='.$cuser['username'].'" class="text-decoration-none text-muted">@'.$cuser['username'].'</a></h6>
+                    </h6>
+                                                
+                     <p class="text_size_small" style=" color: #aaaaaa;
+                                                        padding: 10px 15px;
+                                                        display: inline-block;
+                                                        max-width: 100%;
+                                                        margin-bottom: 0.25rem;
+                                                        font-size: 0.9rem;
+                                                        position: relative;
+                                                        padding-right: 1.65rem;">'.$_POST['comment'].'</p> 
+                                              
+                </div>
             </div>
-            <div>&nbsp;&nbsp;&nbsp;</div>
-            <div class="d-flex flex-column justify-content-start align-items-start">
-                <h6 style="margin: 0px;"><a href="?u='.$cuser['username'].'" class="text-decoration-none text-muted">@'.$cuser['username'].'</a> - '.$_POST['comment'].'</h6>
-                <p style="margin:0px;" class="text-muted" style="font-size:small">(just now)</p>
+
+            <div class="d-flex justify-content-end align-items-center gap-2 px-1 mb-2" id="bubbleChatPadre">
+                                            <div style="display: inline-block;
+                                                        border: 0;
+                                                        padding: 3px 8px;
+                                                        font-size: .8rem;
+                                                        border-radius: 8px;
+                                                        cursor: pointer;
+                                                        background: #38383878; ">
+                                                <i class="bi bi-hand-thumbs-up-fill"></i>   
+                                                0
+                                            </div>
+                                            <button id="responderChat"
+                                            style="display: inline-block;
+                                                    border: 0;
+                                                    padding: 3px 8px;
+                                                    font-size: .8rem;
+                                                    border-radius: 8px;
+                                                    cursor: pointer;
+                                                    background: #38383878;" class="text-white text_size_small">responder</button>
+
+                                            <p style="margin:0px;" class="text-muted">(posted <time style="font-size:small" class="timeago text-muted text-small" datetime="2023-05-31 08:14:23">just now</time>)</p>
+                                        </div>
+
+
             </div>
-        </div>';
+
+            
+         ';
         }else{
             $response['status']=false;
         }
