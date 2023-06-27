@@ -8,7 +8,29 @@ include("assets/pages/$page.php");
 }
 
 
+//Report user
 
+function reportUser($reportData){
+    global $db;
+    $userReporting = $_SESSION['userdata']['id'];
+    $user_reported_id = $reportData['user_reported_id'];
+    $lenguaje_ofensivo = $reportData['lenguaje_ofensivo'];
+    $contenido_inapropiado = $reportData['contenido_inapropiado'];
+    $acoso_comportamiento = $reportData['acoso_comportamiento'];
+    $detail = $reportData['detail'];
+
+    $query = "INSERT INTO reports (from_user_id,to_user_id, lenguaje_ofensivo, contenido_inapropiado, acoso_comportamiento, detail) VALUES ($userReporting,$user_reported_id, $lenguaje_ofensivo, $contenido_inapropiado, $acoso_comportamiento , '$detail')";
+
+    return mysqli_query($db,$query);
+
+}
+
+
+function getCurrentUserData(){
+  $cu= getUser($_SESSION['userdata']['id']);
+  return $cu;
+
+}
 //for getting ids of chat users
 function getActiveChatUserIds(){
     global $db;
@@ -90,6 +112,7 @@ function followUser($user_id){
 
 
 
+
 //function for blocking the user
 function blockUser($blocked_user_id){
     global $db;
@@ -126,6 +149,14 @@ function checkLikeStatus($post_id){
     return mysqli_fetch_assoc($run)['row'];
 }
 
+function allLikesUser(){
+    global $db;
+    $current_user = $_SESSION['userdata']['id'];
+    $query="SELECT count(*) as `row` FROM likes WHERE user_id=$current_user";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_assoc($run)['row'];
+}
+
 //function for like the post
 function like($post_id){
     global $db;
@@ -141,8 +172,6 @@ function like($post_id){
     return mysqli_query($db,$query);
     
 }
-
-
 
 
 //function for creating comments
@@ -217,8 +246,6 @@ function getUnreadNotificationsCount(){
       $query="UPDATE notifications SET read_status=1 WHERE to_user_id=$cu_user_id";
       return mysqli_query($db,$query);
   }
-
-
 
 //function for getting likes count
 function getLikes($post_id){
@@ -656,8 +683,7 @@ function validateUpdateForm($form_data,$image_data){
     
 
     //function for updating profile
-
-    function updateProfile($data,$imagedata){
+function updateProfile($data,$imagedata){
         global $db;
         $first_name = mysqli_real_escape_string($db,$data['first_name']);
         $last_name = mysqli_real_escape_string($db,$data['last_name']);
@@ -686,7 +712,19 @@ return mysqli_query($db,$query);
 
     }
 
+function updateFrontImage($frontImage){
+    global $db;
+    $frontpage_pic="";
+    if($frontImage['name']){
+    $image_name = time().basename($frontImage['name']);
+    $image_dir="../images/frontpage/$image_name";
+    move_uploaded_file($frontImage['tmp_name'],$image_dir);
+    $frontpage_pic="frontpage_pic='$image_name'";
 
+    $query = "UPDATE users SET $frontpage_pic WHERE id=".$_SESSION['userdata']['id'];
+    return mysqli_query($db,$query);
+}
+}
     //for validating add post form
 function validatePostImage($image_data){
     $response=array();

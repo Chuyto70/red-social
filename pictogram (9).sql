@@ -21,6 +21,7 @@ SET time_zone = "+00:00";
 -- Database: `pictogram`
 --
 
+-- Crear base de datos de grupos
 -- --------------------------------------------------------
 
 --
@@ -41,6 +42,7 @@ INSERT INTO `block_list` (`id`, `user_id`, `blocked_user_id`) VALUES
 (5, 8, 9);
 
 -- --------------------------------------------------------
+
 
 --
 -- Table structure for table `comments`
@@ -235,6 +237,22 @@ INSERT INTO `notifications` (`id`, `to_user_id`, `message`, `created_at`, `from_
 (97, 8, 'blocked you', '2021-12-07 11:12:50', 10, 1, '0'),
 (98, 8, 'Unblocked you !', '2021-12-07 11:13:04', 10, 1, '0');
 
+
+--
+-- Table structure for table `reportes`
+--
+
+CREATE TABLE `reports` (
+  `id` int(11) NOT NULL,
+  `from_user_id` int(11) NOT NULL,
+  `to_user_id`  int(11) NOT NULL,
+  `lenguaje_ofensivo` int(11) NOT NULL DEFAULT 0,
+  `contenido_inapropiado` int(11) NOT NULL DEFAULT 0,
+  `acoso_comportamiento` int(11) NOT NULL DEFAULT 0,
+  `detail` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- --------------------------------------------------------
 
 --
@@ -268,7 +286,7 @@ INSERT INTO `posts` (`id`, `user_id`, `post_img`, `post_text`, `created_at`) VAL
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `gender` int(11) NOT NULL,
@@ -278,8 +296,11 @@ CREATE TABLE `users` (
   `profile_pic` text NOT NULL DEFAULT 'default_profile.jpg',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `ac_status` int(11) NOT NULL COMMENT '0=not verified,1=active,2=blocked'
+  `ac_status` int(11) NOT NULL COMMENT '0=not verified,1=active,2=blocked',
+  `frontpage_pic` text DEFAULT 'mundo.jpg',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Dumping data for table `users`
@@ -296,10 +317,39 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `gender`, `email`, `userna
 (10, 'Amit', 'Sharma', 1, 'amith@gmail.com', 'amithero', 'e10adc3949ba59abbe56e057f20f883e', '1638468543profile8.jpg', '2021-12-02 18:06:37', '2021-12-02 18:09:03', 1),
 (11, 'Pankaj', 'Mishra', 1, 'officialmohankumar12@gmail.com', 'pankaj1427', 'e10adc3949ba59abbe56e057f20f883e', '1638686483IMG-20211130-WA0023.jpg', '2021-12-05 06:36:14', '2021-12-05 07:16:41', 1);
 
+-- ALTER TABLE `users`
+--   MODIFY `id` int(11) NOT NULL ;
+-- COMMIT;
+
+CREATE TABLE grupos (
+id_grupo int(11) NOT NULL AUTO_INCREMENT,
+nombre_grupo varchar(255) NOT NULL,
+grupos_pic text NOT NULL DEFAULT 'default_profile.jpg',
+fecha_creacion timestamp NOT NULL DEFAULT current_timestamp(),
+PRIMARY KEY (id_grupo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO grupos (id_grupo, nombre_grupo) VALUES (0, 'Sin grupo');
+
+
+
+-- CREATE INDEX idx_id_grupo ON grupos (id_grupo);
+
+CREATE TABLE users_grupos (
+id_usuario int(11) NOT NULL,
+id_grupo int(11) NOT NULL,
+fecha_asignacion timestamp NOT NULL DEFAULT current_timestamp(),
+FOREIGN KEY (id_usuario) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 --
 -- Indexes for dumped tables
 --
 
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`);
 --
 -- Indexes for table `block_list`
 --
@@ -345,13 +395,14 @@ ALTER TABLE `posts`
 --
 -- Indexes for table `users`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+-- ALTER TABLE `users`
+--   ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
+ALTER TABLE `reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `block_list`
 --
@@ -397,9 +448,9 @@ ALTER TABLE `posts`
 --
 -- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-COMMIT;
+
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

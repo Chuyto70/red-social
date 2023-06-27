@@ -1,6 +1,8 @@
 <?php
 
 require_once 'assets/php/functions.php';
+
+
 if(isset($_GET['newfp'])){
     unset($_SESSION['auth_temp']);
     unset($_SESSION['forgot_email']);
@@ -34,25 +36,23 @@ if(isset($_SESSION['Auth']) && $user['ac_status']==1 && !$pagecount){
     showPage('edit_profile');
 }elseif(isset($_SESSION['Auth']) && isset($_GET['u']) && $user['ac_status']==1){
     $profile = getUserByUsername($_GET['u']);
+      showPage('header',['page_title'=>'User Not Found']);
+      showPage('navbar');
     if(!$profile){
-        showPage('header',['page_title'=>'User Not Found']);
-        showPage('navbar');
+      
         showPage('user_not_found');
 
     }else{
      $profile_post = getPostById($profile['id']);  
      $profile['followers']=getFollowers($profile['id']);
      $profile['following']=getFollowing($profile['id']);
-        showPage('header',['page_title'=>$profile['first_name'].' '.$profile['last_name']]);
-        showPage('navbar');
+        // showPage('header');
+        // showPage('navbar');
         showPage('profile');
+        
     }
  
   
-}elseif($_GET['eventos']){
-    showPage('header',['page_title'=>'Eventos']);
-   
-    showPage('eventos');
 }elseif(isset($_GET['signup'])){
     showPage('header',['page_title'=>'Pictogram - SignUp']);
     showPage('signup');
@@ -64,7 +64,16 @@ if(isset($_SESSION['Auth']) && $user['ac_status']==1 && !$pagecount){
     
     showPage('header',['page_title'=>'Pictogram - Forgot Password']);
     showPage('forgot_password');
-}else{
+}elseif(isset($_GET['fundadores'])){
+ showPage('header');
+ showPage('navbar');
+ showPage('fundadores');
+}elseif($_GET['eventos']){
+    showPage('header');
+   
+    showPage('eventos');
+}
+else{
     if(isset($_SESSION['Auth']) && $user['ac_status']==1){
         showPage('header',['page_title'=>'Home']);
         showPage('navbar');

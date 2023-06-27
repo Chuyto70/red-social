@@ -1,3 +1,292 @@
+<style>
+  .perfil_container_messages{
+    position: relative;
+    background-color: rgb(213 220 230);
+  }
+  .menu_perfil_message{
+    position: absolute;
+    background-color: rgb(64 64 64);
+    color: white;
+    right: -124px;
+    top: 0px;
+    opacity: 0;
+
+  }
+  .opaciti1{
+    opacity: 1;
+  }
+  .menu_perfil_message p{
+    padding: 12px;
+  }
+  .menu_perfil_message p:hover{
+    background-color: black;
+    
+  }
+  .iconos_thenavher{
+    font-size: 21px;
+   
+  }
+  .iconos_thenavher::before {
+     font-weight: 900 !important;
+  }
+  .userdata_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+.container_iconos{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.opciones_iconos {
+  width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    border: 1px solid #1f3765;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0;
+}
+.opciones_iconos i::before{
+    color: grey;
+    font-size: 20px;
+}
+.header_chatbox{
+  position: relative;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: space-between !important;
+}
+.cerrar_chatbox_boton{
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 29px;
+  height: 29px;
+}
+.iconos_llamadas_chatbox{
+  display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.iconos_llamadas_chatbox i::before {
+  font-size: 29px;
+  font-weight: 900 !important;
+}
+#msgsender{
+    align-items: center;
+    gap: 10px;
+}
+#msgsender i::before {
+  font-size: 28px;
+}
+.chatbox_menu_emergente{
+      position: absolute;
+    right: 83px;
+    background-color: rgb(64 64 64);
+    color: white;
+    top: 24px;
+    z-index: 100;
+    display: none;
+}
+.chatbox_menu_emergente p {
+  padding: 8px;
+  margin: 0 !important;
+}
+.chatbox_menu_emergente p:hover{
+  background-color: black;
+}
+#icono_send::before{
+  font-size: 18px !important;
+}
+.header_perfilmodal{
+  display: flex;
+  justify-content: space-between;
+  background-color: #181717;
+  color: white;
+}
+.header_perfilmodal i::before{
+  font-size: 21px;
+  font-weight: 500;
+}
+.nombre_imagen_perfil{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: -40px;
+}
+.nombre_imagen_reportar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 50px;
+ 
+}
+.imagen_perfil {
+  border-radius: 50%;
+  margin-top: -50px;
+  object-fit: cover;
+}
+.contenedor_modal_perfil{
+  background-color: #404040;
+  color: white;
+}
+.funciones_perfil{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 14px;
+    background-color: #272525;
+    margin-top: -18px;
+}
+
+.funciones_perfil .opciones_iconos{
+  background-color: #656565;
+  border-radius: 8px;
+  border: 2px solid #595959;
+}
+.funciones_perfil .opciones_iconos i::before{
+  color: black;
+  font-size: 30px;
+  font-weight: 500 !important;
+}
+.contenedor_imagenes_perfil_modal{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 23px;
+  column-gap: 12px;
+}
+.contenedor_imagenes_perfil_modal img{
+ height: 100%;
+ width: 100%;
+ object-fit: cover;
+ max-height: 66px;
+ border-radius: 8px;
+}
+.perfil_menu_emergente{
+  position: absolute;
+    background-color: rgb(64 64 64);
+    color: white;
+    top: 16px;
+    right: 39px;
+    z-index: 1000;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: none;
+}
+.perfil_menu_emergente p {
+  padding: 8px;
+  margin: 0 !important;
+}
+
+.perfil_menu_emergente p:hover{
+  background-color: black;
+}
+
+.form_reportar{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+input[type=radio]{
+  width: 34px;
+}
+.header_color_grupo{
+  background-color: #e7e6e6;
+  justify-content: center;
+
+}
+.contenedor_search_grupo{
+  padding: 8px 16px;
+    border: 2px solid #c2c2c2;
+    border-radius: 8px;
+}
+.contenedor_search_grupo input{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #7d7878;
+}
+.contenedor_search_grupo i::before{
+  color: #7d7878;
+}
+.grupo_modal_body{
+background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 32px 64px;
+    
+}
+.grupo_modal_image{
+    border-radius: 100%;
+    border: 1px solid grey;
+    padding: 5px;
+
+}
+.input_check_grupo{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid gray;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+.input_check_grupo:checked {
+  background-color: #0d6efd;
+}
+
+.button_crear_grupo::before{
+  color: #0d6efd;
+  font-size: 48px;
+}
+.icono_grupo::before{
+ color: #7f7f7f;
+ font-size: 45px;
+ position: absolute;
+ left: 18px;
+ top: 6px;
+}
+.imagen_grupo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    width: 100%;
+}
+.contenedor_imagen_grupo{
+      display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 165px;
+    width: 165px;
+    background-color: #bfbfbf;
+    color: #2f2828;
+    border-radius: 100%;
+    /* margin: 12px 0; */
+    border: 1px solid #2f2828;
+}
+.contenedor_imagen_grupo i::before{
+  font-size: 65px;
+}
+
+.grupo_modal_body input[type="text"]{
+
+  border: 2px solid grey;
+  border-radius: 8px;
+  padding: 8px 16px;
+  outline: none;
+  color: grey;
+  margin-bottom: 100px;
+}
+</style>
 <?php if(isset($_SESSION['Auth'])){ ?>
 <div class="modal fade" id="addpost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -85,10 +374,66 @@ if($not['read_status']==0){
 
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="message_sidebar" aria-labelledby="offcanvasExampleLabel">
+  
   <div class="offcanvas-header">
+    <?php 
+    $currentUser = getCurrentUserData();
+    // print_r($currentUser)
+   ?>
+
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Messages</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
   </div>
+
+   <div class="perfil_container_messages mb-2">
+    <div class="menu_perfil_message">
+      <p role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Crear grupo</p>
+      <p>Notificaciones</p>
+      <p>Cambiar tema</p>
+    </div>
+    <div style="background-color: rgb(31 55 101);
+    display: flex;
+    padding: 12px 18px;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: white;">
+    
+        <strong>THENAVHER</strong>
+        <div>
+          <i class="bi bi-search iconos_thenavher"></i>
+          <i id="menu_perfil_messages" class="bi bi-three-dots-vertical iconos_thenavher" role="button"></i>
+        </div>
+        
+      </div>
+      
+      <div class="userdata_container">
+        <img style="border-radius: 50%; object-fit: cover;" width="65px" height="65px" src="assets/images/profile/<?=$currentUser['profile_pic']?>">
+        <strong> <?php echo $currentUser['first_name'] . " " . $currentUser['last_name'];?> </strong>
+        <div>
+           <span> <?= $currentUser['username'] ?> </span>
+           <i class="bi bi-pencil-fill"></i>
+        </div>
+       
+      </div>
+      <div class="container_iconos">
+        <div role="button" 
+        data-bs-toggle="modal" 
+        data-bs-target="#crearGrupoModal" class="opciones_iconos">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="opciones_iconos">
+          <i class="bi bi-telephone-fill"></i>
+        </div>
+        <div class="opciones_iconos">
+          <i class="bi bi-camera-fill"></i>
+        </div>
+        <div class="opciones_iconos">
+          <i class="bi bi-plus-lg"></i>
+        </div>
+      </div>
+      <hr>
+    </div>
   <div class="offcanvas-body" id="chatlist">
 
     
@@ -97,30 +442,46 @@ if($not['read_status']==0){
 
 <div class="modal fade" id="chatbox" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    
-    <div class="modal-content">
-      <div class="modal-header">
-        <a href="" id="cplink" class="text-decoration-none text-dark">
 
-          <div class="modal-title d-flex gap-2" id="exampleModalLabel">
+    <div class="modal-content" style="min-height: 300px !important;">
+      
+      <div class="modal-header header_chatbox">
+        
+        <div href="" id="cplink" class="text-decoration-none text-dark">
+
+          <div role="button" class="modal-title d-flex gap-2" id="perfilModalLabel" data-bs-toggle="modal" data-bs-target="#perfilModal">
+
             <img src="assets/images/profile/default_profile.jpg" id="chatter_pic" height="40" width="40" class="m-1 rounded-circle border">
             <div class="d-flex flex-column">
 
               <span
               style="font-weight: bold;" 
-              id="chatter_name" clas></span>
+              id="chatter_name"></span>
               <span>
                 (@<i
                     style="font-weight: 100;" 
                     id="chatter_username">loading..</i>)</span> 
             </div>
-        </div></a>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div></div>
+        
+        <div class="iconos_llamadas_chatbox">
+          <i class="bi bi-camera-video"></i>
+          <i class="bi bi-telephone"></i>
+          <i role="button" id="chatbox_menu_dropdown" class="bi bi-three-dots-vertical"></i>
+          <button type="button" class="btn-close cerrar_chatbox_boton" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="chatbox_menu_emergente">
+          <p>Silenciar notificaciones</p>
+          <p>Eliminar chat</p>
+          <p role="button" data-bs-toggle="modal" data-bs-target="#reportarModal">Reportar abuso</p>
+          <p>Archivar chat</p>
+          <p role="button" data-bs-toggle="modal" data-bs-target="#bloquearModal">Bloquear</p>
+        </div>
+      
       </div>
-      <div class="modal-body d-flex flex-column-reverse gap-2" id="user_chat">
+
+      <div style="overflow: scroll;" class="modal-body d-flex flex-column-reverse gap-2" id="user_chat">
       loading..
-    
-  
 
       </div>
       <div 
@@ -132,12 +493,16 @@ if($not['read_status']==0){
 
 </div>
       <div class="input-group p-3 " id="msgsender">
+        
+                <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                <i class="bi bi-paperclip"></i>
+                
                             <input
                             style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;"
-                             type="text" class="form-control rounded border-0  " id="msginput" placeholder="say something.."
+                             type="text" class="form-control rounded border-0  " id="msginput" placeholder="Di hola"
                                 aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-primary rounded-0 border-0" id="sendmsg" data-user-id="0" type="button"
-                                >Send</button>
+                            <button class="btn btn-secondary rounded border-0" id="sendmsg" data-user-id="0" type="button"
+                                ><i id="icono_send" class="bi bi-send-fill"></i></button>
                         </div>
       </div>
     </div>
@@ -146,7 +511,298 @@ if($not['read_status']==0){
 
 
 
+<!-- Modal del perfil -->
+<div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="perfilModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content contenedor_modal_perfil">
+      <!-- HEADER DEL MODAL -->
+      <div class="modal-header header_perfilmodal position-relative">
+        
+        <i role="button" data-bs-toggle="modal" data-bs-target="#chatbox" class="bi bi-arrow-left"></i>
+        <i id="dropdown_perfil_menu" role="button" class="bi bi-three-dots-vertical"></i>
+        <div class="perfil_menu_emergente position-absolute">
+          <p>Silenciar notificaciones</p>
+          <p>Eliminar chat</p>
+          <p role="button" data-bs-toggle="modal" data-bs-target="#reportarModal">Reportar abuso</p>
+          <p>Archivar chat</p>
+          <p role="button" data-bs-toggle="modal" data-bs-target="#bloquearModal" >Bloquear</p>
+        </div>
+      </div>  
 
+      <div>
+        <img 
+        id="frontimage_profile_modal"
+        style="display: block;
+               width: 100%;
+               height: 150px;
+               object-fit: cover;
+               margin: -5px 0;" 
+               src="./assets/images/frontpage/mundo.jpg" alt="imagen de portada">
+      </div>
+      <a style="text-decoration: none; color:white;" class="nombre_imagen_perfil">
+        <img id="profile_profile_modal" class="imagen_perfil" height="120px" width="120px" src="./assets/images/profile/profile.jpg" alt="">
+        <strong  id="nombre_profile_modal">Nombre de usuario</strong>
+      </a>
+      <div class="funciones_perfil">
+         <div class="opciones_iconos">
+          <i role="button" class="bi bi-camera-video"></i>
+        </div>
+        <div class="opciones_iconos">
+          <i role="button" class="bi bi-telephone"></i>
+        </div>
+        <div class="opciones_iconos">
+          <i role="button" class="bi bi-search"></i>
+        </div>
+        <div class="opciones_iconos">
+          <i role="button" class="bi bi-bell"></i>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p>Imagenes y documentos</p>
+     
+        <div class="contenedor_imagenes_perfil_modal">
+          <!-- <img src="../../facebook99/assets/images/posts/1638040695post3.png" alt="">
+          <img src="../../facebook99/assets/images/posts/1638040695post3.png" alt="">
+          <img src="../../facebook99/assets/images/posts/1638040695post3.png" alt="">
+          <img src="../../facebook99/assets/images/posts/1638040695post3.png" alt="">
+          <img src="../../facebook99/assets/images/posts/1638040695post3.png" alt="">
+          <img src="../../facebook99/assets/images/posts/1638040695post3.png" alt=""> -->
+        </div>
+      </div>
+     
+    </div>
+  </div>
+
+</div>
+
+
+<!-- MODAL PARA REPORTAR ABUSO -->
+<div class="modal fade" id="reportarModal" tabindex="-1" role="dialog" aria-labelledby="reportarModalLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+   <div class="modal-content contenedor_modal_perfil">
+     <div class="modal-header header_perfilmodal position-relative">
+        
+        <i role="button" data-bs-toggle="modal" data-bs-target="#perfilModal" class="bi bi-arrow-left"></i>
+        
+     </div> 
+      
+     <div class="modal-body">
+       <div class="nombre_imagen_reportar">
+        <img id="profile_reportar_modal" class="imagen_perfil" height="120px" width="120px" src="./assets/images/profile/profile.jpg" alt="">
+        <strong  id="nombre_reportar_modal">Nombre de usuario</strong>
+      </div>
+
+      <p class="mt-5 text-center">¿Razón por la que esta reportando este usuario?</p>
+
+      <form class="form_reportar" method="post" action="assets/php/ajax.php?reportUser">
+        <input type="number" hidden id="user_reported_id" name="user_reported_id">
+        <div class="d-flex justify-content-between">
+          <label for="lenguaje_ofensivo">Lenguaje ofensivo</label>
+          <div>
+            <label for="">Si</label>
+            <input value="1" width="34px" type="radio" name="lenguaje_ofensivo" id="lenguaje_ofensivo">
+            <label for="">No</label>
+            <input value="0" checked width="34px" type="radio" name="lenguaje_ofensivo" id="lenguaje_ofensivo_no">
+          </div>
+         
+        </div>
+        
+        <div class="d-flex justify-content-between">
+          <label for="contenido_inapropiado">Contenido inapropiado</label>
+          <div>
+            <label for="">Si</label>
+            <input  value="1" width="34px" type="radio" name="contenido_inapropiado" id="contenido_inapropiado">
+
+            <label for="">No</label>
+            <input  value="0" checked width="34px" type="radio" name="contenido_inapropiado" id="contenido_inapropiado_no">
+          </div>
+          
+        </div>
+        
+        <div class="d-flex justify-content-between">
+          <label for="acoso_comportamiento">Acoso y comportamiento intimidatorio</label>
+          <div>
+            <label for="">Si</label>
+            <input  value="1" width="34px" type="radio" name="acoso_comportamiento" id="acoso_comportamiento">
+
+            <label for="">No</label>
+            <input checked value="0" width="34px" type="radio" name="acoso_comportamiento" id="acoso_comportamiento_no">
+          </div>
+          
+        </div>
+
+        
+        <label class="text-center" for="razon">Escribe la razón </label>
+        <textarea class="rounded" name="razon" id="razon" cols="30" rows="4" placeholder="A la hora de reportar a este usuario, tendrás la opción de vaciar el chat o bloquearlo"> </textarea>
+
+        <input name="reportar" style="width: 80px; height: 40px; align-self:center;" type="submit" value="Enviar" id="reportar_boton" class="btn btn-primary">
+      </form>
+     </div>
+     
+
+   </div>
+</div>
+
+</div>
+
+<!-- MODAL DE BLOQUEAR -->
+
+<div class="modal fade" id="bloquearModal" tabindex="-1" role="dialog" aria-labelledby="bloquearModalLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+   <div class="modal-content contenedor_modal_perfil">
+     <div class="modal-header header_perfilmodal position-relative">
+        
+        <i role="button" data-bs-toggle="modal" data-bs-target="#perfilModal" class="bi bi-arrow-left"></i>
+        
+     </div> 
+      
+     <div class="modal-body">
+       <div class="nombre_imagen_reportar">
+        <img id="profile_block_modal" class="imagen_perfil" height="120px" width="120px" src="./assets/images/profile/profile.jpg" alt="">
+        <strong class="mb-2" id="nombre_block_modal">Nombre de usuario</strong>
+      </div>
+      <p style="text-align: justify;" class="mt-5 mb-5">
+        A la hora de bloquear a este usuario, no podrán
+mandarse mensaje, no podrás ver sus historias y
+publicaciones en la página, no podrás realizar
+llamadas, tampoco ingresar al chat, a menos que
+decidas desbloquear a este usuario
+      </p>
+     
+      <form class="d-flex justify-content-center" method="post" action="assets/php/ajax.php?blockUser">
+        <input type="number" hidden id="user_block_id" name="user_block_id">
+        <input class="btn btn-primary" type="submit" value="Bloquear" name="bloquear" id="bloquear_usuario">
+      </form>
+     </div>
+     
+     
+   </div>
+</div>
+
+</div>
+
+<!-- MODAL PARA CREAR GRUPOS crearGrupoModal  -->
+
+<div class="modal fade" id="crearGrupoModal" tabindex="-1" role="dialog" aria-labelledby="crearGrupoModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content contenedor_modal_perfil">
+      
+      <div class="modal-header header_color_grupo">
+
+       <div class="contenedor_search_grupo">
+        <input type="text" placeholder="Buscar amigos">
+        <i class="bi bi-search iconos_thenavher"></i>
+       </div>
+        
+     
+        
+     </div> 
+       <div class="modal-body grupo_modal_body ">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div class="d-flex align-items-center gap-1">
+            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
+            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
+          </div>
+          <input class="input_check_grupo" type="checkbox" name="" id="">
+        </div>
+
+          
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div class="d-flex align-items-center gap-1">
+            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
+            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
+          </div>
+          <input class="input_check_grupo" type="checkbox" name="" id="">
+        </div>
+
+          
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div class="d-flex align-items-center gap-1">
+            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
+            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
+          </div>
+          <input class="input_check_grupo" type="checkbox" name="" id="">
+        </div>
+
+          
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div class="d-flex align-items-center gap-1">
+            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
+            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
+          </div>
+          <input class="input_check_grupo" type="checkbox" name="" id="">
+        </div>
+
+          
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div class="d-flex align-items-center gap-1">
+            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
+            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
+          </div>
+          <input class="input_check_grupo" type="checkbox" name="" id="">
+        </div>
+        
+       </div>
+
+       <div class="modal-footer justify-content-center" style="background-color: white;">
+          <i role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModalInterfaz" class="bi bi-arrow-right-circle-fill button_crear_grupo"></i>
+       </div>
+    
+      </div>
+  </div>
+
+
+</div>
+
+
+<!-- MODAL DE CREAR GRUPO INTERFAZ -->
+<div class="modal fade" id="crearGrupoModalInterfaz" tabindex="-1" role="dialog" aria-labelledby="crearGrupoModalInterfazLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content contenedor_modal_perfil">
+      
+      <div class="modal-header header_color_grupo">
+
+       <div class="contenedor_header_interfazgrupo">
+       <i role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModal" class="bi bi-arrow-left icono_grupo"></i>
+       <strong style="color: grey;">Grupo</strong>
+       </div>
+        
+     
+        
+     </div> 
+       <form class="modal-body grupo_modal_body ">
+        <label role="button" for="imagen_grupo" class="imagen_grupo">
+          <div class="contenedor_imagen_grupo">
+              <i class="bi bi-camera"></i>
+          <strong>Imagen del grupo</strong>
+          </div>
+        
+        </label>
+        <p id="imagen_seleccionada" style="display: none; color: gray; "></p>
+        <input style="display: none;" type="file" id="imagen_grupo"  onchange="mostrarInput()">
+        <input type="text" placeholder="Nombre del grupo">
+        
+
+
+       <div class="modal-footer justify-content-center" style="background-color: white;">
+         <button class="btn btn-primary">Crear grupo</button>
+       </div>
+    
+       </form>
+  </div>
+
+
+</div>
 <?php } ?>
 
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -156,11 +812,64 @@ if($not['read_status']==0){
     <script src="assets/js/custom.js?v=<?=time()?>"></script>
     
 <script>
+let menuMessagesa =document.getElementById('menu_perfil_messages');
+let menuMessageContainer =document.querySelector('.menu_perfil_message')
+let menuChatBoxDropdow = document.getElementById('chatbox_menu_dropdown')
+let menuEmergente =document.querySelector('.chatbox_menu_emergente')
+let perfil_menu_emergente =document.querySelector('.perfil_menu_emergente')
+let dropdown_perfil_menu =document.querySelector('#dropdown_perfil_menu')
+
+let inputImagenGrupo = document.getElementById("imagen_grupo");
+let imagen_seleccionada =document.getElementById('imagen_seleccionada')
+
+function mostrarInput() {
+
+if (inputImagenGrupo.value) {
+imagen_seleccionada.textContent = inputImagenGrupo.value
+imagen_seleccionada.style.display = 'block';
+
+} else {
+imagen_seleccionada.style.display = 'none';
+}
+
+}
+
+
+menuChatBoxDropdow.addEventListener('click', ()=>{
+  if (menuEmergente.style.display === 'none'){
+    menuEmergente.style.display = 'block'
+  }
+  else{
+    menuEmergente.style.display = 'none'
+  }
+})
+
+menuMessagesa.addEventListener('click', ()=>{
+  if(menuMessageContainer.style.opacity == 0){
+    menuMessageContainer.style.opacity = 1
+  }else{
+    menuMessageContainer.style.opacity=0;
+  }
+})
+
+dropdown_perfil_menu.addEventListener('click', ()=>{
+  if(perfil_menu_emergente.style.display=='none'){
+    perfil_menu_emergente.style.display = 'block'}
+    else{
+      perfil_menu_emergente.style.display='none';
+    }
+})
+
+
+
 $(document).on("click","#cust_btn",function(){
   
   $("#myModal").modal("toggle");
   
 })
+
+
+
 </script>
 <script>
 $(document).on("click", ".close", function() {

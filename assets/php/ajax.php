@@ -12,6 +12,22 @@ if(isset($_GET['sendmessage'])){
     echo json_encode($response);
 }
 
+
+//BLOQUEAR USUARIO
+if(isset($_GET['blockUser'])){
+  
+  if(blockUser($_POST['user_block_id'])){
+
+    
+    header("location:../../");
+  }  else{
+    echo "Ha ocurrido un error";
+    header("location:../../");
+  }
+ 
+}
+
+//TODOS LOS MENSAJES DEL CHATLIST ESTAN AQUI
 if(isset($_GET['getmessages'])){
 $chats = getAllMessages();
 $chatlist="";
@@ -40,12 +56,7 @@ foreach($chats as $chat){
                         <div class="d-flex align-items-center">
       
                           <div class="p-1 bg-primary rounded-circle '.($seen?'d-none':'').'"></div>
-    
-
-    
-
-    
-    
+   
                         </div>
                     </div>';
 
@@ -65,7 +76,9 @@ if(checkBS($_POST['chatter_id'])){
 }
 updateMessageReadStatus($_POST['chatter_id']);
 
+
 foreach($messages as $cm){
+$leido = $cm['read_status'];
 if($cm['from_user_id']==$_SESSION['userdata']['id']){
     $cl1 = 'align-self-end bg-primary text-light';
     $cl2 = 'align-self-end text-muted';
@@ -74,26 +87,38 @@ if($cm['from_user_id']==$_SESSION['userdata']['id']){
     $cl1 = '';
     $cl2 = 'text-muted';
 }
-
+    $colorHora = ($leido == 1) ? '#6d4a8c' : 'grey';
     $chatmsg.='
     <div class="d-flex flex-column">
     <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'">'.$cm['msg'].'</div>
-    <i style="display:inline-block; font-size:small; position:realtive; right:0;" class="'.$cl2.'">'.gettime($cm['created_at']).'
+    <i style="display:inline-block; font-weight:500; position:realtive; right:0; color:'.$colorHora.'!important ;" class="'.$cl2.'">'.gettime($cm['created_at']).'
     </i> 
+    
     </div><br>
     ';
 }
 $json['chat']['msgs']=$chatmsg;
 $json['chat']['userdata']=getUser($_POST['chatter_id']);
+
+
+//   $usuarioImagenes = getPostById($_POST['usuario_id']);
+ 
+
+
 }else{
 $json['chat']['msgs']='<div class="spinner-border text-center" role="status">
 </div>';
 }
 
 $json['newmsgcount']=newMsgCount();
+
+
 echo json_encode($json);
 }
-
+if(isset($_GET['getPostById'])){
+    $respuestaImagenes = getPostById($_POST['user_id']);
+    echo json_encode($respuestaImagenes);
+}
 if(isset($_GET['unblock'])){
   $user_id = $_POST['user_id']; 
     if(unblockUser($user_id)){
@@ -106,7 +131,31 @@ if(isset($_GET['unblock'])){
 }
 
 
+if (isset($_POST['reportar'])) {
+// Crea un array con los datos del formulario
+$reportData = array(
+'user_reported_id' => $_POST['user_reported_id'], // Asumiendo que tienes un input oculto con el id del usuario reportado
+'lenguaje_ofensivo' => $_POST['lenguaje_ofensivo'],
+'contenido_inapropiado' => $_POST['contenido_inapropiado'],
+'acoso_comportamiento' => $_POST['acoso_comportamiento'],
+'detail' => $_POST['razon']
+);
 
+// Llama a la función reportUser con el array como argumento
+$result = reportUser($reportData);
+
+// Verifica si la función reportUser se ejecutó correctamente
+if ($result) {
+// Muestra un mensaje de éxito
+echo "El reporte se ha enviado correctamente.";
+header("location:../../");
+} else {
+// Muestra un mensaje de error
+header("location:../../");
+echo "Ha ocurrido un error al enviar el reporte.";
+
+}
+}
 
 if(isset($_GET['notread'])){
    

@@ -182,7 +182,14 @@ if(isset($_GET['changepassword'])){
 
 }
 
+if(isset($_GET['updateFrontpage'])){
+    if(updateFrontImage($_FILES['frontpage_pic'])){
+        $user = $_SESSION['userdata']['username'];
+        $parametro = $_SERVER['PHP_SELF'];
 
+         header("location:../../?u=$user");
+    }
+}
 if(isset($_GET['updateprofile'])){
 
     $response=validateUpdateForm($_POST,$_FILES['profile_pic']);
@@ -190,10 +197,10 @@ if(isset($_GET['updateprofile'])){
     if($response['status']){
        
         if(updateProfile($_POST,$_FILES['profile_pic'])){
-            $user = $_GET['u'];
+            $user =  $_SESSION['userdata']['username'];
             $parametro = $_SERVER['PHP_SELF'];
 
-            header("location:../../");
+            header("location:../../?u=$user");
 
         }else{
             echo "something is wrong";

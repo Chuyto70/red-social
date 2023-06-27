@@ -342,6 +342,65 @@
   border-radius: 10px;
   border-right: 2px solid rgba(138, 138, 138, 0.382);
 }
+
+
+/* Menu del comentario */
+
+.menu-comentario {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #E9E9E9;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.background_bubble_chat:hover .menu-comentario{
+    opacity: 1;
+}
+
+.menu-comentario .menu {
+    list-style: none;
+    position: absolute;
+    right: 100%;
+    top: -6px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
+    border-radius: 8px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 11px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease-in 200ms;
+}
+.menu-comentario {
+    top: 5px;
+    right: -15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+}
+ .menu-comentario {
+    display: flex;
+}
+.menu-comentario:hover .menu {
+    opacity: 1;
+    visibility: visible;
+}
+.menu-comentario .menu a {
+    display: block;
+    color: #b0b0b0 !important;
+    padding: 4px 8px;
+    text-decoration: none;
+
+}
+
+.menu-comentario .menu a:hover {
+    color: #515151;
+}
   </style>
 
 <?php
@@ -463,11 +522,12 @@ global $profile;
         </div> -->
         <div style="width: 100% !important;"class="d-flex align-items-center p-2">
             <button
-             style="width: 100% !important; border: 1px solid rgb(255 255 255 / 10%);"
-             type="button" class="btn btn-dark btn-block border-secondary w-75 rounded-pill rounded-10">
+            style="width: 100% !important; border: 1px solid rgb(255 255 255 / 10%); border-radius:80px !important; "
+             type="button" class="btn btn-dark btn-block border-secondary w-75 arounded-pill rounded"
+            onclick="location.href='?fundadores'">
                 <div class="d-flex align-items-center justify-content-start gap-3 text-center">
                     <img width="16px" height="16px" src="assets/images/home/logo.png" alt="" srcset="">
-                    <span>Fundadores</span>
+                    <span><a style="text-decoration: none; color: white;" href="?fundadores">Fundadores</a></span>
                     <div></div>
                 </div>
             </button>
@@ -586,7 +646,7 @@ global $profile;
 
         showError('post_img');
         if (count($posts) < 1) {
-            echo "<p style='width:93vw' class='p-2 bg-white border rounded text-center my-3 col-12'>Follow Someone or Add a new post</p>";
+            echo "<p style='width:100%' class='p-2 bg-white border rounded text-center my-3 col-12'>Follow Someone or Add a new post</p>";
         }
         foreach ($posts as $post) {
             $likes = getLikes($post['id']);
@@ -721,7 +781,7 @@ global $profile;
                                                 <img src="assets/images/profile/<?= $cuser['profile_pic'] ?>" alt="" height="25" width="25" class="rounded-circle border">
                                             </div>
                                        
-                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word;">
+                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat position-relative " style="overflow-wrap: break-word;">
 
                                                 <h6 style="margin: 0px;">
                                                     <a href="?u=<?= $cuser['username'] ?>" class="text-decoration-none text-dark text-muted text_size_small">@<?= $cuser['username'] ?></a> 
@@ -737,7 +797,15 @@ global $profile;
                                                         font-size: 0.9rem;
                                                         position: relative;
                                                         padding-right: 1.65rem;" ><?= $comment['comment'] ?></p> 
-                                              
+                                    <?php if($user['id'] == $comment['user_id']) {?>  
+                                        <div class="menu-comentario">
+                                            <i style="color: #b0b0b0;" class="fas fa-pen"></i>
+                                            <ul class="menu">
+                                                <li><a href="">Editar</a></li>
+                                                <li><a href="">Eliminar</a></li>
+                                            </ul>
+                                        </div>
+                                       <?php }  ?>       
                                             </div>
                                         </div>
                                         <div id="bubbleChatPadre" class="d-flex justify-content-end align-items-center gap-2 px-1 mb-2">
@@ -1023,7 +1091,7 @@ global $profile;
 
 
         <div class="card">
-            <img class="card-img-top" src="assets/images/home/mundo.jpg" alt="Bologna">
+            <img class="card-img-top" src="assets/images/frontpage/<?=$profile['frontpage_pic'] ?>" alt="Bologna">
             <div class="card-body text-center">
                 
                 <img
@@ -1047,7 +1115,7 @@ global $profile;
                  </div>
                  <div>
                     
-                    <p  class="p-0 m-0 font-weight-bold"> <?=count($likes)?></p>
+                    <p  class="p-0 m-0 font-weight-bold"> <?= allLikesUser()  ?></p>
                     <span style="letter-spacing: 1px;">Likes</span>
                  </div>
                  <div>  

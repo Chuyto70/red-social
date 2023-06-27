@@ -1,5 +1,5 @@
 <?php global $user;?>
-<nav class="navbar navbar-expand-lg navbar-light bg-black noshow_navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-black noshow_navbar" id="primera_nav">
     <div class="container-fluid d-flex justify-content-center">
         <div class="form-group">
             <h3 class="text-center text-white fs-6">AvaDisk(<span class="fst-italic">NAVHER</span>)</h3>
@@ -7,7 +7,9 @@
     </div>  
 </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0  noshow_navbar" >
+<nav 
+id="segunda_nav"
+class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0  noshow_navbar" >
         <div class="col-lg-11 col-sm-12 col-md-10 d-flex flex-lg-row flex-md-row flex-sm-column justify-content-between">
             <div class="d-flex justify-content-between col-lg-7 col-sm-12">
                 <a class="navbar-brand" href="?">

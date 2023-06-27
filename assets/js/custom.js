@@ -269,7 +269,9 @@ $("#show_not").click(function () {
 
 });
 
-
+$('#bloquear_usuario').click(function(){
+    alert('Usuario ha sido bloqueado')
+})
 
 $(".unblockbtn").click(function () {
     var user_id_v = $(this).data('userId');
@@ -340,7 +342,22 @@ $("#sendmsg").click(function () {
 
 });
 
+//VALIDACION DEL REPORT
+ let contenido_inapropiado_no = document.querySelector('#contenido_inapropiado_no')
+ let lenguaje_ofensivo_no = document.querySelector('#lenguaje_ofensivo_no')
+ let acoso_comportamiento_no = document.querySelector('#acoso_comportamiento_no')
+ let reportar_boton = document.querySelector('#reportar_boton')
+    
+ reportar_boton.addEventListener('click', (e)=>{
+        if(contenido_inapropiado_no.checked && lenguaje_ofensivo_no.checked && acoso_comportamiento_no ){
+            alert('Debes seleccionar un motivo')
+            e.preventDefault()
+        }else{
+            alert('Reporte realizado exitosamente')
+        }
+    })
 function synmsg() {
+   
 
     $.ajax({
         url: 'assets/php/ajax.php?getmessages',
@@ -348,13 +365,13 @@ function synmsg() {
         dataType: 'json',
         data: { chatter_id: chatting_user_id },
         success: function (response) {
-           // console.log(response);
+
             $("#chatlist").html(response.chatlist);
             if (response.newmsgcount == 0) {
                 $("#msgcounter").hide();
             } else {
                 $("#msgcounter").show();
-                $("#msgcounter").html("<small>" + response.newmsgcount + "</small>");
+                $("#msgcounter").html("<small  >" + response.newmsgcount + "</small>");
 
 
             }
@@ -368,13 +385,56 @@ function synmsg() {
             }
 
             if (chatting_user_id != 0) {
-                $("#user_chat").html(response.chat.msgs);
+                console.log(response)
+                let userchat = $("#user_chat")
+                let userChat = document.getElementById('user_chat')
+                let scroll_pos = userchat.scrollTop()
+                userchat.html(response.chat.msgs);
+                userchat.scrollTop(scroll_pos)
+              
+                // $("#user_chat").html(response.chat.msgs);
+                //  userChat.scrollTop = scroll_pos ;
                 //console.log(response)
                 $("#chatter_username").text(response.chat.userdata.username);
-                $("#cplink").attr('href', '?u=' + response.chat.userdata.username);
+                // $("#cplink").attr('href', '?u=' + response.chat.userdata.username);
 
                 $("#chatter_name").text(response.chat.userdata.first_name + ' ' + response.chat.userdata.last_name);
                 $("#chatter_pic").attr('src', 'assets/images/profile/' + response.chat.userdata.profile_pic);
+                
+
+                //DATA PROFILE 
+                $('.nombre_imagen_perfil').attr('href',`?u=${response.chat.userdata.username}`)
+                $("#frontimage_profile_modal").attr('src','assets/images/frontpage/' + response.chat.userdata.frontpage_pic )
+                $("#profile_profile_modal").attr('src','assets/images/profile/' + response.chat.userdata.profile_pic )
+                $("#nombre_profile_modal").text(response.chat.userdata.first_name + ' ' + response.chat.userdata.last_name)
+                $('#profile_block_modal').attr('src','assets/images/profile/' + response.chat.userdata.profile_pic )
+                $("#nombre_block_modal").text(response.chat.userdata.first_name + ' ' + response.chat.userdata.last_name)
+
+                //DATA REPORTAR
+
+                $('#profile_reportar_modal').attr('src','assets/images/profile/' + response.chat.userdata.profile_pic )
+                $('#nombre_reportar_modal').text(response.chat.userdata.first_name + ' ' + response.chat.userdata.last_name)
+                $('#user_reported_id').attr('value', response.chat.userdata.id)
+                $('#user_block_id').attr('value', response.chat.userdata.id)
+                $.ajax({
+                    url: 'assets/php/ajax.php?getPostById',
+                    method: 'post',
+                    dataType:'json',
+                    data: {
+                        funcion:"getPostById",
+                        user_id:response.chat.userdata.id
+                    },
+                    success: function (usuarioPosts) {
+                        let contenedor_imagenes = document.querySelector('.contenedor_imagenes_perfil_modal')
+                        contenedor_imagenes.innerHTML = '';
+                        for( let i = 0; i < usuarioPosts.length; i++){
+                            let imagesName = usuarioPosts[i].post_img
+                            let imageHtml = document.createElement('img')
+                            imageHtml.setAttribute('src', `assets/images/posts/${imagesName}`)
+                            contenedor_imagenes.appendChild(imageHtml)
+                        }
+                    }
+                })
             }
             
 
@@ -383,7 +443,6 @@ function synmsg() {
     });
 }
 
-synmsg();
 
 setInterval(() => {
     synmsg();
