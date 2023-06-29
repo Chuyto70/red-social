@@ -324,14 +324,14 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `gender`, `email`, `userna
 CREATE TABLE grupos (
 id_grupo int(11) NOT NULL AUTO_INCREMENT,
 nombre_grupo varchar(255) NOT NULL,
-grupos_pic text NOT NULL DEFAULT 'default_profile.jpg',
+grupos_pic text NOT NULL DEFAULT 'mundo.jpg',
 fecha_creacion timestamp NOT NULL DEFAULT current_timestamp(),
 PRIMARY KEY (id_grupo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO grupos (id_grupo, nombre_grupo) VALUES (0, 'Sin grupo');
 
-
+ALTER TABLE `grupos` ADD `user_admin_id` INT NULL DEFAULT NULL AFTER `id_grupo`;
 
 -- CREATE INDEX idx_id_grupo ON grupos (id_grupo);
 

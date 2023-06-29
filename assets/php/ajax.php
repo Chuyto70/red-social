@@ -1,6 +1,59 @@
 <?php
 require_once 'functions.php';
 
+
+
+
+
+
+  
+
+
+if (isset($_GET['crearGrupo'])) {
+
+    if(isset($_POST['nombre_grupo']) ){
+        $nombre_grupo = $_POST['nombre_grupo'];
+        $imagenGrupo = $_FILES['imagen_grupo'];
+        $user_admin = $_POST['current_user_id'];
+        $imagenGrupoName = $imagenGrupo['name'];
+
+       
+      
+        
+        $image_name = time().basename($imagenGrupo['name']);
+        $image_dir="../images/imagesGrupos/$image_name";
+        move_uploaded_file($imagenGrupo['tmp_name'],$image_dir);
+
+        $group_id=crearGrupo($user_admin, $nombre_grupo, $imagenGrupoName);
+        
+        foreach ($_POST['user_ids'] as $value) {
+            
+            insertarUsersGroup($value,$group_id);
+            
+        }
+
+        header("location:../../");
+
+
+       
+        //  header("location:../../");
+    }else{
+        echo 'Ha ocurrido un error, vuelva a intentarlo';
+    }
+}
+
+// if(isset($_GET['insertarUsersGroup'])){
+//     global $db;
+//     $user_to_insert = $_POST['user_selected'];
+
+//     $query = "INSERT INTO users_grupos (id_usuario, id_grupo)"
+
+ 
+// }
+
+
+
+
 if(isset($_GET['sendmessage'])){
     if(sendMessage($_POST['user_id'],$_POST['msg'])){
         $response['status']=true;
@@ -11,6 +64,7 @@ if(isset($_GET['sendmessage'])){
 
     echo json_encode($response);
 }
+
 
 
 //BLOQUEAR USUARIO

@@ -8,6 +8,52 @@ include("assets/pages/$page.php");
 }
 
 
+
+
+function getUserFriend(){
+     global $db;
+
+    $current_user = $_SESSION['userdata']['id'];
+    $query = "SELECT f1.follower_id AS mutual_follower
+                FROM follow_list f1
+                INNER JOIN follow_list f2
+                ON f1.follower_id = f2.user_id AND f2.follower_id = f1.user_id
+                WHERE f1.user_id = $current_user";
+
+    $run = mysqli_query($db,$query);   
+    $data = mysqli_fetch_all($run,true);
+    $array_of_user = array();
+   
+    for ($i = 0; $i < sizeof($data); $i++) {
+            // Obtenemos el valor de [mutual_follower] del elemento actual
+            $id = $data[$i]["mutual_follower"];
+            // Llamamos a la función getUserFriend(id) con el valor de $id
+            $array_of_user[$i]= getUser($id);
+}
+    
+     return $array_of_user;
+}
+
+function insertarUsersGroup($usuario_id, $grupo_id){
+    global $db;
+
+
+    $query = "INSERT INTO users_grupos (id_usuario, id_grupo) VALUES ($usuario_id,$grupo_id)";
+    mysqli_query($db,$query);
+}
+function crearGrupo($user_admin, $nombre_grupo, $grupos_pic){
+    global $db;
+
+    $query = "INSERT INTO grupos (user_admin_id, nombre_grupo, grupos_pic) VALUES ($user_admin, '$nombre_grupo', '$grupos_pic')";
+    // mysqli_query($db,$query);
+    if (mysqli_query($db,$query)) {
+        $last_id = mysqli_insert_id($db); 
+        return $last_id;
+        } else {
+        return false; 
+        }
+     
+}
 //Report user
 
 function reportUser($reportData){
@@ -27,6 +73,7 @@ function reportUser($reportData){
 
 
 function getCurrentUserData(){
+    
   $cu= getUser($_SESSION['userdata']['id']);
   return $cu;
 

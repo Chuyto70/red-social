@@ -1596,6 +1596,7 @@ if(!checkBS($profile['id'])){
 
                 Los individuos no necesariamente se tienen que conocer antes de entrar en contacto a través de una red social, sino que pueden hacerlo a través de ella, y ese es uno de los mayores beneficios de las comunidades virtuales.
 
+        
 
 
                 Fuente: https://concepto.de/redes-sociales/#ixzz7qVpVPdoC</p>

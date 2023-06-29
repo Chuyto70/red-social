@@ -286,6 +286,9 @@ background-color: white;
   color: grey;
   margin-bottom: 100px;
 }
+.quitar_amigo{
+  display: none !important;
+}
 </style>
 <?php if(isset($_SESSION['Auth'])){ ?>
 <div class="modal fade" id="addpost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -446,7 +449,7 @@ if($not['read_status']==0){
     <div class="modal-content" style="min-height: 300px !important;">
       
       <div class="modal-header header_chatbox">
-        
+      
         <div href="" id="cplink" class="text-decoration-none text-dark">
 
           <div role="button" class="modal-title d-flex gap-2" id="perfilModalLabel" data-bs-toggle="modal" data-bs-target="#perfilModal">
@@ -693,7 +696,7 @@ decidas desbloquear a este usuario
       <div class="modal-header header_color_grupo">
 
        <div class="contenedor_search_grupo">
-        <input type="text" placeholder="Buscar amigos">
+       <input type="text" placeholder="Buscar amigos" id="buscador_amigos">
         <i class="bi bi-search iconos_thenavher"></i>
        </div>
         
@@ -702,58 +705,28 @@ decidas desbloquear a este usuario
      </div> 
        <div class="modal-body grupo_modal_body ">
 
-        <div class="d-flex justify-content-between align-items-center">
+        <?php 
+        $usuarios_amigos = getUserFriend();
+
+        foreach($usuarios_amigos as $amigo){
+
+        
+        ?>
+          <div  class="d-flex justify-content-between align-items-center contenedor_perfil_amigos">
 
           <div class="d-flex align-items-center gap-1">
-            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
-            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
+            <img style="object-fit:cover; " class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/<?= $amigo['profile_pic'] ?>" alt="">
+            <strong style="margin: 0px; color: grey;"> <?= $amigo['first_name']?> <?= $amigo['last_name']?> </strong>        
           </div>
-          <input class="input_check_grupo" type="checkbox" name="" id="">
-        </div>
-
+          <input class="input_check_grupo" type="checkbox" name="" id="<?= $amigo['id'] ?> ">
           
-        <div class="d-flex justify-content-between align-items-center">
-
-          <div class="d-flex align-items-center gap-1">
-            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
-            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
-          </div>
-          <input class="input_check_grupo" type="checkbox" name="" id="">
         </div>
+        <?php }?>
 
-          
-        <div class="d-flex justify-content-between align-items-center">
-
-          <div class="d-flex align-items-center gap-1">
-            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
-            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
-          </div>
-          <input class="input_check_grupo" type="checkbox" name="" id="">
-        </div>
-
-          
-        <div class="d-flex justify-content-between align-items-center">
-
-          <div class="d-flex align-items-center gap-1">
-            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
-            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
-          </div>
-          <input class="input_check_grupo" type="checkbox" name="" id="">
-        </div>
-
-          
-        <div class="d-flex justify-content-between align-items-center">
-
-          <div class="d-flex align-items-center gap-1">
-            <img class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/default_profile.jpg" alt="">
-            <strong style="margin: 0px; color: grey;">Nombre de usuario</strong>        
-          </div>
-          <input class="input_check_grupo" type="checkbox" name="" id="">
-        </div>
         
        </div>
 
-       <div class="modal-footer justify-content-center" style="background-color: white;">
+       <div class="modal-footer justify-content-center" style="background-color: white;" id="next_phase_group">
           <i role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModalInterfaz" class="bi bi-arrow-right-circle-fill button_crear_grupo"></i>
        </div>
     
@@ -780,7 +753,7 @@ decidas desbloquear a este usuario
      
         
      </div> 
-       <form class="modal-body grupo_modal_body ">
+       <form method="post" action="assets/php/ajax.php?crearGrupo" class="modal-body grupo_modal_body " enctype="multipart/form-data" id="formulario_lista">
         <label role="button" for="imagen_grupo" class="imagen_grupo">
           <div class="contenedor_imagen_grupo">
               <i class="bi bi-camera"></i>
@@ -788,14 +761,18 @@ decidas desbloquear a este usuario
           </div>
         
         </label>
+        <input style="display: none;" type="file" id="imagen_grupo" name="imagen_grupo"  onchange="mostrarInput()">
         <p id="imagen_seleccionada" style="display: none; color: gray; "></p>
-        <input style="display: none;" type="file" id="imagen_grupo"  onchange="mostrarInput()">
-        <input type="text" placeholder="Nombre del grupo">
+        <input name="nombre_grupo" type="text" placeholder="Nombre del grupo">
+        <input hidden type="text" value="<?= $_SESSION['userdata']['id'] ?>" name="current_user_id">
         
+        <!-- Usuarios a agregar -->
+       
 
-
+        
        <div class="modal-footer justify-content-center" style="background-color: white;">
-         <button class="btn btn-primary">Crear grupo</button>
+          <input id="crear_grupo" class="btn btn-primary" type="submit" value="Crear grupo" name="crear_grupo">
+         <!-- <button name="crear_grupo" type="submit" class="btn btn-primary" id="crear_grupo">Crear grupo</button> -->
        </div>
     
        </form>
@@ -822,6 +799,34 @@ let dropdown_perfil_menu =document.querySelector('#dropdown_perfil_menu')
 let inputImagenGrupo = document.getElementById("imagen_grupo");
 let imagen_seleccionada =document.getElementById('imagen_seleccionada')
 
+
+let buscador_amigos =document.getElementById('buscador_amigos')
+
+buscador_amigos.addEventListener('change', (e)=>{
+  let valor = e.target.value.toLowerCase();
+  let contenedor_amigos = document.querySelectorAll('.contenedor_perfil_amigos');
+  let filtrados = [];
+  for (let i = 0; i < contenedor_amigos.length; i++) { 
+      let elemento = contenedor_amigos[i];
+      let contenido = elemento.textContent.toLowerCase(); 
+
+      
+
+      if (!contenido.includes(valor)) { // Verificar si el texto contiene "Maria"
+      // filtrados.push(elemento); // Agregar el elemento al array de filtrados
+      elemento.classList.add('quitar_amigo')
+      console.log('ENTRO if')
+      
+      }else{
+        console.log('entro else')
+        elemento.classList.remove('quitar_amigo')
+      }
+     }     
+  console.log(contenedor_amigos)
+
+})
+
+
 function mostrarInput() {
 
 if (inputImagenGrupo.value) {
@@ -833,6 +838,7 @@ imagen_seleccionada.style.display = 'none';
 }
 
 }
+
 
 
 menuChatBoxDropdow.addEventListener('click', ()=>{

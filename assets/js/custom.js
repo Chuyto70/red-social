@@ -18,6 +18,74 @@ function preview() {
         image.setAttribute('style', 'display:');
     }
 }
+ let users_selected_grupos = [];
+ let users_to_grupo = [];
+
+$('#next_phase_group').click((e)=>{
+    let inputs_checkbox = document.querySelectorAll('.input_check_grupo');
+    let formulario_lista = document.getElementById('formulario_lista')
+    inputs_checkbox.forEach((checkbox)=>{
+        if(checkbox.checked  && !users_selected_grupos.includes(checkbox.id)){
+
+                users_selected_grupos.push(checkbox.id)
+                let inputText = document.createElement('input')
+                inputText.setAttribute('type', 'number');
+                inputText.setAttribute('value', Number(checkbox.id));
+                inputText.setAttribute('name','user_ids[]')
+                inputText.setAttribute('id', Number(checkbox.id))
+                // inputText.setAttribute('hidden', true)
+                inputText.style.display = "none"; 
+                formulario_lista.appendChild(inputText)
+
+        }else{
+            if(users_selected_grupos.includes(checkbox.id) && !checkbox.checked ){
+
+                users_selected_grupos = users_selected_grupos.filter(el=>el!=checkbox.id)
+                let inputText = document.getElementById(Number(checkbox.id))
+                inputText.remove()
+
+            }
+        }
+    })
+    console.log(users_selected_grupos)
+    if(localStorage.getItem('users_group_selected')){
+        localStorage.removeItem('users_group_selected')
+        localStorage.setItem('users_group_selected', JSON.stringify(users_selected_grupos))
+
+    }else{
+
+        localStorage.setItem('users_group_selected', JSON.stringify(users_selected_grupos))
+    }
+})
+
+
+$('#crear_grupo').click(function(e){
+    
+    
+    alert('Creando grupo')
+    console.log(users_selected_grupos)
+    $.ajax({
+        url:"assets/php/ajax.php?crearGrupo",
+        method:"post",
+        dataType: 'json',
+        data:{nombre_grupo_prueba: "OKLAHOMA", users_selected:users_selected_grupos},
+        success:function(response){
+            alert('response')
+            console.log(response)
+        }
+    })
+
+    // for(let i = 0; i < users_selected_grupos.length; i++){
+       
+    //     $.ajax({
+    //         url:"assets/php/ajax.php?insertarUsersGroup",
+    //         method:'post',
+    //         data:{user_selected:users_selected_grupos[i]}
+    //     })
+    // }
+    
+    alert('Grupo creado exitosamente')
+})
 
 
 //for follow the user
@@ -371,7 +439,7 @@ function synmsg() {
                 $("#msgcounter").hide();
             } else {
                 $("#msgcounter").show();
-                $("#msgcounter").html("<small  >" + response.newmsgcount + "</small>");
+                $("#msgcounter").html("<small>" + response.newmsgcount + "</small>");
 
 
             }
@@ -447,7 +515,7 @@ function synmsg() {
 setInterval(() => {
     synmsg();
 
-}, 1000);
+}, 10000);
 
 var valorAModificar = document.querySelectorAll('#valorAModificar')
 var modificarPerfil = document.querySelector("#modificarPerfil");
