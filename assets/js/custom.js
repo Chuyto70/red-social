@@ -992,6 +992,7 @@ let createPeerConnection = async (memberId) =>{
     if(remoteStream){
     document.getElementById('user-2').style.display = "block"
     document.getElementById('user-2').srcObject = remoteStream
+    document.getElementById('user-2-mini').srcObject = remoteStream
     
     
     }
@@ -1090,10 +1091,12 @@ let toggleCamera = async () =>{
     if(videoTrack.enabled){
         videoTrack.enabled = false
         document.getElementById('camera-btn').style.backgroundColor = 'rgb(255,80,80)'
+        document.getElementById('camera-btn_mini').style.backgroundColor = 'rgb(255,80,80)'
 
     }else{
         videoTrack.enabled = true;
         document.getElementById('camera-btn').style.backgroundColor = 'rgb(179,102,249,.9)';
+        document.getElementById('camera-btn_mini').style.backgroundColor = 'rgb(179,102,249,.9)';
     }
 }
 
@@ -1103,19 +1106,24 @@ let toggleMic = async () =>{
     if(audioTrack.enabled){
         audioTrack.enabled = false
         document.getElementById('mic-btn').style.backgroundColor = 'rgb(255,80,80)'
+        document.getElementById('mic-btn_mini').style.backgroundColor = 'rgb(255,80,80)'
 
     }else{
         audioTrack.enabled = true;
         document.getElementById('mic-btn').style.backgroundColor = 'rgb(179,102,249,.9)';
+        document.getElementById('mic-btn_mini').style.backgroundColor = 'rgb(179,102,249,.9)';
     }
 }
 
 window.addEventListener('beforeunload', leaveChannel)
 
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
+document.getElementById('camera-btn_mini').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
+document.getElementById('mic-btn_mini').addEventListener('click', toggleMic)
 let buttonLlamada = document.getElementById('button_llamada')
 let buttonContestar = document.getElementById('camera-btn_2') || null
+
 
 // init();
 
@@ -1135,6 +1143,18 @@ if(buttonContestar){
 
 // document.getElementById('join-btn').addEventListener('click', joinStream)
 document.getElementById('leave-btn').addEventListener('click', async()=>{
+     $.ajax({
+               url:"assets/php/ajax.php?updateCalls",
+               method:"post",
+               data:{current_user: localStorage.getItem('current_user_id')},
+               success:function(response){
+                 console.log('AQUI LA RESPUESTA DEL INIT updateCalls')
+                 console.log(response)
+               }
+           })
+            window.location.reload()
+})
+document.getElementById('leave-btn_mini').addEventListener('click', async()=>{
      $.ajax({
                url:"assets/php/ajax.php?updateCalls",
                method:"post",

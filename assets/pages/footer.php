@@ -437,7 +437,12 @@ transform: scaleX(-1); /* Invertir horizontalmente */
     align-items: center;
     flex-direction: column;
   }
-
+.modal-open {
+overflow-y: scroll !important;
+}
+#bodyApp{
+  overflow-y: auto !important;
+}
 </style>
 <?php if(isset($_SESSION['Auth'])){ ?>
 
@@ -944,8 +949,8 @@ decidas desbloquear a este usuario
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
-      <div class="modal-header justify-content-end header_video_llamada">
-        <i style="font-size: 28px;" role="button" class="bi bi-box-arrow-in-down-right"></i>
+      <div id="boton_abrir_minimodal" role="button" data-bs-target="#miniLlamada" data-bs-toggle="modal" class="modal-header justify-content-end header_video_llamada" data-backdrop="false" data-bs-keyboard="false">
+        <i style="font-size: 28px; color: white;" role="button" class="bi bi-box-arrow-in-down-right"></i>
       </div>
 
       <div class="modal-body body_video_llamada">
@@ -995,10 +1000,43 @@ decidas desbloquear a este usuario
 
 
   <div style="position: fixed; top:140px;" id="contenedor_de_llamada">
-   
-
   </div>
  
+  <!-- MINI LLAMADA -->
+  <div class="modal fade" id="miniLlamada" tabindex="-1" role="dialog" aria-labelledby="miniLlamadaLabel" aria-hidden="true" style="width: 0 !important; height:0 !important;">
+  <div class="modal-dialog" role="document" >
+    <div id="minillamada_draggable" class="modal-content" draggable="true" ondragstart="drag(event)" style="position: fixed;
+                                      width: 250px;
+                                      height: 274px;
+                                      bottom: 0;
+                                      right: 0;
+                                      cursor: grab;
+                                      padding: 6px;">
+     
+      <div class="modal-body">
+        <div style="position: absolute; top: 0; color: grey;top: -7px;left: -4px;
+" role="button" data-bs-target="#videoLlamadaModal" data-bs-toggle="modal">
+          <i class="bi bi-box-arrow-up-left"></i>
+        </div>
+        <video class="video-player" id="user-2-mini" autoplay playsinline></video>
+        <div id="controls">
+                <div class="control-container" id="camera-btn_mini"> 
+                  <i class="bi bi-camera-video"></i>
+                </div>
+                
+                <div class="control-container" id="mic-btn_mini"> 
+                  <i class="bi bi-mic"></i>
+                </div>
+
+                <div style="background-color: red;" class="control-container" id="leave-btn_mini"> 
+                  <i class="bi bi-telephone-x"></i>
+                </div>
+            </div>
+      </div>
+          
+    </div>
+  </div>
+</div>
 
 <?php } ?>
 
@@ -1097,6 +1135,51 @@ $(document).on("click","#cust_btn",function(){
   
 })
 
+let miniboton = document.getElementById('boton_abrir_minimodal')
+let modal_mini_llamada = document.getElementById("miniLlamada")
+console.log(modal_mini_llamada)
+let modalMini = new bootstrap.Modal(modal_mini_llamada, {
+backdrop: false, // Pasar la opción backdrop como false
+keyboard: false // Pasar la opción keyboard como false
+});
+miniboton.addEventListener("click", function () {
+
+
+modalMini.show();
+// document.getElementById('bodyApp').style = ""
+
+});
+
+function drag(event) {
+// Guardamos el id del contenedor en el objeto dataTransfer
+
+event.dataTransfer.setData("text", event.target.id);
+
+event.target.offsetX = event.offsetX;
+event.target.offsetY = event.offsetY;
+
+}
+function allowDrop(event) {
+// Evitamos el comportamiento por defecto del navegador
+event.preventDefault();
+}
+function drop(event) {
+// Evitamos el comportamiento por defecto del navegador
+event.preventDefault();
+// Obtenemos el id del contenedor desde el objeto dataTransfer
+var data = event.dataTransfer.getData("text");
+// Obtenemos una referencia al contenedor usando su id
+var contenedor = document.getElementById(data);
+// Obtenemos las coordenadas del ratón al soltar el contenedor
+var x = event.clientX;
+var y = event.clientY;
+// Restamos el desplazamiento del elemento al arrastrarlo a las coordenadas
+x -= contenedor.offsetX;
+y -= contenedor.offsetY;
+// Movemos el contenedor a esas coordenadas usando las propiedades style.left y style.top
+contenedor.style.left = x + "px";
+contenedor.style.top = y + "px";
+}
 
 
 

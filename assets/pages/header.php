@@ -49,10 +49,8 @@
 <script src="assets/js/agora-rtm-sdk-1.5.1.js"></script>
 </head>
 
-<body class="bg-dark p-0">
-    <style>
-        
-    </style>
+<body ondragover="allowDrop(event)" ondrop="drop(event)" class="bg-dark p-0 modal-open" id="bodyApp">
+    
 
     
 <!-- 
