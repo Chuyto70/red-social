@@ -1,6 +1,9 @@
 //for preview the post image
 var input = document.querySelector("#select_post_img");
 
+let current_user_id = document.getElementById('current_user_localStorage').value
+
+localStorage.setItem('current_user_id', JSON.stringify(current_user_id) );
 
 
 input.addEventListener("change", preview);
@@ -369,6 +372,8 @@ var chatting_user_id = 0;
 $(".chatlist_item").click();
 
 function popchat(user_id) {
+
+    localStorage.setItem('user_id_to_call', JSON.stringify(user_id))
     $("#user_chat").html(`<div class="spinner-border text-center" role="status">
 
   </div>`);
@@ -425,7 +430,6 @@ $("#sendmsg").click(function () {
         }
     })
 function synmsg() {
-   
 
     $.ajax({
         url: 'assets/php/ajax.php?getmessages',
@@ -433,7 +437,7 @@ function synmsg() {
         dataType: 'json',
         data: { chatter_id: chatting_user_id },
         success: function (response) {
-
+            
             $("#chatlist").html(response.chatlist);
             if (response.newmsgcount == 0) {
                 $("#msgcounter").hide();
@@ -509,13 +513,109 @@ function synmsg() {
 
         }
     });
+
+    $.ajax({
+        url: 'assets/php/ajax.php?getllamadas',
+        method:'GET',
+        success:function(response){
+            let responseFormat = JSON.parse(response)
+            let htmlLlamadas = '';
+            if(responseFormat.length !== 0){
+                
+                
+                console.log(responseFormat)
+                channelNameFromDB = responseFormat[0].channelName
+                
+                $.ajax({
+                    url: 'assets/php/ajax.php?getUserCalling',
+                    method:'post',
+                    data:{userCalling: responseFormat[0].id_user_calling},
+                    success:function(response2){
+                        
+                        let usuario = JSON.parse(response2)
+                        
+                        if(usuario){
+                            console.log('AQUI ENTRO EN EL IF DEL USUARIO')
+                            htmlLlamadas = `
+                         <div style="position: absolute;
+                  transform: translate(calc(50% - 90px), -35px );
+                  width: 600px;
+                  height: 450px;
+                  border-radius: 12px; 
+                  color: white;"
+                  class="container_contestar_llamada p-3">
+
+                            <audio id="sonido_llamada" autoplay preload="auto">
+                                <source src="assets/efectos/llamadas.wav" type="audio/ogg">
+                                
+                                Tu navegador no soporta la etiqueta audio.
+                            </audio>
+              <div class="header_contestar_llamada p-3">
+                <i class="bi bi-x-square-fill"></i>
+              </div>
+
+              <div class="content_contestar_llamada p-3">
+                <h3>Te esta llamando</h3>
+                <img style="border-radius: 50%;
+                            padding: 10px;
+                            background: white;" width="120px" height="120px" src="assets/images/profile/${usuario.profile_pic}" alt="">
+                <p>${usuario.first_name} ${usuario.last_name}</p>
+                <div id="controls_2">
+                    <div role="button" data-bs-target="#videoLlamadaModal" data-bs-toggle="modal" style="background-color: forestgreen;" class="control-container_2" id="camera-btn_2"> 
+                      <i class="bi bi-telephone-plus"></i>
+                    </div>
+                    
+                  
+
+                    <div class="control-container_2" id="leave-btn"> 
+                      <i class="bi bi-telephone-x"></i>
+                    </div>
+                </div>
+
+              </div>
+      </div>
+
+                        `
+                        $('#contenedor_de_llamada').html(htmlLlamadas)
+                        let buttonContestar = document.getElementById('camera-btn_2') || null
+                        buttonContestar.addEventListener('click' , async()=>{
+
+                            console.log('SE EJECUTO EL buttonContestar')
+                            let sonido = document.getElementById('sonido_llamada')
+                            sonido.muted = true
+                            let nameChannel = JSON.parse(channelNameFromDB)
+                            console.log(nameChannel)
+                            await actualizarLlamada(nameChannel)
+                            await init(channelNameFromDB)
+                            $('#contenedor_de_llamada').html('')
+})
+                        }
+                        
+                        
+                        
+                    }
+                })
+               
+            // Define the function that makes an AJAX request
+            
+                
+            }else{
+                console.log('NO HAY LLAMADAS')
+                $('#contenedor_de_llamada').html('')
+            }
+             
+            
+         
+        }
+    })
 }
 
+synmsg();
 
 setInterval(() => {
     synmsg();
 
-}, 10000);
+}, 5000);
 
 var valorAModificar = document.querySelectorAll('#valorAModificar')
 var modificarPerfil = document.querySelector("#modificarPerfil");
@@ -766,6 +866,286 @@ inputModal.addEventListener('keyup',function(){
 })
 
 
+// Video llamada
+let localStream;
+let remoteStream;
+let peerConnection;
+
+let APP_ID = "06495e3b0ced46478913f5b7795f412f"
+let token = null
+let uid = JSON.parse(localStorage.getItem('current_user_id'))  || null
+let client;
+let channel;
+let iceCandidatesQueue = []
+let channelNameFromDB = null
+
+const servers = {
+    iceServers:[
+        {
+            urls:['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302']
+        }
+    ]
+}
+let init = async(nombreCanal = null) =>{
+    document.getElementById('button_llamada').disabled = true
+    if(typeof nombreCanal ==="object"){
+        $.ajax({
+               url:"assets/php/ajax.php?insertingCalls",
+               method:"post",
+               data:{user_called:localStorage.getItem('user_id_to_call'), channelName:localStorage.getItem('user_id_to_call')},
+               success:function(response){
+                 console.log('AQUI LA RESPUESTA DEL INIT INSERTINGCALLS')
+                 console.log(response)
+               }
+           })
+    
+    }
+
+   
+    uid = JSON.parse(localStorage.getItem('current_user_id')) 
+    client = await AgoraRTM.createInstance(APP_ID)
+    
+    await client.login({uid, token})
+ 
+
+    if(typeof nombreCanal ==="string"){
+        console.log('ENTRO ACA EN EL NOMBRE DEL CANAL')
+        channel = await client.createChannel(nombreCanal)
+    }else{
+        
+        channel = await client.createChannel(localStorage.getItem('user_id_to_call'))
+    }
+    
+   
+    await channel.join()
+    
+    channel.on('MemberJoined', handleUserJoined)
+   
+    channel.on('MemberLeft', handleUserLeft)
+ 
+    client.on('MessageFromPeer', handleMessageFromPeer)
+  
+
+    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true})
+  
+    
+    document.getElementById('user-1').srcObject = localStream
+ 
+ 
+}
+let actualizarLlamada = async (nombre_channel)=>{
+     $.ajax({
+               url:"assets/php/ajax.php?progressCall",
+               method:"post",
+               data:{channel_name:nombre_channel},
+               success:function(response){
+                 console.log('AQUI LA RESPUESTA DEL INIT progressCall')
+                 console.log(response)
+               }
+           })
+}
+
+let handleUserJoined =async (memberId) =>{
+    console.warn('A new user has joined: ', memberId)
+    if(localStream){
+        
+        await createOffer(memberId)
+    }else{
+        console.warn('NO HAY LOCALSTREAM')
+    }
+
+}
+
+let handleUserLeft = async (memberId) =>{
+    document.getElementById('user-2').style.display = 'none'
+}
+
+let handleMessageFromPeer = async (message, memberId) =>{
+
+message = JSON.parse(message.text)
+
+if(message.type === 'offer'){
+
+await createAnswer(memberId, message.offer)
+}
+if(message.type === 'answer'){
+
+await addAnswer(message.answer)
+}
+if(message.type === 'candidate'){
+
+if(peerConnection && peerConnection.remoteDescription) {
+// Si hay un peerConnection y una descripción remota, se añade el candidato ICE
+peerConnection.addIceCandidate(message.candidate).then(()=>{
+console.warn('SE EJECUTO LA FUNCION ADDICECANDIDATE')
+})
+} else {
+// Si no, se guarda el candidato ICE en la cola
+iceCandidatesQueue.push(message.candidate);
+}
+}
+}
+
+let createPeerConnection = async (memberId) =>{
+    peerConnection = new RTCPeerConnection(servers)
+    remoteStream =  new MediaStream()
+    if(remoteStream){
+    document.getElementById('user-2').style.display = "block"
+    document.getElementById('user-2').srcObject = remoteStream
+    
+    
+    }
+   
+        if(!localStream){
+             localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true})
+        document.getElementById('user-1').srcObject = localStream
+        }
+       
+
+    
+    localStream.getTracks().forEach((track)=>{
+        peerConnection.addTrack(track, localStream)
+    })
+
+    peerConnection.ontrack = (event)=>{
+
+        event.streams[0].getTracks().forEach((track)=>{
+            remoteStream.addTrack(track)
+        })
+    }
+
+    peerConnection.onicecandidate = async (event) =>{
+      
+        if(event.candidate){
+            try {
+                await client.sendMessageToPeer({text:JSON.stringify({'type':'candidate', 'candidate':event.candidate})}, memberId)
+            } catch (error) {
+               
+            }
+        
+
+        }
+    }
+}
+
+let createOffer = async (memberId) =>{
+
+    await createPeerConnection(memberId)
+    let offer = await peerConnection.createOffer()
+    await peerConnection.setLocalDescription(offer)
+    
+
+    await client.sendMessageToPeer({text:JSON.stringify({'type':'offer', 'offer':offer})}, memberId)
 
 
+}
+
+let createAnswer = async (memberId, offer)=>{
+
+ 
+         try {
+    await createPeerConnection(memberId)
+ 
+    await peerConnection.setRemoteDescription(offer)
+
+   
+
+    let answer = await peerConnection.createAnswer()
+
+    await peerConnection.setLocalDescription( answer)
+    
+    await client.sendMessageToPeer({text:JSON.stringify({'type':'answer', 'answer':answer})}, memberId)
+    } catch (error) {
+        console.warn('ERROR ES EN CREATE ANSWER')
+    }
+    
+   
+   
+
+}
+
+let addAnswer = async (answer) => {
+
+
+peerConnection.setRemoteDescription(answer).then(()=>{
+
+// Se procesan los candidatos ICE que estaban en la cola
+while (iceCandidatesQueue.length > 0) {
+let candidate = iceCandidatesQueue.shift();
+peerConnection.addIceCandidate(candidate);
+}
+})
+
+
+}
+
+let leaveChannel = async () =>{
+    await channel.leave()
+    await channel.logout()
+}
+
+let toggleCamera = async () =>{
+    let videoTrack = localStream.getTracks().find(track=>track.kind ==='video')
+
+    if(videoTrack.enabled){
+        videoTrack.enabled = false
+        document.getElementById('camera-btn').style.backgroundColor = 'rgb(255,80,80)'
+
+    }else{
+        videoTrack.enabled = true;
+        document.getElementById('camera-btn').style.backgroundColor = 'rgb(179,102,249,.9)';
+    }
+}
+
+let toggleMic = async () =>{
+    let audioTrack = localStream.getTracks().find(track=>track.kind ==='audio')
+
+    if(audioTrack.enabled){
+        audioTrack.enabled = false
+        document.getElementById('mic-btn').style.backgroundColor = 'rgb(255,80,80)'
+
+    }else{
+        audioTrack.enabled = true;
+        document.getElementById('mic-btn').style.backgroundColor = 'rgb(179,102,249,.9)';
+    }
+}
+
+window.addEventListener('beforeunload', leaveChannel)
+
+document.getElementById('camera-btn').addEventListener('click', toggleCamera)
+document.getElementById('mic-btn').addEventListener('click', toggleMic)
+let buttonLlamada = document.getElementById('button_llamada')
+let buttonContestar = document.getElementById('camera-btn_2') || null
+
+// init();
+
+buttonLlamada.addEventListener('click', init)
+
+if(buttonContestar){
+    buttonContestar.addEventListener('click' , async()=>{
+        console.log('SE EJECUTO EL buttonContestar')
+        await actualizarLlamada(channelNameFromDB)
+        await init(channelNameFromDB)
+})
+}
+
+
+
+
+
+// document.getElementById('join-btn').addEventListener('click', joinStream)
+document.getElementById('leave-btn').addEventListener('click', async()=>{
+     $.ajax({
+               url:"assets/php/ajax.php?updateCalls",
+               method:"post",
+               data:{current_user: localStorage.getItem('current_user_id')},
+               success:function(response){
+                 console.log('AQUI LA RESPUESTA DEL INIT updateCalls')
+                 console.log(response)
+               }
+           })
+            window.location.reload()
+})
+// document.getElementById('mic-btn').addEventListener('click' ,toggleMic)
+// document.getElementById('camera-btn').addEventListener('click' ,toggleCamera)
 

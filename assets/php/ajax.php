@@ -7,7 +7,30 @@ require_once 'functions.php';
 
 
   
+if(isset($_GET['progressCall'])){
+    $actualizarEstadoLlamada = progressCall($_POST['channel_name']);
+    echo "Actualizado estado llamada: ".$actualizarEstadoLlamada;
+}
+if(isset($_GET['getUserCalling'])){
+   $userCalling =  getUser($_POST['userCalling']);
+    echo json_encode($userCalling);
+}
 
+if(isset($_GET['insertingCalls'])){
+
+    insertingCalls($_POST['user_called'], $_POST['channelName']);
+    
+}
+
+if(isset($_GET['getllamadas'])){
+    $response = getllamadas();
+
+    echo json_encode($response);
+}
+
+if(isset($_GET['updateCalls'])){
+    updateCalls();
+}
 
 if (isset($_GET['crearGrupo'])) {
 

@@ -469,7 +469,7 @@ function validateLoginForm($form_data){
 
 //for checking the user
 function checkUser($login_data){
-    global $db;
+global $db;
  $username_email = $login_data['username_email'];
  $password=md5($login_data['password']);
 
@@ -486,10 +486,57 @@ function checkUser($login_data){
  return $data;
 }
 
+// INSERTANDO LLAMADAS
 
+function insertingCalls($user_called, $channelName) {
+    global $db;
+    $cu = $_SESSION['userdata']['id'];
+
+    $query = "INSERT INTO `llamadas`(`id_user_calling`, `id_user_called`, `status`, `channelName`) 
+                VALUES ($cu,$user_called,'activa', '$channelName')";
+    $run =  mysqli_query($db,$query);
+    
+
+}
+
+function getllamadas(){
+    global $db;
+
+    $cu = $_SESSION['userdata']['id'];
+
+    $query = "SELECT * FROM llamadas WHERE id_user_called = $cu AND status = 'activa' " ;
+
+    $run = mysqli_query($db,$query);
+
+    return mysqli_fetch_all($run,true);
+
+}
+
+function updateCalls(){
+    global $db;
+    $cu = $_SESSION['userdata']['id'];
+    $query = "UPDATE `llamadas` 
+                SET `status`='terminada' 
+                WHERE `id_user_calling` = $cu OR `id_user_called` = $cu";
+
+    $run = mysqli_query($db,$query);   
+    
+    return mysqli_fetch_all($run,true);
+}
+function progressCall($channel_name){
+     global $db;
+    $cu = $_SESSION['userdata']['id'];
+    $query = "UPDATE `llamadas` 
+                SET `status`='ENPROGRESO' 
+                WHERE `channelName` = '$channel_name'";
+
+    $run = mysqli_query($db,$query);   
+    
+    return mysqli_fetch_all($run,true);
+}
 //for getting userdata by id
 function getUser($user_id){
-    global $db;
+global $db;
  $query = "SELECT * FROM users WHERE id=$user_id";
  $run = mysqli_query($db,$query);
  return mysqli_fetch_assoc($run);

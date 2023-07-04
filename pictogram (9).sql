@@ -333,6 +333,15 @@ INSERT INTO grupos (id_grupo, nombre_grupo) VALUES (0, 'Sin grupo');
 
 ALTER TABLE `grupos` ADD `user_admin_id` INT NULL DEFAULT NULL AFTER `id_grupo`;
 
+
+CREATE TABLE llamadas (
+id_user_calling INT NOT NULL,
+id_user_called INT NOT NULL,
+status VARCHAR(10) CHECK (status IN ('activa','ENPROGRESO' ,'terminada')),
+channelName varchar(255) NOT NULL,
+fecha timestamp NOT NULL DEFAULT current_timestamp(),
+PRIMARY KEY (id_user_calling, id_user_called, fecha)
+);
 -- CREATE INDEX idx_id_grupo ON grupos (id_grupo);
 
 CREATE TABLE users_grupos (

@@ -46,6 +46,26 @@
  
 <!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
 <script src=" https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js"></script>
+<script src="assets/js/agora-rtm-sdk-1.5.1.js"></script>
 </head>
 
 <body class="bg-dark p-0">
+    <style>
+        
+    </style>
+
+    
+<!-- 
+    <button id="join-btn">Join stream</button>
+    
+    <div id="stream-wrapper">
+        <div id="video-streams"></div>
+
+        <div id="stream-control">
+            <button id="leave-btn"> Leave stream</button>
+            <button id="mic-btn">Mic On</button>
+            <button id="camera-btn">Camera on</button>
+        </div>
+    </div>
+
+    <script src="assets/js/AgoraRTC_N-4.18.0.js"></script> -->

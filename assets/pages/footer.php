@@ -289,9 +289,163 @@ background-color: white;
 .quitar_amigo{
   display: none !important;
 }
+
+
+/* VIDEO CALL */
+
+#videos{
+  position: relative;
+            display: grid;
+            /* grid-template-columns: 1fr 1fr; */
+            gap: 2em;
+        }
+        .video-player{
+            background-color: black;
+            width: 100%;
+            height: 300px;
+        }
+        #user-2{
+            display: none;
+            object-fit: cover;
+        }
+        #user-1{
+          display: block;
+          position: absolute;
+          height: 160px;
+          width: 120px;
+          z-index: 100;
+          top: 0;
+          right: 0;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+        .video-player {
+transform: scaleX(-1); /* Invertir horizontalmente */
+}
+#video-streams{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            height: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        #join-btn {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -100px;
+            font-size: 18px;
+            padding: 20px 40px;
+        }
+        .video-container{
+            max-height: 100%;
+            border: 2px solid black;
+            background-color: #203A49;
+        }
+        .video-player{
+            height: 100%;
+            width: 100%;
+        }
+        #stream-control{
+            display: none;
+            justify-content: center;
+            margin-top: 0.5em;
+        }
+        #stream-control button{
+            border: none;
+            background-color: cadetblue;
+            color: #fff;
+            padding: 10px 20px ;
+            font-size: 16px;
+            margin: 2px;
+            cursor: pointer;
+
+        }
+
+        @media screen and (max-width: 1400px){
+            #video-streams{
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                width: 95%;
+            }
+        }
+
+  /* VIDEO LLAMADA ESTILOS */
+  #controls{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1em;
+  }
+  #controls_2{
+  
+    display: flex;
+    gap: 1em;
+  }
+  .control-container_2{
+     background-color: rgb(179, 102, 249, .9);
+    padding: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 56px;
+    width: 56px;
+  }
+  .control-container{
+    width: 58px;
+    height: 58px;
+    background-color: rgb(179, 102, 249, .9);
+    padding: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .control-container i{
+    font-size: 30px;
+    color: white;
+  }
+  #leave-btn{
+    background-color: rgb(255, 80, 80,1);
+  }
+  .header_video_llamada{
+    background-color: rgb(38 38 38);
+  }
+
+  .body_video_llamada{
+    background-color: rgb(64 64 64);
+  }
+
+
+  .header_contestar_llamada{
+    background-color: #262626;
+    display: flex;
+    justify-content: end;
+  }
+  .header_contestar_llamada i{
+    font-size: 28px;
+    color: white;
+  }
+  .content_contestar_llamada{
+    background-color: #404040;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
 </style>
 <?php if(isset($_SESSION['Auth'])){ ?>
+
+
+<input style="display: none;" type="text" id="current_user_localStorage"  value="<?= $_SESSION['userdata']['id'] ?>">
+  
 <div class="modal fade" id="addpost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
   <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
             <div class="modal-header">
@@ -372,10 +526,6 @@ if($not['read_status']==0){
 
 
 
-
-
-
-
 <div class="offcanvas offcanvas-start" tabindex="-1" id="message_sidebar" aria-labelledby="offcanvasExampleLabel">
   
   <div class="offcanvas-header">
@@ -422,10 +572,14 @@ if($not['read_status']==0){
       <div class="container_iconos">
         <div role="button" 
         data-bs-toggle="modal" 
-        data-bs-target="#crearGrupoModal" class="opciones_iconos">
+        data-bs-target="#crearGrupoModal" 
+        class="opciones_iconos">
           <i class="bi bi-people-fill"></i>
         </div>
-        <div class="opciones_iconos">
+        <div role="button" 
+        data-bs-toggle="modal" 
+        data-bs-target="#videoLlamadaModal" 
+        class="opciones_iconos">
           <i class="bi bi-telephone-fill"></i>
         </div>
         <div class="opciones_iconos">
@@ -468,7 +622,7 @@ if($not['read_status']==0){
         </div></div>
         
         <div class="iconos_llamadas_chatbox">
-          <i class="bi bi-camera-video"></i>
+          <i role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal" class="bi bi-camera-video"></i>
           <i class="bi bi-telephone"></i>
           <i role="button" id="chatbox_menu_dropdown" class="bi bi-three-dots-vertical"></i>
           <button type="button" class="btn-close cerrar_chatbox_boton" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -780,11 +934,80 @@ decidas desbloquear a este usuario
 
 
 </div>
+</div>
+
+
+<!-- MODAL DE VIDEO LLAMADA -->
+
+
+<div class="modal fade" id="videoLlamadaModal" tabindex="-1" role="dialog" aria-labelledby="videoLlamadaModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header justify-content-end header_video_llamada">
+        <i style="font-size: 28px;" role="button" class="bi bi-box-arrow-in-down-right"></i>
+      </div>
+
+      <div class="modal-body body_video_llamada">
+        
+        <div id="stream-wrapper">
+            <div id="video-streams">
+              <div id="videos">
+                <video class="video-player" id="user-1" autoplay playsinline muted></video>
+                <video class="video-player" id="user-2" autoplay playsinline></video>
+
+              </div>
+            </div>
+            <button id="button_llamada" style="
+                                            width: 58px;
+                                            height: 58px;
+                                            border: none;
+                                            background-color: forestgreen;
+                                            border-radius: 50%;">
+              <i class="bi bi-telephone-plus"></i>
+            </button>
+
+            <div id="controls">
+                <div class="control-container" id="camera-btn"> 
+                  <i class="bi bi-camera-video"></i>
+                </div>
+                
+                <div class="control-container" id="mic-btn"> 
+                  <i class="bi bi-mic"></i>
+                </div>
+
+                <div class="control-container" id="leave-btn"> 
+                  <i class="bi bi-telephone-x"></i>
+                </div>
+            </div>
+        </div>
+
+    
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+  <div style="position: fixed; top:140px;" id="contenedor_de_llamada">
+   
+
+  </div>
+ 
+
 <?php } ?>
+
 
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/js/jquery.timeago.js"></script>
+    
+    
 
     <script src="assets/js/custom.js?v=<?=time()?>"></script>
     
@@ -876,6 +1099,7 @@ $(document).on("click","#cust_btn",function(){
 
 
 
+
 </script>
 <script>
 $(document).on("click", ".close", function() {
@@ -888,6 +1112,8 @@ $(document).on("click", ".close", function() {
 </script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
 </body>
 
 </html>

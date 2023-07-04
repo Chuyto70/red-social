@@ -414,7 +414,7 @@ global $profile;
 
 
     <div style="background-color: #272727 !important; height: 100%;" class="col-3 mt-0 p-3 rounded shadow">
-
+        <input type="text" id="current_user_localStorage"  value="<?= $_SESSION['userdata']['id'] ?>">
         <!-- Fuente iconos https://icons.getbootstrap.com/icons/newspaper/-->
         <!-- <div class="d-flex align-items-center p-2 " >
             <button
