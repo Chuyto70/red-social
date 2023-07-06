@@ -48,24 +48,14 @@ class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0
                 <li class="nav-item">
                   
                     
-                    <?php
-if(getUnreadNotificationsCount()>0){
-    ?>
- <a class="nav-link text-dark position-relative" id="show_not" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample">
-                    <i class="bi bi-bell-fill" style="color: white; font-size: 1.4rem;"></i>
-  <span class="un-count position-absolute start-10 translate-middle badge p-1 rounded-pill bg-danger">
-   <small><?=getUnreadNotificationsCount()?></small>
-  </span>
+
+ <a  class="nav-link text-dark position-relative " id="show_not" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample">
+                   
+
 </a>
 
-    <?php
-}else{
-    ?>
-  <a class="nav-link text-dark" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample"><i class="bi bi-bell-fill" style="color: white; font-size: 1.4rem;"></i></a>
-    <?php
-}
-                    ?>
-                   
+
+      
 
                 </li>
                 <li class="nav-item">

@@ -10,6 +10,24 @@ include("assets/pages/$page.php");
 
 
 
+// EDITAR APODO
+
+function editarApodo($newApodo){
+    global $db;
+    $cu = $_SESSION['userdata']['id'];
+
+    $query = "UPDATE users SET `username`='$newApodo' WHERE id = $cu ";
+
+    $run = mysqli_query($db, $query);
+    if($run){
+        return "Actualizacion exitosa";
+    }else{
+        return "Ocurrio un error";
+    }
+
+
+}
+
 function getUserFriend(){
      global $db;
 
@@ -212,7 +230,7 @@ function like($post_id){
    $poster_id = getPosterId($post_id);
    
    if($poster_id!=$current_user){
-    createNotification($current_user,$poster_id,"liked your post !",$post_id);
+    createNotification($current_user,$poster_id,"le gusto tu publicación!",$post_id);
    }
    
 
@@ -265,7 +283,18 @@ function getNotifications(){
     global $db;
     $query="SELECT * FROM notifications WHERE to_user_id=$cu_user_id ORDER BY id DESC";
     $run = mysqli_query($db,$query);
-    return mysqli_fetch_all($run,true);
+    $result = array();
+    while ($row = mysqli_fetch_assoc($run)) { 
+        $from_user_id = $row['from_user_id'];
+        $user = getUser($from_user_id);
+        $row['user'] = $user;
+         
+        $result[] = $row; 
+    } 
+   
+    $result[] = getUnreadNotificationsCount();
+    return $result;
+
 }
 
 
@@ -310,7 +339,7 @@ function unlike($post_id){
     
     $poster_id = getPosterId($post_id);
     if($poster_id!=$current_user){
-        createNotification($current_user,$poster_id,"unliked your post !",$post_id);
+        createNotification($current_user,$poster_id,"Ya no le gusta tu publicación!",$post_id);
     }
   
     return mysqli_query($db,$query);
@@ -655,7 +684,7 @@ function getUserByUsername($username){
 //for getting posts
 function getPost(){
     global $db;
- $query = "SELECT users.id as uid,posts.id,posts.user_id,posts.post_img,posts.post_text,posts.created_at,users.first_name,users.last_name,users.username,users.profile_pic FROM posts JOIN users ON users.id=posts.user_id ORDER BY id DESC";
+ $query = "SELECT users.id as uid,posts.id,posts.user_id,posts.post_img,posts.post_text,posts.allow_comment,posts.created_at,users.first_name,users.last_name,users.username,users.profile_pic FROM posts JOIN users ON users.id=posts.user_id ORDER BY id DESC";
 
  $run = mysqli_query($db,$query);
  return mysqli_fetch_all($run,true);
@@ -859,15 +888,15 @@ function validatePostImage($image_data){
 function createPost($text,$image){
     global $db;
     $post_text = mysqli_real_escape_string($db,$text['post_text']);
-$user_id = $_SESSION['userdata']['id'];
-
-        $image_name = time().basename($image['name']);
-        $image_dir="../images/posts/$image_name";
-        move_uploaded_file($image['tmp_name'],$image_dir);
+    $user_id = $_SESSION['userdata']['id'];
     
+    $image_name = time().basename($image['name']);
+    $image_dir="../images/posts/$image_name";
+    move_uploaded_file($image['tmp_name'],$image_dir);
+    $allow_comment = $text['allow_comment'];
 
-    $query = "INSERT INTO posts(user_id,post_text,post_img)";
-    $query.="VALUES ($user_id,'$post_text','$image_name')"; 
+    $query = "INSERT INTO posts(user_id,post_text,post_img,allow_comment)";
+    $query.="VALUES ($user_id,'$post_text','$image_name','$allow_comment')"; 
     return mysqli_query($db,$query);
    }
 

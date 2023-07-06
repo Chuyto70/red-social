@@ -372,7 +372,7 @@ var chatting_user_id = 0;
 $(".chatlist_item").click();
 
 function popchat(user_id) {
-
+    $('#buscador_de_chat').val("")
     localStorage.setItem('user_id_to_call', JSON.stringify(user_id))
     $("#user_chat").html(`<div class="spinner-border text-center" role="status">
 
@@ -437,8 +437,10 @@ function synmsg() {
         dataType: 'json',
         data: { chatter_id: chatting_user_id },
         success: function (response) {
-            
-            $("#chatlist").html(response.chatlist);
+
+            let inputValorBuscarChat = $('#buscador_de_chat').val()
+            if(inputValorBuscarChat.length === 0){
+                 $("#chatlist").html(response.chatlist);
             if (response.newmsgcount == 0) {
                 $("#msgcounter").hide();
             } else {
@@ -457,7 +459,10 @@ function synmsg() {
             }
 
             if (chatting_user_id != 0) {
-                console.log(response)
+
+                document.getElementById('imagen_perfil_te_llaman').src = `assets/images/profile/${response.chat.userdata.profile_pic}`
+                document.getElementById('nombre_perfil_te_llaman').textContent = `${response.chat.userdata.first_name} ${response.chat.userdata.last_name}`
+
                 let userchat = $("#user_chat")
                 let userChat = document.getElementById('user_chat')
                 let scroll_pos = userchat.scrollTop()
@@ -508,6 +513,9 @@ function synmsg() {
                     }
                 })
             }
+            }
+            
+           
             
 
 
@@ -535,7 +543,7 @@ function synmsg() {
                         let usuario = JSON.parse(response2)
                         
                         if(usuario){
-                            console.log('AQUI ENTRO EN EL IF DEL USUARIO')
+                           
                             htmlLlamadas = `
                          <div style="position: absolute;
                   transform: translate(calc(50% - 90px), -35px );
@@ -600,12 +608,67 @@ function synmsg() {
             
                 
             }else{
-                console.log('NO HAY LLAMADAS')
+                
                 $('#contenedor_de_llamada').html('')
             }
              
             
          
+        }
+    })
+
+    $.ajax({
+        url:'assets/php/ajax.php?getNotifications',
+        method:'GET',
+        success: function(notificaciones){
+            
+            let notificacionesJSON = JSON.parse(notificaciones)
+            let notificacionesCount = notificacionesJSON.pop()
+    
+            let htmlNotifications = ``
+            for (let not of notificacionesJSON) { // Iterar sobre las notificaciones
+            let time = new Date(not['created_at']) ;
+            let transcurridoTime = tiempo_transcurrido(time)
+
+            let fuser = not['user'];
+            let post = '';
+            if (not['post_id']) {
+            post = 'data-bs-toggle="modal" data-bs-target="#postview' + not['post_id'] + '"';
+            }
+            let fbtn = '';
+            htmlNotifications += `<div class="d-flex justify-content-between border-bottom"> 
+                        <div class="d-flex align-items-center p-2"> 
+                            <div>
+                            <img src="assets/images/profile/${fuser['profile_pic']}" alt="" height="40" width="40" class="rounded-circle border"> 
+                            </div> <div>&nbsp;&nbsp;
+                        </div> <div class="d-flex flex-column justify-content-center" ${post}> 
+                            <a href='?u=${fuser['username']}' class="text-decoration-none text-dark">
+                            <h6 style="margin: 0px;font-size: small;">${fuser['first_name']} ${fuser['last_name']}</h6>
+                            </a> 
+                            <p style="margin:0px;font-size:small" class="${not['read_status'] ? 'text-muted' : ''}">@${fuser['username']} ${not['message']}</p> 
+                            <span style="font-size:small" class="timeago ${not['read_status'] ? 'text-muted' : ''} text-small" datetime="${transcurridoTime}">${transcurridoTime}</span> 
+                            </div> 
+                            </div> 
+                            <div class="d-flex align-items-center"> ${not['read_status'] == 0 ? '<div class="p-1 bg-primary rounded-circle"></div>' : ''} ${not['read_status'] == 2 ? '<span class="badge bg-danger">Post Deleted</span>' : ''} 
+                            </div>
+                            </div>`;
+}
+
+let icono_notificacionesHTML = ``;
+if(Number(notificacionesCount) > 0 ){
+    icono_notificacionesHTML = `
+     <i class="bi bi-bell-fill" style="color: white; font-size: 1.4rem;"></i>
+<span class="un-count position-absolute start-10 translate-middle badge p-1 rounded-pill bg-danger">
+   <small>${notificacionesCount}</small>
+</span>
+`
+}else{
+    icono_notificacionesHTML = `
+    <i class="bi bi-bell-fill" style="color: white; font-size: 1.4rem;"></i>`
+}
+
+$('#show_not').html(icono_notificacionesHTML)
+$("#contenedor_de_notificaciones").html(htmlNotifications);
         }
     })
 }
@@ -615,7 +678,7 @@ synmsg();
 setInterval(() => {
     synmsg();
 
-}, 5000);
+}, 1000);
 
 var valorAModificar = document.querySelectorAll('#valorAModificar')
 var modificarPerfil = document.querySelector("#modificarPerfil");
@@ -887,7 +950,9 @@ const servers = {
     ]
 }
 let init = async(nombreCanal = null) =>{
-    document.getElementById('button_llamada').disabled = true
+    document.getElementById('button_llamada').style.display = 'none'
+    document.getElementById('usuario_a_llamar_info').style.display = 'none'
+    document.getElementById('videos').style.transform = 'scale(1)'
     if(typeof nombreCanal ==="object"){
         $.ajax({
                url:"assets/php/ajax.php?insertingCalls",
@@ -1138,7 +1203,33 @@ if(buttonContestar){
 }
 
 
-
+function tiempo_transcurrido(date) {
+var seconds = Math.floor((new Date() - date) / 1000); // Calcular la diferencia en segundos
+var interval = seconds / 31536000; // Calcular el intervalo en años
+if (interval > 1) { // Si el intervalo es mayor que 1, devolver el número de años
+return Math.floor(interval) + " año" + (Math.floor(interval) != 1 ? "s" : "") + " atrás";
+}
+interval = seconds / 2592000; // Calcular el intervalo en meses
+if (interval > 1) { // Si el intervalo es mayor que 1, devolver el número de meses
+return Math.floor(interval) + " mes" + (Math.floor(interval) != 1 ? "es" : "") + " atrás";
+}
+interval = seconds / 86400; // Calcular el intervalo en días
+if (interval > 1) { // Si el intervalo es mayor que 1, devolver el número de días
+return Math.floor(interval) + " día" + (Math.floor(interval) != 1 ? "s" : "") + " atrás";
+}
+interval = seconds / 3600; // Calcular el intervalo en horas
+if (interval > 1) { // Si el intervalo es mayor que 1, devolver el número de horas
+return Math.floor(interval) + " hora" + (Math.floor(interval) != 1 ? "s" : "") + " atrás";
+}
+interval = seconds / 60; // Calcular el intervalo en minutos
+if (interval > 1) { // Si el intervalo es mayor que 1, devolver el número de minutos
+return Math.floor(interval) + " minuto" + (Math.floor(interval) != 1 ? "s" : "") + " atrás";
+}
+if (seconds >= 1) { // Si la diferencia es mayor o igual que un segundo, devolver el número de segundos
+return Math.floor(seconds) + " segundo" + (Math.floor(seconds) != 1 ? "s" : "") + " atrás";
+}
+return "hace un momento"; // Si la diferencia es menor que un segundo, devolver una cadena genérica
+}
 
 
 // document.getElementById('join-btn').addEventListener('click', joinStream)

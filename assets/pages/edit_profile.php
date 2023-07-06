@@ -442,7 +442,7 @@ class="container col-4 rounded-0 d-flex justify-content-between align-items-cent
             <div 
                 style="width:120px; height:120px; top: calc(-45px);  left: calc(50% - 60px);"
                 class="rounded-circle overflow-hidden position-absolute">
-    <img src="assets/images/profile/<?=$user['profile_pic']?>" class="img-thumbnail   " style="height:120px; object-fit: cover; " alt="...">
+    <img  src="assets/images/profile/<?=$user['profile_pic']?>" class="img-thumbnail   " style="height:100%; width: 100%; object-fit: cover; " alt="...">
     
 
   </div>

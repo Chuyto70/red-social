@@ -219,6 +219,7 @@ if(isset($_GET['addpost'])){
    $response = validatePostImage($_FILES['post_img']);
 
    if($response['status']){
+    print_r($_POST);
 if(createPost($_POST,$_FILES['post_img'])){
     header("location:../../?");
 }else{

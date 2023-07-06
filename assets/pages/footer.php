@@ -298,7 +298,8 @@ background-color: white;
             display: grid;
             /* grid-template-columns: 1fr 1fr; */
             gap: 2em;
-        }
+            transition: all 1s ease-in-out;
+}
         .video-player{
             background-color: black;
             width: 100%;
@@ -324,7 +325,7 @@ transform: scaleX(-1); /* Invertir horizontalmente */
 }
 #video-streams{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            /* grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); */
             height: 500px;
             width: 100%;
             margin: 0 auto;
@@ -366,7 +367,7 @@ transform: scaleX(-1); /* Invertir horizontalmente */
         @media screen and (max-width: 1400px){
             #video-streams{
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                width: 95%;
+                width: 100%;
             }
         }
 
@@ -443,6 +444,19 @@ overflow-y: scroll !important;
 #bodyApp{
   overflow-y: auto !important;
 }
+#buscador_de_chat{
+    /* display: none; */
+    border: none;
+    outline: none;
+    background-color: #6683bc;
+    border-radius: 8px;
+    margin-right: 11px;
+    position: relative;
+    color: white;
+    padding: 2px 6px;
+    transition: all 0.5s ease-in-out; 
+    
+}
 </style>
 <?php if(isset($_SESSION['Auth'])){ ?>
 
@@ -482,49 +496,8 @@ overflow-y: scroll !important;
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Notifications</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body">
-  <?php
-  $notifications = getNotifications();
-foreach($notifications as $not){
-    $time = $not['created_at'];
-    $fuser = getUser($not['from_user_id']);
-    $post='';
-    if($not['post_id']){
-        $post='data-bs-toggle="modal" data-bs-target="#postview'.$not['post_id'].'"';
-    }
-    $fbtn='';
-    ?>
-<div class="d-flex justify-content-between border-bottom">
-                    <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profile/<?=$fuser['profile_pic']?>" alt="" height="40" width="40" class="rounded-circle border">
-                        </div>
-                        <div>&nbsp;&nbsp;</div>
-                        <div class="d-flex flex-column justify-content-center" <?=$post?>>
-                            <a href='?u=<?=$fuser['username']?>' class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;"><?=$fuser['first_name']?> <?=$fuser['last_name']?></h6></a>
-                            <p style="margin:0px;font-size:small" class="<?=$not['read_status']?'text-muted':''?>">@<?=$fuser['username']?> <?=$not['message']?></p>
-                            <time style="font-size:small" class="timeago <?=$not['read_status']?'text-muted':''?> text-small" datetime="<?=$time?>"></time>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <?php
-if($not['read_status']==0){
-    ?>
-                      <div class="p-1 bg-primary rounded-circle"></div>
-
-    <?php
-
-}else if($not['read_status']==2){
-?>
-<span class="badge bg-danger">Post Deleted</span>
-<?php
-}
-                        ?>
-
-                    </div>
-                </div>
-    <?php
-}
-                ?>
+  <div class="offcanvas-body" id="contenedor_de_notificaciones">
+  
     
   </div>
 </div>
@@ -554,12 +527,14 @@ if($not['read_status']==0){
     display: flex;
     padding: 12px 18px;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 8px;
     color: white;">
     
         <strong>THENAVHER</strong>
         <div>
-          <i class="bi bi-search iconos_thenavher"></i>
+          <input type="text" id="buscador_de_chat" class="fade-in-right" style="transform: scale(0);">
+          <i role="button" id="mostrar_buscador" class="bi bi-search iconos_thenavher"></i>
           <i id="menu_perfil_messages" class="bi bi-three-dots-vertical iconos_thenavher" role="button"></i>
         </div>
         
@@ -570,7 +545,8 @@ if($not['read_status']==0){
         <strong> <?php echo $currentUser['first_name'] . " " . $currentUser['last_name'];?> </strong>
         <div>
            <span> <?= $currentUser['username'] ?> </span>
-           <i class="bi bi-pencil-fill"></i>
+           <i role="button" id="editar_apodo" class="bi bi-pencil-fill"></i>
+           <input id="input_editar_apodo" name="username_edit_input" type="text" value="<?= $currentUser['username'] ?>" style="display: none;">
         </div>
        
       </div>
@@ -581,9 +557,7 @@ if($not['read_status']==0){
         class="opciones_iconos">
           <i class="bi bi-people-fill"></i>
         </div>
-        <div role="button" 
-        data-bs-toggle="modal" 
-        data-bs-target="#videoLlamadaModal" 
+        <div 
         class="opciones_iconos">
           <i class="bi bi-telephone-fill"></i>
         </div>
@@ -946,31 +920,60 @@ decidas desbloquear a este usuario
 
 
 <div class="modal fade" id="videoLlamadaModal" tabindex="-1" role="dialog" aria-labelledby="videoLlamadaModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div style="max-width: 700px; max-height:450px;" class="modal-dialog" role="document">
+
+    <div style="height: 450px;" class="modal-content">
 
       <div id="boton_abrir_minimodal" role="button" data-bs-target="#miniLlamada" data-bs-toggle="modal" class="modal-header justify-content-end header_video_llamada" data-backdrop="false" data-bs-keyboard="false">
         <i style="font-size: 28px; color: white;" role="button" class="bi bi-box-arrow-in-down-right"></i>
       </div>
 
-      <div class="modal-body body_video_llamada">
+      <div style="height: 100%;" class="modal-body body_video_llamada">
         
-        <div id="stream-wrapper">
-            <div id="video-streams">
-              <div id="videos">
+        <div style="height: 100%;" id="stream-wrapper">
+            <div style="height: 100%; overflow: hidden;" id="video-streams">
+           
+              <div id="usuario_a_llamar_info" 
+                    style="color: white;
+                          position: absolute;
+                          display: flex;
+                          flex-direction: column;
+                          align-items: center;
+                          gap: 12px;
+                          font-size: 16px;
+                          left: calc(50% - 75px);">
+                <img id="imagen_perfil_te_llaman"
+                style="width: 150px;
+                       height: 150px;
+                       border-radius: 50%;
+                       padding: 12px;
+                       background: white;" 
+                 src="" alt="">
+                
+                <p id="nombre_perfil_te_llaman"></p>
+              </div>
+
+              <div id="videos" style="transform: scale(0);">
+
                 <video class="video-player" id="user-1" autoplay playsinline muted></video>
                 <video class="video-player" id="user-2" autoplay playsinline></video>
 
               </div>
-            </div>
-            <button id="button_llamada" style="
+             <button id="button_llamada" style="
+                                            position: absolute;
                                             width: 58px;
                                             height: 58px;
                                             border: none;
                                             background-color: forestgreen;
-                                            border-radius: 50%;">
+                                            border-radius: 50%;
+                                            bottom: 20px;
+                                            left: 172px;
+                                            color: white;
+                                            font-size: 28px;">
               <i class="bi bi-telephone-plus"></i>
             </button>
+            </div>
+           
 
             <div id="controls">
                 <div class="control-container" id="camera-btn"> 
@@ -998,7 +1001,7 @@ decidas desbloquear a este usuario
 </div>
 
 
-
+          <!-- BOX DE RECIBIENDO LLAMADA -->
   <div style="position: fixed; top:140px;" id="contenedor_de_llamada">
   </div>
  
@@ -1013,7 +1016,7 @@ decidas desbloquear a este usuario
                                       cursor: grab;
                                       padding: 6px;">
      
-      <div class="modal-body">
+      <div style="height: 100%;" class="modal-body">
         <div style="position: absolute; top: 0; color: grey;top: -7px;left: -4px;
 " role="button" data-bs-target="#videoLlamadaModal" data-bs-toggle="modal">
           <i class="bi bi-box-arrow-up-left"></i>
@@ -1137,7 +1140,7 @@ $(document).on("click","#cust_btn",function(){
 
 let miniboton = document.getElementById('boton_abrir_minimodal')
 let modal_mini_llamada = document.getElementById("miniLlamada")
-console.log(modal_mini_llamada)
+
 let modalMini = new bootstrap.Modal(modal_mini_llamada, {
 backdrop: false, // Pasar la opción backdrop como false
 keyboard: false // Pasar la opción keyboard como false
@@ -1181,8 +1184,67 @@ contenedor.style.left = x + "px";
 contenedor.style.top = y + "px";
 }
 
+let mostrar_buscador = document.getElementById('mostrar_buscador')
+let buscador_de_chat = document.getElementById('buscador_de_chat')
+
+let mostrarBuscador = () =>{
+  if(buscador_de_chat.style.transform == 'scale(0)'){
+    buscador_de_chat.style.transform ='scale(1)';
+  }else{
+    buscador_de_chat.style.transform ='scale(0)';
+  }
+  
+}
+
+let buscandoChat = () => {
+  let inputValue = $('#buscador_de_chat').val();
+  
+  let chatlist = document.getElementById("chatlist")
+  let hijos = chatlist.children;  
+
+  for (var i = 0; i < hijos.length; i++) {
+        var h6 = hijos[i].querySelector("h6"); // Obtener el elemento h6 dentro del hijo
+        var nombre = h6.textContent; // Obtener el texto del elemento h6
+          console.log(nombre.toLowerCase().includes(inputValue.toLowerCase()))
+        if (nombre.toLowerCase().includes(inputValue.toLowerCase())) { // Si el nombre contiene el valor del input
+        hijos[i].style = `display:flex !important;`; // Mostrar el hijo
+        } else { // Si no
+        hijos[i].style = `display:none !important;`; // Ocultar el hijo
+        }
+        }
+}
 
 
+
+mostrar_buscador.addEventListener('click', mostrarBuscador)
+buscador_de_chat.addEventListener('change', buscandoChat)
+
+let editar_apodo =document.getElementById('editar_apodo')
+let input_editar_apodo =document.getElementById('input_editar_apodo')
+
+let mostrarInputApodo = () =>{
+  if(input_editar_apodo.style.display = "none"){
+    input_editar_apodo.style.display = "inline-block"
+  }else{
+    input_editar_apodo.style.display = "none"
+  }
+}
+
+let editarApodo = (e) =>{
+  $.ajax({
+        url: 'assets/php/ajax.php?editarApodo',
+        method: 'post',
+        data: { newApodo: e.target.value },
+        success: function (apodo) {
+            // console.log(response);
+           alert('Recarga la pagina para reflejar los cambios')
+        }
+    });
+}
+
+editar_apodo.addEventListener('click', mostrarInputApodo)
+
+input_editar_apodo.addEventListener('change', editarApodo)
 </script>
 <script>
 $(document).on("click", ".close", function() {

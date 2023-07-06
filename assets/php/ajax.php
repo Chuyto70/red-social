@@ -7,12 +7,20 @@ require_once 'functions.php';
 
 
   
+
+if(isset($_GET['editarApodo'])){
+    $nuevo_apodo =  editarApodo($_POST['newApodo']);
+
+    echo json_encode($nuevo_apodo);
+}
+
 if(isset($_GET['progressCall'])){
     $actualizarEstadoLlamada = progressCall($_POST['channel_name']);
     echo "Actualizado estado llamada: ".$actualizarEstadoLlamada;
 }
 if(isset($_GET['getUserCalling'])){
    $userCalling =  getUser($_POST['userCalling']);
+   $cudata = $_SESSION['userdata'];
     echo json_encode($userCalling);
 }
 
@@ -21,7 +29,11 @@ if(isset($_GET['insertingCalls'])){
     insertingCalls($_POST['user_called'], $_POST['channelName']);
     
 }
+if(isset($_GET['getNotifications'])){
+    $response = getNotifications();
 
+    echo json_encode($response);
+}
 if(isset($_GET['getllamadas'])){
     $response = getllamadas();
 
@@ -397,7 +409,7 @@ $users="";
         
        $users.=' <div class="d-flex justify-content-between">
                             <div class="d-flex align-items-center p-2">
-                                <div><img src="assets/images/profile/'.$fuser['profile_pic'].'" alt="" height="40" class="rounded-circle border">
+                                <div><img height="40px" width="40px" src="assets/images/profile/'.$fuser['profile_pic'].'" alt="" height="40" class="rounded-circle border">
                                 </div>
                                 <div>&nbsp;&nbsp;</div>
                                 <div class="d-flex flex-column justify-content-center">

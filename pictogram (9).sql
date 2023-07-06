@@ -264,6 +264,7 @@ CREATE TABLE `posts` (
   `user_id` int(11) NOT NULL,
   `post_img` text NOT NULL,
   `post_text` text NOT NULL,
+  `allow_comment` BOOLEAN DEFAULT true,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

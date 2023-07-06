@@ -10,10 +10,10 @@
   }
 
 
-  #miModal{
+   #miModal{
     display: none;
     position: fixed;
-    z-index:110;
+    z-index:1;
     overflow: auto;
     left: 0;
     top:0;
@@ -48,10 +48,12 @@
     position: relative;
 }
 .public-emer-container{
+    position: relative;
     background-color:#404040;
-    padding: 50px 30px;
-    max-width: 800px;
+    padding:30px;
+    max-width: 600px;
     width: 100vw;
+    max-height: 700px;
     border-radius: 10px;
     -webkit-border-radius: 20px;
     -ms-border-radius:10px;
@@ -61,6 +63,9 @@
     color: #f2f2f2;
     font-size:30px;
     font-weight: bold;
+    position: absolute;
+    right: 25px;
+    top: 0px;
   }
   #close:hover{
     color:#7f8c8d;
@@ -97,13 +102,13 @@
 
 .public-area{
     position: relative;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     scrollbar-width: none;
 }
 .placeholder{
     position: absolute;
-    top: -0.2rem;
-    font-size: 130%;
+    
+    font-size: 100%;
     color: rgb(165, 165, 165);
     pointer-events: none;
     background-color: transparent;
@@ -111,8 +116,9 @@
 .input-editable{
     outline: none;
     color: rgb(255, 255, 255);
-    font-size: 100%;
-    height: 10vh;
+    margin-bottom: 30px;
+    height: 45px;
+    overflow-y: auto;
 }
 
 .emergente-yr12{
@@ -123,14 +129,15 @@
 }
 .wrapper-s12{
     background: #404040;
-    padding: 30px;
-    width: 500px;
+    padding: 8px 30px;
+    padding-top: 40px;
+    width: 420px;
     border-radius: 5px;
 }
 .wrapper-s12 form {
-    height: 167px;
+    height: 140px;
     display: flex;
-    margin: 30px 0;
+    margin:0;
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -198,8 +205,8 @@
   }
 
   .privacy{
-    margin-top: 20px;
-    font-size: 90%;
+        margin-top: 8px;
+    font-size: 14px;
     transition: 0.5s;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -208,18 +215,24 @@
     padding: 5px 10px;
     width: 50%;
     cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 .footer-box{
+    position: relative;
     border-top: 1px solid #737476;
     margin: 20px 5px;
+    padding-top: 24px;
 }
 .footer-icons{
     display: flex;
     list-style: none;
+    margin: 0;
 }
 
 .footer-icons li{
-    margin: 20px 5px;
+    margin:5px;
     position: relative;
     right: 8px;
     font-size: 100%;
@@ -261,8 +274,10 @@
 }
 
 .puclic-limits .counter-limit{
+    display: inline-block;
     border-right: 1px solid rgb(255, 255, 255);
     padding: 0 18px;
+    
     margin: 0 15px;
     font-size: 100%;
     color: #ffffff;
@@ -273,11 +288,11 @@
     color: #ffffff;
   }
   .form_modal i{
-    font-size: 50px;
+    font-size: 40px;
   }
   .form_modal p{
     margin-top: 15px;
-    font-size: 16px;
+    font-size: 14px;
   }
   .form_modal i {
     font-size: 50px;
@@ -1113,6 +1128,58 @@
     font-size: 13px;
   }
 
+  .toggle {
+position: relative;
+display: inline-block;
+width: 45px;
+height: 20px;
+}
+
+.toggle input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 8px;
+}
+
+.slider:before {
+position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
 
   /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -1535,7 +1602,7 @@ if(!checkBS($profile['id'])){
                 padding: 4px 14px;
                 border-radius: 8px;" for="frontpage_pic">Cambiar portada </label>
             <input type="file" hidden name="frontpage_pic" id="frontpage_pic">
-            <button type="submit"><i class="fas fa-wrench"></i></button> 
+            <button style="display: none;" id="cambiar_portada" type="submit"><i class="fas fa-wrench"></i></button> 
           </form>
 
           <?php }?>
@@ -1632,15 +1699,16 @@ if(!checkBS($profile['id'])){
               <textarea 
               name="post_text"
               id="post_textarea"
-              rows="3" placeholder="Cuentanos Tu Vida!"></textarea>
+              rows="2" placeholder="Cuentanos Tu Vida!"></textarea>
 
-              <div class="add-post-links">
+              <button style="width: 100%;" id="boton_de_wall_publicar" class="public-btn ">Publicar</button>
+              <!-- <div class="add-post-links">
                 <a href="#"><img src="assets/images/home/compartir.png" alt="">Informar</a>
-              </div>
+              </div> -->
 
-              <div class="add-post-links">
+              <!-- <div class="add-post-links">
                 <a href="#"><img src="assets/images/home/compartir.png" alt="" />Pasear</a>
-              </div>
+              </div> -->
             </form>
 
           </div>
@@ -1863,6 +1931,13 @@ if(!checkBS($profile['id'])){
                 <div style="height:0; max-height:100%; overflow-y: scroll; ">
                 </div>
                 <?php } ?>
+
+                 <?php  
+               
+                    if($post['allow_comment']){
+
+                    
+                ?>
                 
                 <div class="input-group p-2 gap-2 align-items-center">
 
@@ -1889,6 +1964,8 @@ if(!checkBS($profile['id'])){
                             background-color: #515151;" 
                     class="btn btn-outline-primary rounded-0 border-0 add-comment" data-page='wall' data-cs="comment-section<?= $post['id'] ?>" data-post-id="<?= $post['id'] ?>" type="button" id="button-addon2"><i class="bi bi-send-fill text-light"></i></button>
                 </div>
+
+                <?php } ?>
             </div>
           <?php
           }
@@ -1959,11 +2036,11 @@ if(!checkBS($profile['id'])){
   </div>
 
   <div id="miModal" class="modal">
-            <div class="flex" id="flex">
+             <div class="flex" id="flex">
                 <div class="contenido-modal">
                     
                     <div class="emergente-containercom">
-                        <div class="public-emer-container">
+                        <div style="margin-top: 70px;" class="public-emer-container">
                             <span class="close" id="close">&times;</span>
 
 
@@ -1981,8 +2058,18 @@ if(!checkBS($profile['id'])){
 
 
                             <div class="public-area">
-                                
-                                <span class="placeholder">Cuentanos tu dia </span>
+                                 <div class="user-profile mb-2   ">
+              <img style="background-size: cover;" height="45px" src="assets/images/profile/<?= $user['profile_pic'] ?>" alt="perfil" />
+
+              <div>
+                <a href="?u=<?= $user['username'] ?>" 
+                style="font-weight: 500;"
+                class="d-block text-decoration-none text-white "
+                ><?= $user['first_name'] ?> <?= $user['last_name'] ?></a>
+                <small style="opacity: .5;" >CEO <i class="bi bi-caret-down-fill"></i></small>
+              </div>
+            </div>
+                                <span class="placeholder">Cuentanos tu dia <?= $user['first_name'] ?> </span>
                                 <div class="input-editable" contenteditable="true"></div>            
                             </div>
                 
@@ -1990,6 +2077,7 @@ if(!checkBS($profile['id'])){
                     <div class="emergente-yr12">
                 
                     <div class="wrapper-s12">
+                        
                         <form class="form-file form_modal" id="posteo_imagen"  method="post"  enctype="multipart/form-data"
                         action="assets/php/actions.php?addpost" >
                         <input type="text" name="post_text" id="post_textarea" hidden />
@@ -2007,26 +2095,54 @@ if(!checkBS($profile['id'])){
                 
                 <div class="privacy">
                     <i class="fas fa-globe-asia"></i>
-                    <span>Every can reply</span>
+                    <span>Todos pueden comentar</span>
+                    <label class="toggle">
+                        <input checked type="checkbox" id="toggle-input" name="allow_comment" form="posteo_imagen" value="1">
+                        <span class="slider"></span>
+                    </label>
                 </div>
                 <div class="footer-box">
-                    <ul class="footer-icons">
+                    <!-- <ul class="footer-icons">
                         <li><i class="far fa-file-image"></i></li>
                         <li><i class="fas fa-map-marker-alt"></i></li>
                         <li><i class="far fa-grin"></i></li>
                         <li><i class="far fa-calendar"></i></li>
                         <li><i class="fas fa-user"></i></li>
-                    </ul>
+                    </ul> -->
+                   
+                    <span style="padding-top: 10px ;" class="counter-limit">400</span>
+                    <button style="position: absolute; right: 0; bottom: -10px;" type="submit" form="posteo_imagen" class="public-btn ">Publicar</button>
+                
                 </div>
-                <div class="puclic-limits">
-                    <span class="counter-limit">400</span>
-                    <button type="submit" form="posteo_imagen" class="public-btn ">Publicar</button>
-                </div>
+               
                 </div>
                 <script src="https://kit.fontawesome.com/c4254e24a8.js"></script>
          
                 </div>
                 </div>
-                </div>
-                </div>
                 
+       
+                         <!-------- modal ------->
+
+
+        </div>
+                </div>
+<script> 
+let frontpage_pic =document.getElementById('frontpage_pic')
+let cambiar_portada =document.getElementById('cambiar_portada')
+
+frontpage_pic.addEventListener('change', ()=>{
+  cambiar_portada.style.display = "inline-block"
+})
+
+let boton_de_wall_publicar = document.getElementById('boton_de_wall_publicar')
+
+boton_de_wall_publicar.addEventListener('click', (e)=>{
+    e.preventDefault()
+    let textarea = document.getElementById("post_textarea");
+
+    textarea.click()
+
+})
+
+</script>
