@@ -118,10 +118,43 @@ function getActiveChatUserIds(){
     return $ids;
 }
 
+function getActiveChatGroupsIds(){
+    global $db;
+    $current_user_id = $_SESSION['userdata']['id'];
+
+    $query = "SELECT ug.id_usuario, ug.id_grupo,g.user_admin_id,g.nombre_grupo,g.grupos_pic 
+               FROM users_grupos ug
+               INNER JOIN grupos g 
+               ON ug.id_grupo = g.id_grupo
+               WHERE ug.id_usuario =$current_user_id
+               UNION 
+               SELECT g.user_admin_id, g.id_grupo,g.user_admin_id,g.nombre_grupo,g.grupos_pic 
+               FROM grupos g
+               WHERE g.user_admin_id = $current_user_id";
+    $run = mysqli_query($db,$query);
+    $data =  mysqli_fetch_all($run,true);
+    
+    return $data;
+}
+
+function getGrupo($grupo_id){
+    global $db;
+
+    $query = "SELECT * FROM grupos WHERE id_grupo = $grupo_id";
+    $run = mysqli_query($db,$query);
+    return  mysqli_fetch_all($run,true);
+}
 function getMessages($user_id){
     global $db;
     $current_user_id = $_SESSION['userdata']['id'];
     $query = "SELECT * FROM messages WHERE (to_user_id=$current_user_id && from_user_id=$user_id) || (from_user_id=$current_user_id && to_user_id=$user_id) ORDER BY id DESC";
+    $run = mysqli_query($db,$query);
+    return  mysqli_fetch_all($run,true);
+}
+function getMessagesGrupos($grupo_id){
+    global $db;
+    $current_user_id = $_SESSION['userdata']['id'];
+    $query = "SELECT * FROM gruposmessage WHERE id_grupo = $grupo_id ORDER BY created_at DESC";
     $run = mysqli_query($db,$query);
     return  mysqli_fetch_all($run,true);
 }
@@ -132,6 +165,13 @@ function sendMessage($user_id,$msg){
     $query = "INSERT INTO messages (from_user_id,to_user_id,msg) VALUES($current_user_id,$user_id,'$msg')";
     return mysqli_query($db,$query);
 
+}
+function sendMessageGrupo($grupo_id, $msg){
+    global $db;
+
+    $current_user_id = $_SESSION['userdata']['id'];
+    $query = "INSERT INTO gruposmessage (id_usuario,id_grupo,mensaje) VALUES($current_user_id,$grupo_id,'$msg')";
+    return mysqli_query($db,$query);
 }
 
 function newMsgCount(){
@@ -161,6 +201,14 @@ function getAllMessages(){
         $conversation[$index]['messages'] = getMessages($id);
     }
     return $conversation;
+}
+
+function getAllMessageGroup(){
+    $gruposActivos = getActiveChatGroupsIds();
+
+
+    return $gruposActivos;
+
 }
 
 //function for follow the user
@@ -676,8 +724,6 @@ function getUserByUsername($username){
  $query = "SELECT * FROM users WHERE username='$username'";
  $run = mysqli_query($db,$query);
  return mysqli_fetch_assoc($run);
-
-
 
 }
 

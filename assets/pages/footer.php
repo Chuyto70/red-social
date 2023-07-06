@@ -9,8 +9,8 @@
     color: white;
     right: -124px;
     top: 0px;
-    opacity: 0;
-
+    
+    transition: all 500ms ease-in-out;
   }
   .opaciti1{
     opacity: 1;
@@ -193,6 +193,7 @@
 }
 input[type=radio]{
   width: 34px;
+  height: 34px;
 }
 .header_color_grupo{
   background-color: #e7e6e6;
@@ -518,9 +519,9 @@ overflow-y: scroll !important;
   </div>
 
    <div class="perfil_container_messages mb-2">
-    <div class="menu_perfil_message">
+    <div style="transform: scale(0);" class="menu_perfil_message">
       <p role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Crear grupo</p>
-      <p>Notificaciones</p>
+      <p role="button" data-bs-toggle="offcanvas" data-bs-target="#notification_sidebar">Notificaciones</p>
       <p>Cambiar tema</p>
     </div>
     <div style="background-color: rgb(31 55 101);
@@ -601,7 +602,7 @@ overflow-y: scroll !important;
         </div></div>
         
         <div class="iconos_llamadas_chatbox">
-          <i role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal" class="bi bi-camera-video"></i>
+          <i id="boton_camara_chatbox" role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal" class="bi bi-camera-video"></i>
           <i class="bi bi-telephone"></i>
           <i role="button" id="chatbox_menu_dropdown" class="bi bi-three-dots-vertical"></i>
           <button type="button" class="btn-close cerrar_chatbox_boton" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1115,10 +1116,10 @@ menuChatBoxDropdow.addEventListener('click', ()=>{
 })
 
 menuMessagesa.addEventListener('click', ()=>{
-  if(menuMessageContainer.style.opacity == 0){
-    menuMessageContainer.style.opacity = 1
+  if(menuMessageContainer.style.transform == 'scale(0)'){
+    menuMessageContainer.style.transform = 'scale(1)'
   }else{
-    menuMessageContainer.style.opacity=0;
+    menuMessageContainer.style.transform = 'scale(0)'
   }
 })
 

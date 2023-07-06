@@ -335,6 +335,18 @@ INSERT INTO grupos (id_grupo, nombre_grupo) VALUES (0, 'Sin grupo');
 ALTER TABLE `grupos` ADD `user_admin_id` INT NULL DEFAULT NULL AFTER `id_grupo`;
 
 
+CREATE TABLE gruposMessage (
+  id_usuario int(11) NOT NULL,
+  id_grupo int(11) NOT NULL,
+  mensaje varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (id_usuario) REFERENCES users(id),
+  FOREIGN KEY (id_grupo) REFERENCES grupos(id_grupo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
 CREATE TABLE llamadas (
 id_user_calling INT NOT NULL,
 id_user_called INT NOT NULL,

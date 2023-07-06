@@ -59,7 +59,7 @@ if (isset($_GET['crearGrupo'])) {
         $image_dir="../images/imagesGrupos/$image_name";
         move_uploaded_file($imagenGrupo['tmp_name'],$image_dir);
 
-        $group_id=crearGrupo($user_admin, $nombre_grupo, $imagenGrupoName);
+        $group_id=crearGrupo($user_admin, $nombre_grupo, $image_name);
         
         foreach ($_POST['user_ids'] as $value) {
             
@@ -100,6 +100,17 @@ if(isset($_GET['sendmessage'])){
     echo json_encode($response);
 }
 
+if(isset($_GET['sendmessageGrupo'])){
+    if(sendMessageGrupo($_POST['grupo_id'],$_POST['msg'])){
+        $response['status']=true;
+    }else{
+        $response['status']=false;
+
+    }
+
+    echo json_encode($response);
+}
+
 
 
 //BLOQUEAR USUARIO
@@ -119,9 +130,34 @@ if(isset($_GET['blockUser'])){
 //TODOS LOS MENSAJES DEL CHATLIST ESTAN AQUI
 if(isset($_GET['getmessages'])){
 $chats = getAllMessages();
+
+$gruposActivos = getAllMessageGroup();
+
 $chatlist="";
 // echo "<pre>";
 // print_r($chats);
+foreach($gruposActivos as $grupo ){
+    $seen=false;
+   $chatlist.='  
+    <div class="d-flex justify-content-between border-bottom chatlist_item" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popGrupochat('.$grupo['id_grupo'].')" >
+                        <div class="d-flex align-items-center p-2">
+                            <div><img src="assets/images/imagesGrupos/'.$grupo['grupos_pic'].'" alt="" height="40" width="40" class="rounded-circle border">
+                            </div>
+                            <div>&nbsp;&nbsp;</div>
+                            <div class="d-flex flex-column justify-content-center" >
+                                <a href="#" class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;">'.$grupo['nombre_grupo'].'</h6></a>
+                                 
+                                
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+      
+                          <div class="p-1 bg-primary rounded-circle '.($seen?'d-none':'').'"></div>
+   
+                        </div>
+                    </div>'; 
+}
+
 foreach($chats as $chat){
     $ch_user = getUser($chat['user_id']);
     
@@ -150,6 +186,7 @@ foreach($chats as $chat){
                     </div>';
 
 }
+
 $json['chatlist'] = $chatlist;
 
 
@@ -194,7 +231,42 @@ $json['chat']['userdata']=getUser($_POST['chatter_id']);
  
 
 
+}else if(isset($_POST['chatter_grupo_id']) && $_POST['chatter_grupo_id']!=0){
+    $messages = getMessagesGrupos($_POST['chatter_grupo_id']);
+    $chatmsg="";
+
+    foreach($messages as $cm){
+$leido =1;
+$user_name = getUser($cm['id_usuario']);
+if($cm['id_usuario']==$_SESSION['userdata']['id']){
+    $cl1 = 'align-self-end bg-primary text-light';
+    $cl2 = 'align-self-end text-muted';
+    $nombre_bubble = 'Tú';
+    $colorNombre =  'style="color:white;"';
+
 }else{
+    $cl1 = '';
+    $cl2 = 'text-muted';
+    $nombre_bubble = $user_name['first_name'];
+    $colorNombre =  'style="color:#6d4a8c;"';
+}
+    $colorHora = ($leido == 1) ? '#6d4a8c' : 'grey';
+    $chatmsg.='
+    <div class="d-flex flex-column">
+    
+    <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'">
+    <strong '.$colorNombre.' >'.$nombre_bubble.'</strong> 
+    <br/>
+
+    '.$cm['mensaje'].'</div>
+     
+    </div><br>
+    ';
+}
+$json['chat']['msgs']=$chatmsg;
+$json['chat']['userdata']=getGrupo($_POST['chatter_grupo_id'])[0];
+}
+else{
 $json['chat']['msgs']='<div class="spinner-border text-center" role="status">
 </div>';
 }

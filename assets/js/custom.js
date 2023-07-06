@@ -368,7 +368,7 @@ $(".unblockbtn").click(function () {
 });
 
 var chatting_user_id = 0;
-
+let chatting_grupo_id = 0;
 $(".chatlist_item").click();
 
 function popchat(user_id) {
@@ -385,11 +385,57 @@ function popchat(user_id) {
     $("#sendmsg").attr('data-user-id', user_id);
 }
 
+function popGrupochat(grupo_id){
+    $("#user_chat").html(`<div class="spinner-border text-center" role="status">
+
+  </div>`);
+
+    $("#chatter_username").text('loading..');
+    $("#chatter_name").text('');
+    $("#chatter_pic").attr('src', 'assets/images/profile/default_profile.jpg');
+
+    chatting_grupo_id = grupo_id;
+
+    $("#sendmsg").attr('data-user-id', grupo_id);
+
+
+}
+
 
 $("#sendmsg").click(function () {
+    if(chatting_grupo_id !== 0){
+        console.log('ENTRO EN CHAT ')
+        let grupo_id = chatting_grupo_id;
+        let msg = $("#msginput").val();
+     
+        if (!msg) return;
+
+        $("#sendmsg").attr("disabled", true);
+        $("#msginput").attr("disabled", true);
+
+        $.ajax({
+        url: 'assets/php/ajax.php?sendmessageGrupo',
+        method: 'post',
+        dataType: 'json',
+        data: { grupo_id: grupo_id, msg: msg },
+        success: function (response) {
+            if (response.status) {
+                $("#sendmsg").attr("disabled", false);
+                $("#msginput").attr("disabled", false);
+                $("#msginput").val('');
+            } else {
+                alert('someting went wrong, try again after some time');
+            }
+
+
+
+        }
+    });
+    }
+    if(chatting_user_id !== 0){
     var user_id = chatting_user_id;
     var msg = $("#msginput").val();
-     console.log(user_id);
+     
     if (!msg) return;
 
     $("#sendmsg").attr("disabled", true);
@@ -412,6 +458,8 @@ $("#sendmsg").click(function () {
 
         }
     });
+    }
+    
 
 });
 
@@ -435,7 +483,7 @@ function synmsg() {
         url: 'assets/php/ajax.php?getmessages',
         method: 'post',
         dataType: 'json',
-        data: { chatter_id: chatting_user_id },
+        data: { chatter_id: chatting_user_id, chatter_grupo_id: chatting_grupo_id },
         success: function (response) {
 
             let inputValorBuscarChat = $('#buscador_de_chat').val()
@@ -512,6 +560,42 @@ function synmsg() {
                         }
                     }
                 })
+            }
+            if (chatting_grupo_id != 0) {
+                
+                document.getElementById('imagen_perfil_te_llaman').src = `assets/images/imagesGrupos/${response.chat.userdata.grupos_pic}`
+                document.getElementById('nombre_perfil_te_llaman').textContent = `${response.chat.userdata.nombre_grupo}`
+
+                let userchat = $("#user_chat")
+                let userChat = document.getElementById('user_chat')
+                let scroll_pos = userchat.scrollTop()
+                userchat.html(response.chat.msgs);
+                userchat.scrollTop(scroll_pos)
+              
+                // $("#user_chat").html(response.chat.msgs);
+                //  userChat.scrollTop = scroll_pos ;
+                //console.log(response)
+                $("#chatter_username").text(response.chat.userdata.nombre_grupo);
+                // $("#cplink").attr('href', '?u=' + response.chat.userdata.username);
+
+                $("#chatter_name").text(response.chat.userdata.nombre_grupo);
+               
+                $("#chatter_pic").attr('src', 'assets/images/imagesGrupos/' + response.chat.userdata.grupos_pic);
+                
+                document.getElementById('boton_camara_chatbox').style.display = 'none'
+                document.getElementById('chatbox_menu_dropdown').style.display = 'none'
+                //DATA PROFILE 
+               
+               
+                $("#profile_profile_modal").attr('src','assets/images/imagesGrupos/' + response.chat.userdata.grupos_pic )
+                $("#nombre_profile_modal").text(response.chat.userdata.nombre_grupo)
+                $('#profile_block_modal').attr('src','assets/images/imagesGrupos/' + response.chat.userdata.grupos_pic )
+                $("#nombre_block_modal").text(response.chat.userdata.nombre_grupo)
+
+                //DATA REPORTAR
+
+              
+                
             }
             }
             
@@ -678,7 +762,7 @@ synmsg();
 setInterval(() => {
     synmsg();
 
-}, 1000);
+}, 5000);
 
 var valorAModificar = document.querySelectorAll('#valorAModificar')
 var modificarPerfil = document.querySelector("#modificarPerfil");
