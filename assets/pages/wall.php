@@ -469,6 +469,24 @@ border-radius: 34px;
 .slider.round:before {
 border-radius: 50%;
 }
+
+.contenedor_descripcion_post{
+    display: flex;
+    gap: 8px;
+}
+
+#editar_descripcionpost_button{
+    opacity: 0;
+    transition: all 300ms;
+}
+
+.contenedor_descripcion_post:hover > #editar_descripcionpost_button {
+    opacity: 1;
+}
+#input_editar_comentario{
+    transition: all 250ms;
+}
+
   </style>
 
 <?php
@@ -761,8 +779,21 @@ global $profile;
                  <?php
                 if ($post['post_text']) {
                 ?>
-                    <div class="p-1">
-                        <?= $post['post_text'] ?>
+          
+                <div class="p-1 contenedor_descripcion_post">
+                        <p id="texto_descripcipcion_post"><?= $post['post_text'] ?></p> 
+
+                         <?php 
+                        if($post['user_id'] == $user['id']){?>
+
+                        <i role="button" class="bi bi-pencil ml-1" id="editar_descripcionpost_button"></i>
+
+                        <?php }?>
+                        <form id="form_editar_descripcion" method="post" action="assets/php/ajax.php?editarPostDescripcion">
+
+                            <input name="nuevo_descipcionpost" type="text" style="transform: scale(0); outline: none;" id="input_descripcionpost">
+                            <input type="number" value="<?= $post['id'] ?>" name="post_id" style="display: none;" >
+                        </form>
                     </div>
                 <?php
                 }
@@ -868,12 +899,21 @@ global $profile;
                                                         font-size: 0.9rem;
                                                         position: relative;
                                                         padding-right: 1.65rem;" ><?= $comment['comment'] ?></p> 
+
+                                                 <form 
+                                                 method="post"
+                                                 action="assets/php/ajax.php?editarComentario"
+                                                 class="form_editar_comentario" style="display: none; outline: none;">
+                                                    <input id="input_editar_comentario" class="input_editar_comentario" type="text" value="<?= $comment['comment'] ?>" name="nuevo_comentario" style="transform: scale(0);">
+                                                    <input id="input_editar_comentario_id" class="input_editar_comentario_id" type="number" value="<?=$comment['id'] ?>" style="display: none; outline: none;" name="id_comentario">
+                                                </form>       
                                     <?php if($user['id'] == $comment['user_id']) {?>  
                                         <div class="menu-comentario">
                                             <i style="color: #b0b0b0;" class="fas fa-pen"></i>
                                             <ul class="menu">
-                                                <li><a href="">Editar</a></li>
-                                                <li><a href="">Eliminar</a></li>
+                                                <li ><a class="boton_editar_comentario" id="<?=$comment['id'] ?>" >Editar</a></li>
+                                                <li><a class="boton_eliminar_comentario" id="<?=$comment['id'] ?>">Eliminar</a></li>
+                                                
                                             </ul>
                                         </div>
                                        <?php }  ?>       
@@ -1423,5 +1463,88 @@ boton_de_wall_publicar.addEventListener('click', (e)=>{
     textarea.click()
 
 })
+
+let editar_descripcionpost_button =document.getElementById('editar_descripcionpost_button')
+let texto_descripcipcion_post = document.getElementById('texto_descripcipcion_post')
+let input_descripcionpost = document.getElementById('input_descripcionpost')
+let boton_editar_comentario = document.querySelectorAll('.boton_editar_comentario')
+let form_editar_comentario =document.querySelectorAll('.form_editar_comentario')
+let input_editar_comentario = document.querySelectorAll('.input_editar_comentario');
+let boton_eliminar_comentario = document.querySelectorAll('.boton_eliminar_comentario')
+
+let mostrarInputPost = () =>{
+    input_descripcionpost.value = texto_descripcipcion_post.textContent
+    if(input_descripcionpost.style.transform === "scale(0)"){
+       
+        input_descripcionpost.style.transform = 'scale(1)'
+
+    }else{
+        input_descripcionpost.style.transform = 'scale(0)'
+    }
+}
+
+let editarDescripcionPost = (e) =>{
+    let form_editar_descripcion = document.getElementById('form_editar_descripcion')
+  
+    form_editar_descripcion.submit()
+}
+
+
+editar_descripcionpost_button.addEventListener('click', mostrarInputPost)
+input_descripcionpost.addEventListener('change', editarDescripcionPost)
+// boton_editar_comentario.addEventListener('click', mostrarEditComentario)
+
+
+boton_editar_comentario.forEach((el)=>{
+    
+    let li = el.parentElement
+    let ul = li.parentElement
+    let padre = ul.parentElement
+    let form_editar_comentario_element =padre.previousElementSibling
+    let idComent =  el.id
+
+    el.addEventListener('click', ()=>{
+        let inputText = form_editar_comentario_element.firstElementChild
+
+        if(form_editar_comentario_element.style.display === 'none'){
+            form_editar_comentario_element.style.display = ''
+            inputText.style.transform = 'scale(1)'
+            inputText.addEventListener('change', ()=>{
+                form_editar_comentario_element.submit()
+            })
+
+        }else{
+            form_editar_comentario_element.style.display = 'none'
+            inputText.style.transform = 'scale(0)'
+            inputText.removeEventListener('change')
+        }
+    })
+})
+
+boton_eliminar_comentario.forEach((boton)=>{
+    let li = boton.parentElement
+    let ul = li.parentElement
+    let padre = ul.parentElement
+    let form_editar_comentario_element =padre.previousElementSibling
+    let idComent =  boton.id
+
+
+    boton.addEventListener('click', ()=>{
+        $.ajax({
+        url:"assets/php/ajax.php?eliminarComentario",
+        method:"post",
+        data:{idComentario: idComent},
+        success:function(response){
+            alert('Comentario eliminado')
+            console.log(response)
+        }
+    })
+    })
+    
+
+})
+
+
+
 
 </script>

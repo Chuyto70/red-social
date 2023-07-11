@@ -508,3 +508,34 @@ $response['users']=$users;
 
     echo json_encode($response);
 }
+
+if(isset($_GET['editarPostDescripcion'])){
+    $response = editarPostDescripcion($_POST['nuevo_descipcionpost'], $_POST['post_id']);
+
+    if($response == true){
+        echo 'Descripcion ha sifo modificada'; 
+        header("location:../../");
+    }else{
+        echo "Error al modificar la descripción del post";
+    }
+}
+
+if(isset($_GET['editarComentario'])){
+    $response = editarComentario($_POST['nuevo_comentario'],$_POST['id_comentario'] ); 
+    if($response == true){
+        echo 'Descripcion ha sifo modificada'; 
+        header("location:../../");
+    }else{
+        echo "Error al modificar el comentario";
+    }
+}
+
+if(isset($_GET['eliminarComentario'])){
+    $response = eliminarComentario($_POST['idComentario']);
+
+    if($response){
+        echo'se eliminó correctamente ';
+    }else{
+        echo 'Ha ocurrido un error, no se pudo eliminar comentario';
+    }
+}

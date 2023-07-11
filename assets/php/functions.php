@@ -946,7 +946,45 @@ function createPost($text,$image){
     return mysqli_query($db,$query);
    }
 
-   // for getting posts
 
+//  Cambiar la decripcion del comentario
+
+function editarPostDescripcion($nuevaDescripcion, $idPost) {
+    global $db;
+    $nuevaDescripcion = mysqli_real_escape_string($db, $nuevaDescripcion);
+    $idPost = mysqli_real_escape_string($db, $idPost);
+    $cu = $_SESSION['userdata']['id'];
+
+    $query = "UPDATE `posts` 
+                SET `post_text`='$nuevaDescripcion'
+                WHERE `id`='$idPost'";
+    
+    return mysqli_query($db,$query);
+    
+    // return ;           
+
+}
+
+function editarComentario ($nuevoComentario, $idComentario){
+    global $db;
+    $nuevoComentario = mysqli_real_escape_string($db, $nuevoComentario);
+    $idComentario = mysqli_real_escape_string($db, $idComentario);
+
+     $query = "UPDATE `comments` 
+                SET `comment`='$nuevoComentario'
+                WHERE `id`='$idComentario'";
+    
+    return mysqli_query($db,$query);
+}
+
+function eliminarComentario($idComentario){
+    global $db;
+    $idComentario = mysqli_real_escape_string($db, $idComentario);
+
+    $query= "DELETE FROM `comments` WHERE `id`='$idComentario'";
+
+    return mysqli_query($db,$query);
+
+}
    
 ?>
