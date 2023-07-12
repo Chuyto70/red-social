@@ -56,6 +56,15 @@ CREATE TABLE `comments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE `responsesToComments`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_comment` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Dumping data for table `comments`
 --
@@ -365,7 +374,19 @@ FOREIGN KEY (id_usuario) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE C
 FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE likesComments (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_comment` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE likesResponseComments (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_response_comment` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Indexes for dumped tables
 --

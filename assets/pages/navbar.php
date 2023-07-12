@@ -66,7 +66,7 @@ class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0
                 <li class="nav-item dropdown dropstart">
                     <a class="nav-link" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="assets/images/profile/<?=$user['profile_pic']?>" alt="" height="30" width="30" class="rounded-circle border">
+                        <img src="assets/images/profile/<?=$user['profile_pic']?>" alt="" height="30" width="30" style="object-fit: cover;" class="rounded-circle border">
                     </a>
                     <ul class="dropdown-menu position-absolute top-100 end-50 bg-black" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item text-white" href="?u=<?=$user['username']?>"><i class="bi bi-person" style="color: white; font-size: 1.4rem;"></i>Perfil</a></li>

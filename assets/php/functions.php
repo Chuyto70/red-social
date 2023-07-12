@@ -218,7 +218,7 @@ function followUser($user_id){
     $current_user=$_SESSION['userdata']['id'];
     $query="INSERT INTO follow_list(follower_id,user_id) VALUES($current_user,$user_id)";
   
-    createNotification($cu['id'],$user_id,"started following you !");
+    createNotification($cu['id'],$user_id,"te empezo a seguir!");
     return mysqli_query($db,$query);
     
 }
@@ -261,6 +261,13 @@ function checkLikeStatus($post_id){
     $run = mysqli_query($db,$query);
     return mysqli_fetch_assoc($run)['row'];
 }
+function checkLikeCommentStatus($idComentario){
+    global $db;
+    $current_user = $_SESSION['userdata']['id'];
+    $query="SELECT count(*) as `row` FROM likescomments WHERE id_user=$current_user && id_comment=$idComentario";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_assoc($run)['row'];
+}
 
 function allLikesUser(){
     global $db;
@@ -275,13 +282,11 @@ function like($post_id){
     global $db;
     $current_user=$_SESSION['userdata']['id'];
     $query="INSERT INTO likes(post_id,user_id) VALUES($post_id,$current_user)";
-   $poster_id = getPosterId($post_id);
+    $poster_id = getPosterId($post_id);
    
    if($poster_id!=$current_user){
     createNotification($current_user,$poster_id,"le gusto tu publicación!",$post_id);
-   }
-   
-
+   } 
     return mysqli_query($db,$query);
     
 }
@@ -620,6 +625,14 @@ global $db;
 
 }
 
+function getComentario($idComentario){
+    global $db;
+
+    $query = "SELECT * FROM comments WHERE id=$idComentario";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_assoc($run);
+}
+
 
 //for filtering the suggestion list
 function filterFollowSuggestion(){
@@ -900,11 +913,13 @@ function validatePostImage($image_data){
     $response['status']=true;
       
 
-        if(!$image_data['name']){
-            $response['msg']="no image is selected";
-            $response['status']=false;
-            $response['field']='post_img';
-        }
+
+
+        // if(!$image_data['name']){
+        //     $response['msg']="no image is selected";
+        //     $response['status']=false;
+        //     $response['field']='post_img';
+        // }
         
    
     
@@ -913,17 +928,17 @@ function validatePostImage($image_data){
            $type = strtolower(pathinfo($image,PATHINFO_EXTENSION));
            $size = $image_data['size']/1000;
 
-           if($type!='jpg' && $type!='jpeg' && $type!='png'){
-            $response['msg']="only jpg,jpeg,png images are allowed";
-            $response['status']=false;
-            $response['field']='post_img';
-        }
+        //    if($type!='jpg' && $type!='jpeg' && $type!='png'){
+        //     $response['msg']="only jpg,jpeg,png images are allowed";
+        //     $response['status']=false;
+        //     $response['field']='post_img';
+        // }
 
-        if($size>2000){
-            $response['msg']="upload image less then 1 mb";
-            $response['status']=false;
-            $response['field']='post_img';
-        }
+        // if($size>2000){
+        //     $response['msg']="upload image less then 1 mb";
+        //     $response['status']=false;
+        //     $response['field']='post_img';
+        // }
        }
 
         return $response;
@@ -977,6 +992,18 @@ function editarComentario ($nuevoComentario, $idComentario){
     return mysqli_query($db,$query);
 }
 
+function editarResponseComentario($nuevoComentario, $idComentario){
+    global $db;
+    $nuevoComentario = mysqli_real_escape_string($db, $nuevoComentario);
+    $idComentario = mysqli_real_escape_string($db, $idComentario);
+
+     $query = "UPDATE `responsestocomments` 
+                SET `comment`='$nuevoComentario'
+                WHERE `id`='$idComentario'";
+    
+    return mysqli_query($db,$query);
+}
+
 function eliminarComentario($idComentario){
     global $db;
     $idComentario = mysqli_real_escape_string($db, $idComentario);
@@ -986,5 +1013,124 @@ function eliminarComentario($idComentario){
     return mysqli_query($db,$query);
 
 }
+
+function eliminarResponseComentario($idComentario){
+    global $db;
+    $idComentario = mysqli_real_escape_string($db, $idComentario);
+
+    $query= "DELETE FROM `responsestocomments` WHERE `id`='$idComentario'";
+
+    return mysqli_query($db,$query);
+
+}
    
+function likeComentario($idComentario, $toUserId){
+global $db;
+$idComentario = mysqli_real_escape_string($db, $idComentario);
+$cu = $_SESSION['userdata']['id'];
+
+// Consulta para verificar si el usuario ya le dio like al comentario
+$query = "SELECT * FROM `likescomments` WHERE `id_comment` = '$idComentario' AND `id_user` = '$cu'";
+
+// Ejecuta la consulta y obtiene el número de filas
+$result = mysqli_query($db,$query);
+$num_rows = mysqli_num_rows($result);
+
+// Si el número de filas es cero, significa que el usuario no le dio like anteriormente
+if ($num_rows == 0) {
+// Inserta el like en la tabla likescomments
+$query = "INSERT INTO `likescomments`(`id_comment`, `id_user`) 
+VALUES ('$idComentario','$cu')";
+
+mysqli_query($db,$query);     
+createNotification($cu, $toUserId, 'te dio like a tu comentario');
+return true;        
+} else {
+$query = "DELETE FROM `likescomments` 
+            WHERE `id_comment` = '$idComentario' 
+            AND `id_user` = '$cu'";
+
+ mysqli_query($db,$query);
+ return false;
+}
+}
+
+function likeResponseComentario($idComentario, $toUserId){
+global $db;
+$idComentario = mysqli_real_escape_string($db, $idComentario);
+$cu = $_SESSION['userdata']['id'];
+
+// Consulta para verificar si el usuario ya le dio like al comentario
+$query = "SELECT * FROM `likesresponsecomments` WHERE `id_response_comment` = '$idComentario' AND `id_user` = '$cu'";
+
+// Ejecuta la consulta y obtiene el número de filas
+$result = mysqli_query($db,$query);
+$num_rows = mysqli_num_rows($result);
+
+// Si el número de filas es cero, significa que el usuario no le dio like anteriormente
+if ($num_rows == 0) {
+// Inserta el like en la tabla likescomments
+$query = "INSERT INTO `likesresponsecomments`(`id_response_comment`, `id_user`) 
+VALUES ('$idComentario','$cu')";
+
+mysqli_query($db,$query);     
+createNotification($cu, $toUserId, 'le dio like a tu respuesta');
+return true;        
+} else {
+$query = "DELETE FROM `likesresponsecomments` 
+            WHERE `id_response_comment` = '$idComentario' 
+            AND `id_user` = '$cu'";
+
+ mysqli_query($db,$query);
+ return false;
+}
+}
+
+
+function getLikesCommentarios($idComentario){
+  global $db;
+  $idComentario = mysqli_real_escape_string($db, $idComentario);
+
+  $query="SELECT * FROM likescomments WHERE id_comment=$idComentario";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_all($run,true);
+}
+function getLikesResponseCommentarios($idComentario){
+  global $db;
+  $idComentario = mysqli_real_escape_string($db, $idComentario);
+
+  $query="SELECT * FROM likesresponsecomments WHERE id_response_comment=$idComentario";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_all($run,true);
+}
+
+function responseComentario($idComentario, $comentario, $user_id){
+    global $db;
+    $idComentario = mysqli_real_escape_string($db, $idComentario);
+    $comentario = mysqli_real_escape_string($db, $comentario);
+    $user_id = mysqli_real_escape_string($db, $user_id);
+    $usuarioANotificar = getComentario($idComentario)['user_id'];
+    $cu = $_SESSION['userdata'];
+
+    $query = "  INSERT INTO `responsestocomments`( `id_comment`, `user_id`, `comment`) 
+                    VALUES ('$idComentario','$user_id','$comentario') ";
+    
+    createNotification($user_id, $usuarioANotificar, 'ah respondido tu comentario');
+    mysqli_query($db,$query);          
+    return array($comentario, $cu);
+;
+                        
+}
+
+function getResponsesComments($idComentario){
+    global $db;
+    $query="SELECT * FROM responsestocomments WHERE id_comment=$idComentario ORDER BY id DESC";
+    $run = mysqli_query($db,$query);
+
+    
+    return mysqli_fetch_all($run,true);
+}
+
+
+
 ?>

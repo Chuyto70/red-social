@@ -374,6 +374,18 @@
     cursor: pointer;
     opacity: 0;
 }
+.menu-comentario {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #E9E9E9;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+}
 
 .background_bubble_chat:hover .menu-comentario{
     opacity: 1;
@@ -798,12 +810,28 @@ global $profile;
                 <?php
                 }
                 ?>
-                <img
-                style="max-height: 340px; object-fit: contain;" 
-                src="assets/images/posts/<?= $post['post_img'] ?>"  loading=lazy class="imagen_post" alt="..." data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>">
+
+                <?php 
+                $extension = pathinfo($post['post_img'], PATHINFO_EXTENSION);
+
+                if ($extension && $extension != "") {
+// Verificar si la extensión es .mp4
+if ($extension == "mp4") {
+// Usar una etiqueta de video
+?>
+<video style="max-height: 340px; object-fit: contain;" src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="imagen_post" controls ></video>
+<?php
+} else {
+// Usar una etiqueta de imagen
+?>
+<img style="max-height: 340px; object-fit: contain;" src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="imagen_post" alt="..." data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>">
+<?php
+}
+} ?>
+               
 
                 <!-- HASTA AQUI -->
-                <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
+            <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
 
 
             <div class="d-flex align-items-center">
@@ -874,11 +902,11 @@ global $profile;
                 ?>    
             
                 
-            <div id="contenedo_principal_comentarios" style="height:160px; max-height:100%; overflow-y: scroll; ">
+            <div id="contenedo_principal_comentarios" style="height:160px; max-height:100%; overflow-y: scroll; padding-right: 30px;">
                  <?php foreach ($comments as $comment) {
                                         $cuser = getUser($comment['user_id']);
                                     ?>
-                                        <div class="d-flex align-items-center p-1 gap-1">
+                                        <div class="d-flex align-items-center justify-content-end p-1 gap-1" style="padding-right: 0 !important; padding-top: 8px !important;">
                                             <div class="align-self-start pt-2">
                                                 <img src="assets/images/profile/<?= $cuser['profile_pic'] ?>" alt="" height="25" width="25" class="rounded-circle border">
                                             </div>
@@ -920,15 +948,16 @@ global $profile;
                                             </div>
                                         </div>
                                         <div id="bubbleChatPadre" class="d-flex justify-content-end align-items-center gap-2 px-1 mb-2">
-                                            <div style="display: inline-block;
+                                            <div class="button_like_comentario" id="<?= $comment['id'] ?>" style="display: inline-block;
                                                         border: 0;
                                                         padding: 3px 8px;
                                                         font-size: .8rem;
                                                         border-radius: 8px;
                                                         cursor: pointer;
                                                         background: #38383878; ">
-                                                <i class="bi bi-hand-thumbs-up-fill"></i>   
-                                                5
+                                                <i class="bi bi-hand-thumbs-up-fill"></i> 
+                                                <span id="<?= $comment['user_id'] ?>"><?= count(getLikesCommentarios($comment['id'])) ?></span>  
+                                                
                                             </div>
                                             <button
                                              id="responder_chat"
@@ -943,6 +972,84 @@ global $profile;
 
                                             <p style="margin:0px;" class="text-muted">(<?= show_time($comment['created_at']) ?>)</p>
                                         </div>
+
+                                        
+                                       <?php 
+                                        $repuestasAComentarios = getResponsesComments($comment['id']);
+
+                                        foreach($repuestasAComentarios as $respuesta){
+                                            $userProfile = getUser($respuesta['user_id']);
+                                        
+                                       ?> 
+                                        
+                                        <div class="align-self-start pt-2">
+                                           
+                                        </div>
+                                            
+                                  <div class="d-flex gap-1 justify-content-end">
+
+                                            <img src="assets/images/profile/<?=$userProfile['profile_pic'] ?>" alt="" width="25px" height="25px"
+                                            class="rounded-circle" style="border: 1px solid white;">
+
+                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word; width:55%; position: relative;">
+                                            
+                                                <h6 style="margin: 0px;">
+                                                    <a href="?u=<?= $userProfile['username'] ?>" class="text-decoration-none text-dark text-muted text_size_small">@<?=$userProfile['username']?></a> 
+                                                </h6>
+                                                
+                                                <p class="text_size_small" style=" color: #aaaaaa;
+                                                        padding: 10px 15px;
+                                                        display: inline-block;
+                                                        max-width: 100%;
+                                                        margin-bottom: 0.25rem;
+                                                        font-size: 0.9rem;
+                                                        position: relative;
+                                                        padding-right: 1.65rem;"><?= $respuesta['comment']?></p> 
+
+                                                <form 
+                                                 method="post"
+                                                 action="assets/php/ajax.php?editarResponseComentario"
+                                                 class="form_editar_comentario_response" style="display: none; outline: none;">
+                                                    <input id="input_editar_comentario_response" class="input_editar_comentario_response" type="text" value="<?= $respuesta['comment'] ?>" name="nuevo_comentario" style="transform: scale(0);">
+                                                    <input id="input_editar_comentario_id_response" class="input_editar_comentario_id_response" type="number" value="<?=$respuesta['id'] ?>" style="display: none; outline: none;" name="id_comentario">
+                                                </form>       
+                                        <?php if($user['id'] == $respuesta['user_id']) {?>  
+                                            
+                                        <div class="menu-comentario">
+                                            <i style="color: #b0b0b0;" class="fas fa-pen"></i>
+                                            <ul class="menu">
+                                                <li ><a class="boton_editar_comentario_response" id="<?=$respuesta['id'] ?>" >Editar</a></li>
+                                                <li><a class="boton_eliminar_comentario_response" id="<?=$respuesta['id'] ?>">Eliminar</a></li>
+                                                
+                                            </ul>
+                                        </div>
+                                       <?php }  ?>  
+                                                      
+                                              
+        </div><br>
+                 
+    </div>      
+    <!-- Botones de reacciones -->
+                                            <!-- LIKES  -->
+          <div class="d-flex justify-content-end " style="padding-right: 4px;">
+            <div class="button_like_response_comentario " id="<?= $respuesta['id'] ?>" 
+            style="display: inline-block;
+            border: 0;
+            padding: 3px 8px;
+            font-size: .8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #38383878; 
+            margin-right: 4px;">
+            <i class="bi bi-hand-thumbs-up-fill"></i> 
+            <span id="<?= $respuesta['user_id'] ?>"><?= count(getLikesResponseCommentarios($respuesta['id'])) ?></span>  
+                                                
+            </div>
+                                        
+                                            <!-- TIME AGO -->
+            <p style="margin:0px;" class="text-muted">(<?= show_time($respuesta['created_at']) ?>)</p>
+          </div>
+                                       <?php } ?>
 
                                     <?php
                                     }
@@ -995,7 +1102,7 @@ global $profile;
            
            
            
-           
+           <!-- modal postview -->
            
            
            
@@ -1021,7 +1128,7 @@ global $profile;
                             <div class="col-md-4 col-sm-12 d-flex flex-column border-start">
                                 <div class="d-flex flex-column p-2 ">
                                     <div class="d-flex gap-2 align-items-center"> 
-                                        <img src="assets/images/profile/<?= $post['profile_pic'] ?>" alt="" height="50" width="50" class="rounded-circle border">
+                                        <img src="assets/images/profile/<?= $post['profile_pic'] ?>" alt="" height="50" width="50" class="rounded-circle border" style="object-fit: cover;">
                                         <div class="d-flex flex-column justify-content-start">
                                         <h6 style="margin: 0px;"><?= $post['first_name'] ?> <?= $post['last_name'] ?></h6>
                                        <div style="font-size:small" class="text-muted">Posted <?= show_time($post['created_at']) ?> </div>
@@ -1030,34 +1137,81 @@ global $profile;
                                     <div>&nbsp;&nbsp;&nbsp;</div>
                                     <?= show_description($post['post_text']) ?>
                                     
-                                    <div class="d-flex justify-content-between mt-2 align-items-end flex-fill">
-                                        
-                                        <div class="dropdown">
-                                            <span class="<?= count($likes) < 1 ? 'disabled' : '' ?>" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <?= count($likes) ?> likes
-                                            </span>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <?php
-                                                foreach ($likes as $like) {
-                                                    $lu = getUser($like['user_id']);
-                                                ?>
-                                                    <li><a class="dropdown-item" href="?u=<?= $lu['username'] ?>"><?= $lu['first_name'] . ' ' . $lu['last_name'] ?> (@<?= $lu['username'] ?>)</a></li>
+                                  <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
 
-                                                <?php
-                                                }
-                                                ?>
 
-                                            </ul>
-                                        </div>
-                                        <div style="font-size:small" class="text-muted"> </div>
+            <div class="d-flex align-items-center">
+                  <span>
+                        <?php
+                        if (checkLikeStatus($post['id'])) {
+                            $like_btn_display = 'none';
+                            $unlike_btn_display = '';
+                        } else {
+                            $like_btn_display = '';
+                            $unlike_btn_display = 'none';
+                        }
+                        ?>
+                        <!-- <i class="bi bi-heart-fill unlike_btn text-danger" style="display:<?= $unlike_btn_display ?>" data-post-id='<?= $post['id'] ?>'></i> -->
+                        <!-- <i class="bi bi-heart like_btn" style="display:<?= $like_btn_display ?>" data-post-id='<?= $post['id'] ?>'></i> -->
+                        <svg 
+                            id="corazon_like_menos"
+                            style="display:<?= $unlike_btn_display ?>"
+                            data-post-id='<?= $post['id'] ?>'
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="16" 
+                            height="16" 
+                            fill="currentColor" 
+                            class="bi bi-heart-fill unlike_btn text-danger" 
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
 
-                                    </div>
+
+                        <svg 
+                            id="corazon_like_mas"
+                            style="display:<?= $like_btn_display ?>" data-post-id='<?= $post['id'] ?>'
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+                            fill="currentColor" 
+                            width="16" 
+                            height="16" 
+                            class="bi bi-heart like_btn" 
+                            viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                         <span
+                         style="font-size: small;" 
+                         id="likecount<?= $post['id'] ?>"><?= count($likes) ?>
+                        </span>
+                    </span> 
+                    &nbsp;&nbsp;
+                    
+                    <svg 
+                        class="bi bi-chat-left d-flex align-items-center mt-1" 
+                        style="font-size:small"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#postview<?= $post['id'] ?>"
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="16" 
+                        height="16" 
+                        fill="currentColor" 
+                        viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <span class="mx-2 text-small" style="font-size:small" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
+                    </svg>
+                    
+                 <div>
+                </div>
+               
+            </div>
+
+            <span style="font-size:small" class="text-muted"> <?= show_time($post['created_at']) ?></span>
+            </div>
                                     <hr style="width: 100%;" />
 
                                 </div>
 
 
-                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px;">
+                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px;">
 
                                     <?php
                                     if (count($comments) < 1) {
@@ -1065,15 +1219,15 @@ global $profile;
                                         <p class="p-3 text-center my-2 nce">no comments</p>
                                     <?php
                                     }
-                                    foreach ($comments as $comment) {
+                                     foreach ($comments as $comment) {
                                         $cuser = getUser($comment['user_id']);
                                     ?>
-                                        <div class="d-flex align-items-center p-1 gap-1">
+                                        <div class="d-flex align-items-center justify-content-end p-1 gap-1" style="padding-right: 0 !important; padding-top: 8px !important;">
                                             <div class="align-self-start pt-2">
                                                 <img src="assets/images/profile/<?= $cuser['profile_pic'] ?>" alt="" height="25" width="25" class="rounded-circle border">
                                             </div>
                                        
-                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word;">
+                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat position-relative " style="overflow-wrap: break-word;">
 
                                                 <h6 style="margin: 0px;">
                                                     <a href="?u=<?= $cuser['username'] ?>" class="text-decoration-none text-dark text-muted text_size_small">@<?= $cuser['username'] ?></a> 
@@ -1089,22 +1243,40 @@ global $profile;
                                                         font-size: 0.9rem;
                                                         position: relative;
                                                         padding-right: 1.65rem;" ><?= $comment['comment'] ?></p> 
-                                              
+
+                                                 <form 
+                                                 method="post"
+                                                 action="assets/php/ajax.php?editarComentario"
+                                                 class="form_editar_comentario" style="display: none; outline: none;">
+                                                    <input id="input_editar_comentario" class="input_editar_comentario" type="text" value="<?= $comment['comment'] ?>" name="nuevo_comentario" style="transform: scale(0);">
+                                                    <input id="input_editar_comentario_id" class="input_editar_comentario_id" type="number" value="<?=$comment['id'] ?>" style="display: none; outline: none;" name="id_comentario">
+                                                </form>       
+                                    <?php if($user['id'] == $comment['user_id']) {?>  
+                                        <div class="menu-comentario">
+                                            <i style="color: #b0b0b0;" class="fas fa-pen"></i>
+                                            <ul class="menu">
+                                                <li ><a class="boton_editar_comentario" id="<?=$comment['id'] ?>" >Editar</a></li>
+                                                <li><a class="boton_eliminar_comentario" id="<?=$comment['id'] ?>">Eliminar</a></li>
+                                                
+                                            </ul>
+                                        </div>
+                                       <?php }  ?>       
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end align-items-center gap-2 px-1 mb-2">
-                                            <div style="display: inline-block;
+                                        <div id="bubbleChatPadre" class="d-flex justify-content-end align-items-center gap-2 px-1 mb-2">
+                                            <div class="button_like_comentario" id="<?= $comment['id'] ?>" style="display: inline-block;
                                                         border: 0;
                                                         padding: 3px 8px;
                                                         font-size: .8rem;
                                                         border-radius: 8px;
                                                         cursor: pointer;
                                                         background: #38383878; ">
-                                                <i class="bi bi-hand-thumbs-up-fill"></i>   
-                                                5
+                                                <i class="bi bi-hand-thumbs-up-fill"></i> 
+                                                <span id="<?= $comment['user_id'] ?>"><?= count(getLikesCommentarios($comment['id'])) ?></span>  
+                                                
                                             </div>
                                             <button
-                                            id="responder_chat"
+                                             id="responder_chat"
                                              style="display: inline-block;
                                                     border: 0;
                                                     padding: 3px 8px;
@@ -1116,6 +1288,84 @@ global $profile;
 
                                             <p style="margin:0px;" class="text-muted">(<?= show_time($comment['created_at']) ?>)</p>
                                         </div>
+
+                                        
+                                       <?php 
+                                        $repuestasAComentarios = getResponsesComments($comment['id']);
+
+                                        foreach($repuestasAComentarios as $respuesta){
+                                            $userProfile = getUser($respuesta['user_id']);
+                                        
+                                       ?> 
+                                        
+                                        <div class="align-self-start pt-2">
+                                           
+                                        </div>
+                                            
+                                  <div class="d-flex gap-1 justify-content-end">
+
+                                            <img src="assets/images/profile/<?=$userProfile['profile_pic'] ?>" alt="" width="25px" height="25px"
+                                            class="rounded-circle" style="border: 1px solid white; object-fit: cover">
+
+                                            <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word; width:55%; position: relative;">
+                                            
+                                                <h6 style="margin: 0px;">
+                                                    <a href="?u=<?= $userProfile['username'] ?>" class="text-decoration-none text-dark text-muted text_size_small">@<?=$userProfile['username']?></a> 
+                                                </h6>
+                                                
+                                                <p class="text_size_small" style=" color: #aaaaaa;
+                                                        padding: 10px 15px;
+                                                        display: inline-block;
+                                                        max-width: 100%;
+                                                        margin-bottom: 0.25rem;
+                                                        font-size: 0.9rem;
+                                                        position: relative;
+                                                        padding-right: 1.65rem;"><?= $respuesta['comment']?></p> 
+
+                                                <form 
+                                                 method="post"
+                                                 action="assets/php/ajax.php?editarResponseComentario"
+                                                 class="form_editar_comentario_response" style="display: none; outline: none;">
+                                                    <input id="input_editar_comentario_response" class="input_editar_comentario_response" type="text" value="<?= $respuesta['comment'] ?>" name="nuevo_comentario" style="transform: scale(0);">
+                                                    <input id="input_editar_comentario_id_response" class="input_editar_comentario_id_response" type="number" value="<?=$respuesta['id'] ?>" style="display: none; outline: none;" name="id_comentario">
+                                                </form>       
+                                        <?php if($user['id'] == $respuesta['user_id']) {?>  
+                                            
+                                        <div class="menu-comentario">
+                                            <i style="color: #b0b0b0;" class="fas fa-pen"></i>
+                                            <ul class="menu">
+                                                <li ><a class="boton_editar_comentario_response" id="<?=$respuesta['id'] ?>" >Editar</a></li>
+                                                <li><a class="boton_eliminar_comentario_response" id="<?=$respuesta['id'] ?>">Eliminar</a></li>
+                                                
+                                            </ul>
+                                        </div>
+                                       <?php }  ?>  
+                                                      
+                                              
+        </div><br>
+                 
+    </div>      
+    <!-- Botones de reacciones -->
+                                            <!-- LIKES  -->
+          <div class="d-flex justify-content-end " style="padding-right: 4px;">
+            <div class="button_like_response_comentario " id="<?= $respuesta['id'] ?>" 
+            style="display: inline-block;
+            border: 0;
+            padding: 3px 8px;
+            font-size: .8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #38383878; 
+            margin-right: 4px;">
+            <i class="bi bi-hand-thumbs-up-fill"></i> 
+            <span id="<?= $respuesta['user_id'] ?>"><?= count(getLikesResponseCommentarios($respuesta['id'])) ?></span>  
+                                                
+            </div>
+                                        
+                                            <!-- TIME AGO -->
+            <p style="margin:0px;" class="text-muted">(<?= show_time($respuesta['created_at']) ?>)</p>
+          </div>
+                                       <?php } ?>
 
                                     <?php
                                     }
@@ -1468,9 +1718,16 @@ let editar_descripcionpost_button =document.getElementById('editar_descripcionpo
 let texto_descripcipcion_post = document.getElementById('texto_descripcipcion_post')
 let input_descripcionpost = document.getElementById('input_descripcionpost')
 let boton_editar_comentario = document.querySelectorAll('.boton_editar_comentario')
+let boton_editar_comentario_response = document.querySelectorAll('.boton_editar_comentario_response')
 let form_editar_comentario =document.querySelectorAll('.form_editar_comentario')
+let form_editar_comentario_response =document.querySelectorAll('.form_editar_comentario_response')
 let input_editar_comentario = document.querySelectorAll('.input_editar_comentario');
+let input_editar_comentario_response = document.querySelectorAll('.input_editar_comentario_response');
 let boton_eliminar_comentario = document.querySelectorAll('.boton_eliminar_comentario')
+let boton_eliminar_comentario_response = document.querySelectorAll('.boton_eliminar_comentario_response')
+let button_like_comentario = document.querySelectorAll('.button_like_comentario')
+let button_like_response_comentario = document.querySelectorAll('.button_like_response_comentario')
+
 
 let mostrarInputPost = () =>{
     input_descripcionpost.value = texto_descripcipcion_post.textContent
@@ -1521,6 +1778,36 @@ boton_editar_comentario.forEach((el)=>{
     })
 })
 
+boton_editar_comentario_response.forEach((el)=>{
+    
+    let li = el.parentElement
+    let ul = li.parentElement
+    let padre = ul.parentElement
+    let form_editar_comentario_element =padre.previousElementSibling
+    
+    let idComent =  el.id
+
+    el.addEventListener('click', ()=>{
+        console.log('FORM')
+    console.log(form_editar_comentario_element)
+        let inputText = form_editar_comentario_element.firstElementChild
+
+        if(form_editar_comentario_element.style.display === 'none'){
+
+            form_editar_comentario_element.style.display = ''
+            inputText.style.transform = 'scale(1)'
+            inputText.addEventListener('change', ()=>{
+               
+                form_editar_comentario_element.submit()
+            })
+
+        }else{
+            form_editar_comentario_element.style.display = 'none'
+            inputText.style.transform = 'scale(0)'
+            inputText.removeEventListener('change')
+        }
+    })
+})
 boton_eliminar_comentario.forEach((boton)=>{
     let li = boton.parentElement
     let ul = li.parentElement
@@ -1544,7 +1831,93 @@ boton_eliminar_comentario.forEach((boton)=>{
 
 })
 
+boton_eliminar_comentario_response.forEach((boton)=>{
+    let li = boton.parentElement
+    let ul = li.parentElement
+    let padre = ul.parentElement
+    let form_editar_comentario_element =padre.previousElementSibling
+    let idComent =  boton.id
 
 
+    boton.addEventListener('click', ()=>{
+        console.log('AQUI EL ID DEL RESPONSE')
+        console.log(idComent)
+        $.ajax({
+        url:"assets/php/ajax.php?eliminarResponseComentario",
+        method:"post",
+        data:{idComentario: idComent},
+        success:function(response){
+            alert('Comentario eliminado')
+            console.log(response)
+        }
+    })
+    })
+    
+
+})
+
+
+button_like_comentario.forEach((likeButton)=>{
+   let idComent = likeButton.id
+   likeButton.addEventListener('click', (e)=>{
+
+      $.ajax({
+        url:"assets/php/ajax.php?likeComentario",
+        method:"post",
+        data:{idComentario: idComent, toUserId:likeButton.lastElementChild.id},
+        success:function(response){
+            if(response){
+                likeButton.lastElementChild.textContent = Number(likeButton.lastElementChild.textContent) +1 
+            }else{
+                likeButton.lastElementChild.textContent = Number(likeButton.lastElementChild.textContent) - 1 
+            }
+        }
+    })
+
+    e.stopPropagation();
+   })
+})
+
+button_like_response_comentario.forEach((likeButton)=>{
+    let idComent = likeButton.id
+   
+    likeButton.addEventListener('click', (e)=>{
+        
+        $.ajax({
+        url:"assets/php/ajax.php?likeResponseComentario",
+        method:"post",
+        data:{idComentario: idComent, toUserId:likeButton.lastElementChild.id},
+        success:function(response){
+            if(response){
+                likeButton.lastElementChild.textContent = Number(likeButton.lastElementChild.textContent) +1 
+            }else{
+                likeButton.lastElementChild.textContent = Number(likeButton.lastElementChild.textContent) - 1 
+            }
+        }
+    })
+
+    e.stopPropagation();
+   })
+})
+
+
+let corazon_like_mas = document.getElementById('corazon_like_mas')
+let corazon_like_menos = document.getElementById('corazon_like_menos')
+
+corazon_like_mas.addEventListener('click', ()=>{
+    let valor = corazon_like_mas.nextElementSibling
+    console.log('HOLA MAS')
+    console.log(valor)
+    valor.textContent =Number(valor.textContent) + 1
+
+})
+
+corazon_like_menos.addEventListener('click', ()=>{
+    console.log('HOLA MENS¿OS')
+    let valor = corazon_like_menos.nextElementSibling.nextElementSibling
+    console.log(valor)
+    valor.textContent =Number(valor.textContent) - 1
+
+})
 
 </script>

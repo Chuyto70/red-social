@@ -530,6 +530,17 @@ if(isset($_GET['editarComentario'])){
     }
 }
 
+if(isset($_GET['editarResponseComentario'])){
+    $response = editarResponseComentario($_POST['nuevo_comentario'],$_POST['id_comentario'] ); 
+    if($response == true){
+        echo 'Descripcion ha sifo modificada'; 
+        header("location:../../");
+    }else{
+        echo "Error al modificar el comentario";
+    }
+}
+
+
 if(isset($_GET['eliminarComentario'])){
     $response = eliminarComentario($_POST['idComentario']);
 
@@ -539,3 +550,43 @@ if(isset($_GET['eliminarComentario'])){
         echo 'Ha ocurrido un error, no se pudo eliminar comentario';
     }
 }
+
+if(isset($_GET['eliminarResponseComentario'])){
+    $response = eliminarResponseComentario($_POST['idComentario']);
+ 
+    if($response){
+        echo $response;
+    }else{
+        echo 'Ha ocurrido un error, no se pudo eliminar comentario';
+    }
+}
+
+if(isset($_GET['likeComentario'])){
+    $response = json_decode(likeComentario($_POST['idComentario'], $_POST['toUserId'])) ; 
+     if($response){
+        echo true;
+    }else{
+       echo false;
+    }
+}
+
+if(isset($_GET['likeResponseComentario'])){
+     $response = json_decode(likeResponseComentario($_POST['idComentario'], $_POST['toUserId'])) ; 
+     if($response){
+        echo true; 
+    }else{
+       echo false;
+    }
+}
+
+if(isset($_GET['responseComentario'])){
+    $response = responseComentario($_POST['idComentario'], $_POST['comentario'], $_POST['user_id']); 
+ 
+     if($response){
+        echo json_encode($response) ;
+    }else{
+       echo false;
+    }
+}
+
+

@@ -800,7 +800,7 @@ var bubbleChatPadre = document.querySelectorAll('#bubbleChatPadre');
 
 for(let i = 0; i< bubbleChatPadre.length; i++){
 
-var input_button_respuesta = document.getElementById('input_button_respuesta')
+
 
 responderChat[i].addEventListener('click', (e)=>{
     let target = e.target
@@ -816,6 +816,7 @@ responderChat[i].addEventListener('click', (e)=>{
     `display: flex;
     align-items: flex-end;
     justify-content: end;`)
+    
     newBuble.innerHTML = `
     <div class="input-group p-2 gap-2 align-items-center">
 
@@ -855,25 +856,39 @@ responderChat[i].addEventListener('click', (e)=>{
     
 
     let input_button_respuesta = document.getElementById('input_button_respuesta')
+
     input_button_respuesta.addEventListener('click', ()=>{
         
-        
+
          if(document.getElementById('respuesta').value.length === 0){
             return
         }
+
+         let idComentario = input_button_respuesta.parentElement.parentElement.parentElement.previousElementSibling.previousElementSibling.querySelector('form').lastElementChild.value
+
+         let comentario = input_button_respuesta.previousElementSibling.value
+         let user_id = JSON.parse(localStorage.getItem('current_user_id')) 
+       
+
         let respuesta = document.getElementById('respuesta').value;
         
         let div = document.createElement('div');
-        div.className = 'd-flex align-items-center justify-content-end p-1 ps-0 pe-5 gap-1';
-
+        div.className = 'd-flex align-items-center justify-content-end p-1 ps-0 gap-1';
+        div.style ='flex-wrap: wrap;'
         div.innerHTML = `
         <div class="align-self-start pt-2">
           
         </div>
+        <img src="" id="imagen_perfil_respuesta"
+         style="width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                border: 1px solid;
+                object-fit: cover;"/>
         <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat " style="overflow-wrap: break-word; width:55%;">
 
                                                 <h6 style="margin: 0px;">
-                                                    <a href="?u=Chuyto70" class="text-decoration-none text-dark text-muted text_size_small">@Chuyto70</a> 
+                                                    <a id="link_al_perfil" href="" class="text-decoration-none text-dark text-muted text_size_small"></a> 
                                                 </h6>
                                                 
                                                 <p class="text_size_small" style=" color: #aaaaaa;
@@ -886,12 +901,45 @@ responderChat[i].addEventListener('click', (e)=>{
                                                         padding-right: 1.65rem;">${respuesta}</p> 
                                               
         </div>
+        <div class="d-flex justify-content-end " style="padding-right: 4px; flex-basis:100%;">
+            <div class="button_like_response_comentario " id="<?= $respuesta['id'] ?>" 
+            style="display: inline-block;
+            border: 0;
+            padding: 3px 8px;
+            font-size: .8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #38383878; 
+            margin-right: 4px;">
+            <i class="bi bi-hand-thumbs-up-fill"></i> 
+            <span id="<?= $respuesta['user_id'] ?>">0</span>  
+                                                
+            </div>
+                                        
+                                            <!-- TIME AGO -->
+            <p style="margin:0px;" class="text-muted">(justo ahora)</p>
+          </div>
         `;
         
         bubbleChatPadre[i].appendChild(div);
         document.getElementById('respuesta').remove();
         document.getElementById('contenedor_de_respuesta').remove()
         bubbleChatPadre[i].parentNode.insertBefore(div,bubbleChatPadre[i].nextSibling );
+
+         $.ajax({
+               url:"assets/php/ajax.php?responseComentario",
+               method:"post",
+               data:{idComentario:idComentario, comentario:comentario, user_id:user_id},
+               success:function(response){
+                 let datares = JSON.parse(response)
+                 let respuesta = datares[0];
+                 let userData = datares[1]
+
+                 $('#link_al_perfil').attr('href',`?u=${userData.username}`)
+                 $('#link_al_perfil').text(`@${userData.username}`)
+                 $('#imagen_perfil_respuesta').attr('src', `assets/images/profile/${userData.profile_pic}`)
+               }
+           })
 
     })
     
