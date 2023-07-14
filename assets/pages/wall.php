@@ -1409,6 +1409,9 @@ if ($extension == "mp4") {
                 </div>
             </div>
 
+            <!-- AQUI TERMINA EL MODAL DE POSTVIEW -->
+
+
             <div class="modal fade" id="likes<?= $post['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -1928,7 +1931,7 @@ corazon_like_mas.addEventListener('click', ()=>{
 })
 
 corazon_like_menos.addEventListener('click', ()=>{
-    console.log('HOLA MENS¿OS')
+    
     let valor = corazon_like_menos.nextElementSibling.nextElementSibling
     console.log(valor)
     valor.textContent =Number(valor.textContent) - 1

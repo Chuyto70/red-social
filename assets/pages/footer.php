@@ -462,6 +462,16 @@ overflow-y: scroll !important;
 <?php if(isset($_SESSION['Auth'])){ ?>
 
 
+  
+
+
+
+
+
+
+
+
+
 <input style="display: none;" type="text" id="current_user_localStorage"  value="<?= $_SESSION['userdata']['id'] ?>">
   
 <div class="modal fade" id="addpost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1085,6 +1095,8 @@ decidas desbloquear a este usuario
 </div>
 
 </div>
+
+
 <?php } ?>
 
 

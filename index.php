@@ -46,7 +46,7 @@ if(isset($_SESSION['Auth']) && $user['ac_status']==1 && !$pagecount){
      $profile_post = getPostById($profile['id']);  
      $profile['followers']=getFollowers($profile['id']);
      $profile['following']=getFollowing($profile['id']);
-        // showPage('header');
+        showPage('header');
         // showPage('navbar');
         showPage('profile');
         
