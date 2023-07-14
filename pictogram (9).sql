@@ -308,6 +308,8 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `ac_status` int(11) NOT NULL COMMENT '0=not verified,1=active,2=blocked',
   `frontpage_pic` text DEFAULT 'mundo.jpg',
+  user_rol VARCHAR(10) DEFAULT 'common' CHECK (user_rol IN ('admin','common')),
+
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -326,6 +328,7 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `gender`, `email`, `userna
 (9, 'Test', 'Kumar', 1, 'test@gmail.com', 'testman', 'e10adc3949ba59abbe56e057f20f883e', '1638244233bot.png', '2021-11-30 03:45:35', '2021-11-30 03:50:33', 1),
 (10, 'Amit', 'Sharma', 1, 'amith@gmail.com', 'amithero', 'e10adc3949ba59abbe56e057f20f883e', '1638468543profile8.jpg', '2021-12-02 18:06:37', '2021-12-02 18:09:03', 1),
 (11, 'Pankaj', 'Mishra', 1, 'officialmohankumar12@gmail.com', 'pankaj1427', 'e10adc3949ba59abbe56e057f20f883e', '1638686483IMG-20211130-WA0023.jpg', '2021-12-05 06:36:14', '2021-12-05 07:16:41', 1);
+
 
 -- ALTER TABLE `users`
 --   MODIFY `id` int(11) NOT NULL ;
@@ -386,6 +389,16 @@ CREATE TABLE likesResponseComments (
   `id_response_comment` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE eventos (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(250) NOT NULL,
+  fecha_evento timestamp NOT NULL,
+  descripcion text NOT NULL,
+  imagen text NOT NULL DEFAULT 'default_profile.jpg',
+  PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Indexes for dumped tables

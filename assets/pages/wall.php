@@ -508,10 +508,10 @@ global $follow_suggestions;
 global $profile;
 
 ?>
-<div class="container col-12 rounded-0 d-flex justify-content-between mt-5 gap-4">    
+<div class="container col-12 rounded-0 d-flex justify-content-between mt-5 gap-4" style="padding: 0;">    
 
 
-    <div style="background-color: #272727 !important; height: 100%;" class="col-3 mt-0 p-3 rounded shadow">
+    <div style="background-color: #272727 !important; height: 100%; width: auto;" class="col-3 mt-0 p-3 rounded shadow">
         <input hidden type="text" id="current_user_localStorage"  value="<?= $_SESSION['userdata']['id'] ?>">
         <!-- Fuente iconos https://icons.getbootstrap.com/icons/newspaper/-->
         <!-- <div class="d-flex align-items-center p-2 " >
@@ -573,7 +573,7 @@ global $profile;
         style="width: 100% !important;"
          class="d-flex align-items-center p-2">
             <button
-            
+             onclick="location.href='?mascategorias'"
              style="width: 100% !important; border: 1px solid rgb(255 255 255 / 10%);"
              type="button" class="btn btn-dark btn-block w-75 rounded-pill rounded-10">
                 <div class="d-flex align-items-center justify-content-center text-center">
@@ -631,14 +631,20 @@ global $profile;
             </button>
         </div>
 
-        <!-- <div>
-            <h6 class="text-muted p-2">Puedes seguirlos</h6>
+        <div class="mt-2">
+
+            <div class="d-flex justify-content-between align-items-center">
+                 <h6 style="padding: 0; margin: 0;" class="text-muted p-2">Puedes seguirlos</h6>
+                 <a style="text-decoration: none;
+                           font-size: 14px;" href="?sugerencias">Sugerencias</a>
+            </div>
+           
             <?php
-            // foreach ($follow_suggestions as $suser) {
-            // ?>
+            foreach ($follow_suggestions as $suser) {
+            ?>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profile/<?= $suser['profile_pic'] ?>" alt="" height="40" class="rounded-circle border">
+                        <div><img src="assets/images/profile/<?= $suser['profile_pic'] ?>" alt="" height="40" width="40px" style="object-fit: cover;" class="rounded-circle border">
                         </div>
                         <div>&nbsp;&nbsp;</div>
                         <div class="d-flex flex-column justify-content-center">
@@ -654,14 +660,14 @@ global $profile;
                     </div>
                 </div>
             <?php
-            // }
+            }
 
-            // if (count($follow_suggestions) < 1) {
-            //     echo "<p class='p-2 bg-white border rounded text-center'>No Suggestions For You</p>";
-            // }
+            if (count($follow_suggestions) < 1) {
+                echo "<p class='p-2 bg-white border rounded text-center'>No Suggestions For You</p>";
+            }
             ?>
 
-        </div> -->
+        </div>
     </div>
 
 
@@ -1459,7 +1465,7 @@ if ($extension == "mp4") {
 
     </div>
 
-    <div style="background-color: #272727 !important; height: 100%;" class="col-3 mt-0 p-3 rounded shadow">
+    <div style="background-color: #272727 !important; height: 100%; width: min-content;" class="col-3 mt-0 p-3 rounded shadow">
 
 
 

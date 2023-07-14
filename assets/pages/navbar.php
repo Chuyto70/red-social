@@ -1,4 +1,19 @@
 <?php global $user;?>
+
+<style>
+@media (min-width: 1200px){
+    #contenedor_del_navbar{
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px){
+    #contenedor_del_navbar{
+        max-width: 1320px;
+    }
+}
+    
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-black noshow_navbar" id="primera_nav">
     <div class="container-fluid d-flex justify-content-center">
         <div class="form-group">
@@ -10,7 +25,7 @@
 <nav 
 id="segunda_nav"
 class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0  noshow_navbar" >
-        <div class="col-lg-11 col-sm-12 col-md-10 d-flex flex-lg-row flex-md-row flex-sm-column justify-content-between">
+        <div class="col-lg-11 col-sm-12 col-md-10 d-flex flex-lg-row flex-md-row flex-sm-column justify-content-between" id="contenedor_del_navbar">
             <div class="d-flex justify-content-between col-lg-7 col-sm-12">
                 <a class="navbar-brand" href="?">
                 <img src="assets/images/home/logo.png" alt="" height="28">

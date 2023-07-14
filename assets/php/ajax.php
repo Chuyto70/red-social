@@ -590,3 +590,24 @@ if(isset($_GET['responseComentario'])){
 }
 
 
+// CREAR LA FUNCION
+if(isset($_GET['createEvento'])){
+
+    $imagen_evento = $_FILES['evento_imagen'];
+
+    $image_name = time().basename($imagen_evento['name']);
+    $image_dir="../images/eventosImages/$image_name";
+    move_uploaded_file($imagen_evento['tmp_name'],$image_dir);
+    
+
+    $response  = createEvento($_POST['evento_fecha'], $_POST['evento_nombre'], $_POST['evento_descripcion'], $image_name);
+
+     if($response){
+        echo json_encode($response) ;
+        header("location:../../?eventos=1");
+    }else{
+       echo false;
+    }
+}
+
+

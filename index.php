@@ -70,8 +70,17 @@ if(isset($_SESSION['Auth']) && $user['ac_status']==1 && !$pagecount){
  showPage('fundadores');
 }elseif($_GET['eventos']){
     showPage('header');
-   
+    showPage('navbar');
     showPage('eventos');
+}elseif(isset($_GET['mascategorias'])){
+ showPage('header');
+ showPage('navbar');
+ showPage('mascategorias');
+}
+elseif(isset($_GET['sugerencias'])){
+ showPage('header');
+ showPage('navbar');
+ showPage('sugerencias');
 }
 else{
     if(isset($_SESSION['Auth']) && $user['ac_status']==1){

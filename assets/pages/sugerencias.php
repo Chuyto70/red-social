@@ -1,4 +1,4 @@
- 
+
  <style>
     html {
     -webkit-text-size-adjust: 100%;
@@ -366,11 +366,14 @@ body.sticky-header header h1{
 }
 
 .content{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+      display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    width: 100%;
     grid-gap: 20px;
-    max-width: 1000px;
-    margin: auto;
+    /* max-width: 1000px; */
+    max-width: 100%;
+    margin: 10px 40px;
+    justify-content: center;
 }
 
 .post-img-1{
@@ -520,7 +523,7 @@ body.sticky-header header h1{
 
 .container-details{
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   position: relative;
   margin: auto;
 }
@@ -760,7 +763,8 @@ border-radius: 10px;
       grid-gap: 20px;
     }
   }
-    #primera_nav{
+
+  #primera_nav{
     position: fixed;
     top: 0;
     width: 100%;
@@ -773,6 +777,9 @@ border-radius: 10px;
     z-index: 100;
 }
 
+.descripcion{
+    font-size: 14px !important;
+}
  </style>
  <head>
   <meta charset="UTF-8">
@@ -786,8 +793,7 @@ border-radius: 10px;
 </head>
 
 <body>
-  <?php $user = getUser($_SESSION['userdata']['id']);?>
- <section  class="nav position-fixed" id="navbar" style="top: 95px !important;">
+ <section  class="nav position-fixed top-0" id="navbar" style="top: 91px !important;">
     <a
     style="width: 100%;"
      href="social.html" class="nav_link nav_logo ">
@@ -838,82 +844,48 @@ border-radius: 10px;
     ">
     <div class="container-evento-h mt-4">
         <div class="capa-gradient"></div>
-        <div class="container-details" style="margin-top: 91px;">
-        <div class="details">
-            <h1>NavHer</h1>
-            <p>Eventos #1</p>
-            <button>Ver</button>
+        <div class="container-details">
+        <div class="details " style="margin-left: 40px; margin-top:60px;">
+            <h1>Sugerencias de amistad</h1><br>
+            <p>Conoce mas personas</p>
+            <!-- <button>Ver</button> -->
       </div>
     </div>
 
   </div>
       
     <section class="eventos">
+
+
     <div class="content">
+      
+        <?php 
+            $sugerencias_amistad = filterFollowSuggestion();
 
-      <?php 
-        $eventos = getEventos();
+            foreach($sugerencias_amistad as $samigo){
 
-        foreach($eventos as $evento){
-
-      ?>
-
-        <article class="post position-relative">
-            <div class="post-header">
-                <img 
-                  style="width: 100%;
-                  height: 100%;
-                  object-fit: cover;" 
-                  src="assets/images/eventosImages/<?= $evento['imagen'] ?>" alt="">
-            </div>
-            <div class="post-body">
-                <span>
-                  <?php
-                  $fecha = date_create($evento['fecha_evento']);
-
-                  $fecha_en = date("j F Y", $fecha->getTimestamp());
-
-                  $meses = array(
-                  'January' => 'de Enero',
-                  'February' => 'de Febrero',
-                  'March' => 'de Marzo',
-                  'April' => 'de Abril',
-                  'May' => 'de Mayo',
-                  'June' => 'de Junio',
-                  'July' => 'de Julio',
-                  'August' => 'de Agosto',
-                  'September' => 'de Septiembre',
-                  'October' => 'de Octubre',
-                  'November' => 'de Noviembre',
-                  'December' => 'de Diciembre'
-                  );
-                  $fecha_es = str_replace(array_keys($meses), array_values($meses), $fecha_en);
-                  echo $fecha_es;
-
-                  ?>
-                  </span>
-                <h2><?= $evento['nombre'] ?></h2>
-                <p class="descripcion"> <?= $evento['descripcion'] ?> </p>
-                <a href="#" class="post-link">Leer Mas...</a>
-            </div>
-        </article>
-
-       <?php } ?> 
-
-
-
-
-        <!-- Agregar evento -->
-        <?php
-        if($user['user_rol'] == 'admin'){
-
+            
+        ?>
         
-         ?>
-        <article role="button" class="post position-relative d-flex justify-content-center align-items-center" style="height: 400px;" data-bs-toggle="modal" data-bs-target="#agregarEvento">
-            <i style="font-size: 240px; color:grey;" class="bi bi-plus"></i>
+        <article class="post position-relative" style="border-radius: 8px;" >
+            <div class="post-header">
+                <img src="assets/images/profile/<?= $samigo['profile_pic'] ?>" alt="" width="100%" height="100%" style="object-fit: cover;">
+            </div>
+            <div class="post-body" style="color: #212529; background-color: rgb(242 242 242);">
+                <span style="color: #212529;"</span><?= $samigo['first_name'] ?> <?= $samigo['last_name'] ?></span>
+                <h4 style="font-size: 18px;">Biografia</h4>
+                <p class="descripcion">Este usuario aun no tiene biografia</p>
+                <div class="d-flex align-items-center justify-content-center">
+                        <button style="width: 120px; height:40px;" class="btn btn-sm btn-primary followbtn" 
+                        data-user-id='<?= $samigo['id'] ?>'>Seguir</button>
+
+                    </div>
+            </div>
         </article>
 
         <?php }?>
+
+        
 
     </div>
  </section>
@@ -922,7 +894,7 @@ border-radius: 10px;
 
 </div>
 
-<div class="sidebar-2 position-fixed" style="top: 95px;" >
+<div class="sidebar-2 position-fixed top-0" style="top:91px !important;" >
 
     <a 
     href="/facebook99">
@@ -968,5 +940,3 @@ border-radius: 10px;
     </ul>
   </div>
   </div>
-
-       

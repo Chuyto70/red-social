@@ -639,7 +639,7 @@ function filterFollowSuggestion(){
 $list = getFollowSuggestions();
 $filter_list  = array();
 foreach($list as $user){
-    if(!checkFollowStatus($user['id']) && !checkBS($user['id']) && count($filter_list)<5){
+    if(!checkFollowStatus($user['id']) && !checkBS($user['id']) && count($filter_list)<8){
      $filter_list[]=$user;
     }
 }
@@ -961,6 +961,30 @@ function createPost($text,$image){
     return mysqli_query($db,$query);
    }
 
+ function createEvento($evento_fecha, $evento_nombre, $evento_descripcion, $evento_imagen){
+    global $db;
+
+    $evento_fecha = mysqli_real_escape_string($db, $evento_fecha);
+    $evento_nombre = mysqli_real_escape_string($db, $evento_nombre);
+    $evento_descripcion = mysqli_real_escape_string($db, $evento_descripcion);
+    $evento_imagen = mysqli_real_escape_string($db, $evento_imagen);
+
+    $query = "INSERT INTO `eventos`( `nombre`, `fecha_evento`, `descripcion`,`imagen` ) 
+                VALUES ('$evento_nombre','$evento_fecha','$evento_descripcion','$evento_imagen' )";
+
+    return mysqli_query($db,$query);         
+ }  
+
+ function getEventos(){
+   global $db;
+   
+   $query = "SELECT * from eventos";
+
+   $run = mysqli_query($db, $query);
+   return mysqli_fetch_all($run,true);
+
+   
+ }
 
 //  Cambiar la decripcion del comentario
 

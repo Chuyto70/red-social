@@ -1042,6 +1042,49 @@ decidas desbloquear a este usuario
   </div>
 </div>
 
+<!-- MODAL DE AGREGAR EVENTO -->
+
+<div class="modal fade" id="agregarEvento" tabindex="-1" role="dialog" aria-labelledby="agregarEventoLabel" aria-hidden="true">
+
+<div class="modal-dialog" role="document">
+   <div class="modal-content contenedor_modal_perfil">
+      
+     <div class="modal-body">
+      
+          <form enctype="multipart/form-data" method="post" 
+          action="assets/php/ajax.php?createEvento">
+          
+            <div class="form-group">
+              <label for="evento_fecha">Cuando sera el evento</label>
+              <input required type="date" class="form-control" id="evento_fecha" name="evento_fecha">
+              
+            
+            <div class="form-group">
+              <label for="evento_nombre">Nombre del evento</label>
+              <input required type="text" class="form-control" id="evento_nombre" name="evento_nombre">
+            </div>
+
+            <div class="form-group" style="display: flex; flex-direction: column;">
+              <label for="evento_descripcion">Descripcion del evento</label>
+              <textarea required name="evento_descripcion" id="evento_descripcion" cols="30" rows="5"></textarea>
+            </div>
+
+             <div class="form-group">
+              <label for="evento_imagen">Imagen para el evento</label>
+              <input type="file" required name="evento_imagen">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Agregar</button>
+</div>            
+</form>
+      
+     </div>
+     
+     
+   </div>
+</div>
+
+</div>
 <?php } ?>
 
 
