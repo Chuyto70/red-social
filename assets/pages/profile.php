@@ -1685,36 +1685,73 @@ if(!checkBS($profile['id'])){
         </div>
       </div>
       <div class="menu-perfil">
-        <ul>
+        <ul class="justify-content-between align-items-center">
          
           <li><a href="#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
+           <li>       
+
+              <?php if( $user['username'] != $profile['username']) {
+
+               ?>
+                        <?php 
+                          
+                        ?>            
+                            <?php  
+
+                              if(in_array($user['id'], array_column($profile['followers'], 'follower_id'))){
+                                
+                              
+                            ?>
+                             <button style="background: #0d6efd;
+    padding: 8px 16px;
+    border-radius: 16px;
+    color: white;" class="unfollowbtn" data-user-id='<?= $profile['id'] ?>'>
+                            Dejar de seguir</button>  
+                             
+                            <?php } else{ ?>
+                              <button style="background: #0d6efd;
+                                             padding: 8px 16px;
+                                             border-radius: 16px;
+                                             color: white;" class="btn btn-primary followbtn" data-user-id='<?= $profile['id'] ?>'>  
+                             Seguir</button>  
+                              <?php } ?>
+
+                          <?php }?>    
+
+
+                    </li>
         </ul>
       </div>
 
       <section class="seccion-perfil-usuario">
-        <div style="flex-wrap: nowrap !important;" class="perfil-usuario-footer">
+        <form style="flex-wrap: nowrap !important;" class="perfil-usuario-footer" 
+        action="assets/php/ajax.php?modificarPerifil" method="post" id="form_modificar_perfil">
 
           <ul class="lista-datos">
-            <li ><i class="icono fas fa-map-signs"></i>Direccion de usuario:</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
-            <li><i class="icono fas fa-phone-alt"></i>Telefono:</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
-            <li><i class="icono fas fa-briefcase"></i>Trabaja en: CEO de NAVHER, NEZZ, AVADISK</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
-            <li><i class="icono fas fa-building"></i>Cargo: CEO</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
+            <li ><i class="icono fas fa-map-signs"></i>Direccion de usuario: <span><?= $profile['direccion']?></span></li>
+            <input class="form-control" id="modificarInput" type="text" value="<?= $profile['direccion']?>" style="display: none;" name="direccion">
+            <li><i class="icono fas fa-phone-alt"></i>Telefono: <span><?= $profile['telefono']?></li>
+            <input class="form-control" id="modificarInput" type="text" value="<?= $profile['telefono']?>" style="display: none;" name="telefono">
+            <li><i class="icono fas fa-briefcase"></i>Trabaja en: <span><?= $profile['trabaja_en']?></li>
+            <input class="form-control" id="modificarInput" type="text" value="<?= $profile['trabaja_en']?>" style="display: none;" name="trabaja_en">
+            <li><i class="icono fas fa-building"></i>Cargo: <span><?= $profile['cargo']?></li>
+            <input class="form-control" id="modificarInput" type="text" value="<?= $profile['cargo']?>" style="display: none;" name="cargo">
           </ul>
           <ul class="lista-datos">
             
-            <li><i class="icono fas fa-map-marker-alt"></i>Ubicacion:</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
-            <li id="valorAModificar"><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: 09/09/2003</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
-            <li><i class="icono fas fa-user-check"></i>Registro: 19/12/2022</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
-            <li><i class="icono fas fa-share-alt"></i>Redes sociales:</li>
-            <input class="form-control" id="modificarInput" type="text" value="" style="display: none;">
+            <li><i class="icono fas fa-map-marker-alt"></i>Ubicacion: <span><?= $profile['ubicacion']?></li>
+            <input class="form-control" id="modificarInput" type="text" value="<?= $profile['ubicacion']?>" style="display: none;" name="ubicacion">
+            <li id="valorAModificar"><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: <span><?= $profile['fecha_nacimiento']?></li>
+            <input class="form-control" id="modificarInput" type="date" value="<?= $profile['fecha_nacimiento']?>" style="display: none;" name="fecha_nacimiento">
+            <li><i class="icono fas fa-user-check"></i>Registro: <span><?= $profile['created_at']?></li>
+            <!-- <input class="form-control" id="modificarInput" type="text" value="" style="display: none;"> -->
+            <li><i class="icono fas fa-share-alt"></i>Redes sociales: <span><?= $profile['redes_sociales']?></li>
+            <input class="form-control" id="modificarInput" type="text" value="<?= $profile['redes_sociales']?>" style="display: none;" name="redes_sociales">
           </ul>
+
+          <?php if( $user['username'] == $profile['username'] ){
+
+           ?>
           <div style="align-self: flex-end;">
 
             <button id="guardarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px; display:none;" class="py-2 px-4 text-white">Guardar</button>
@@ -1722,7 +1759,9 @@ if(!checkBS($profile['id'])){
             <button id="modificarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px;" class="py-2 px-4 text-white">Modificar</button>
           </div>
 
-        </div>
+          <?php } ?>
+
+          </form>
       </section>
 
 
@@ -1730,20 +1769,11 @@ if(!checkBS($profile['id'])){
 
       <section class="seccion-perfil-publicacion">
         <div class="perfil-usuario-footer">
-          <div class="perfil-usuario-body">
-            <div class="perfil-usuario-bio">
+          <div class="perfil-usuario-body" style="width: 100%;">
+            <div class="perfil-usuario-bio" style="width: 100%;">
               <h3 class="titulo">Biografia</h3>
-              <p class="texto">
-                
-                Las redes sociales son plataformas digitales formadas por comunidades de individuos con intereses, actividades o relaciones en común (como amistad, parentesco, trabajo). Las redes sociales permiten el contacto entre personas y funcionan como un medio para comunicarse e intercambiar información.
-
-                Los individuos no necesariamente se tienen que conocer antes de entrar en contacto a través de una red social, sino que pueden hacerlo a través de ella, y ese es uno de los mayores beneficios de las comunidades virtuales.
-
-        
-
-
-                Fuente: https://concepto.de/redes-sociales/#ixzz7qVpVPdoC</p>
-                
+              <p class="texto"><?= $profile['biografia'] ?></p>
+                <textarea form="form_modificar_perfil" class="form-control" id="modificarInput" type="text" style="display: none; width: 100%; max-width: 100% !important;" name="biografia" ><?= $profile['biografia'] ?></textarea>
             </div>
           </div>
       </section>

@@ -24,17 +24,17 @@ align-items: flex-start;
                 <img src="assets/images/home/logo.ico" alt="logo" class="img-fluid mb-4" style="height: 60px;">
                 </div>
                 <h1 class="h5 fw-normal">Registrate</h1>
-                <div class="d-flex justify-content-between container_inputs_nombre">
-                    <div    class=" mt-1 col-5 ">
+                <div class="d-flex justify-content-between container_inputs_nombre gap-2">
+                    <div    class=" mt-1 ">
                         <input 
-                        style="background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
+                        style="width: 100%; background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
                         type="text" name="first_name" value="<?=showFormData('first_name')?>" class="rounded" placeholder="Nombre">
                         <!-- <label for="floatingInput">first name</label> -->
                     </div>
                  
-                    <div class="mt-1 col-5">
+                    <div class="mt-1">
                         <input 
-                        style="background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
+                        style="width: 100%; background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
                         type="text" name="last_name" value="<?=showFormData('last_name')?>" class="rounded" placeholder="Apellido">
                         <!-- <label for="floatingInput">last name</label> -->
                     </div>
@@ -43,21 +43,27 @@ align-items: flex-start;
                 <?=showError('last_name')?>
 
                 <div class="d-flex gap-3 my-3 justify-content-around">
-                    <div class="form-check">
+                    <div class="form-check" style="display: flex;
+                                                 align-items: center;
+                                                 gap: 4px;">
                         <input class="form-check-input" type="radio" name="gender" id="exampleRadios1"
                             value="1" <?=isset($_SESSION['formdata'])?'':'checked'?><?=showFormData('gender')==1?'checked':''?>>
                         <label class="form-check-label" for="exampleRadios1">
                             Male
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check" style="display: flex;
+                                                 align-items: center;
+                                                 gap: 4px;">
                         <input class="form-check-input" type="radio" name="gender" id="exampleRadios3"
                             value="2" <?=showFormData('gender')==2?'checked':''?>>
                         <label class="form-check-label" for="exampleRadios3">
                             Female
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check" style="display: flex;
+                                                 align-items: center;
+                                                 gap: 4px;">
                         <input class="form-check-input" type="radio" name="gender" id="exampleRadios2"
                             value="0" <?=showFormData('gender')==0?'checked':''?>>
                         <label class="form-check-label" for="exampleRadios2">
@@ -67,24 +73,24 @@ align-items: flex-start;
                 </div>
                 <div class=" mt-1">
                     <input 
-                    style="background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
+                    style="width: 100%; background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
                     type="email" name="email" value="<?=showFormData('email')?>" class="form-control rounded" placeholder="Correo">
                     <!-- <label for="floatingInput">email</label> -->
                 </div>
                 <?=showError('email')?>
 
-                <div class="d-flex justify-content-between container_inputs_nombre mt-2">
-                <div class=" mt-1 col-5">
+                <div class="d-flex justify-content-between container_inputs_nombre mt-2 gap-2">
+                <div class=" mt-1">
                     <input 
-                    style="background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
+                    style=" width: 100%; background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
                     type="text" name="username" value="<?=showFormData('username')?>" class=" rounded" placeholder="Usuario">
                     <!-- <label for="floatingInput">username</label> -->
                 </div>
                 <?=showError('username')?>
 
-                <div class="col-5 mt-1">
+                <div class=" mt-1">
                     <input 
-                    style="background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
+                    style="width: 100%; background-color: rgb(180 199 231); border:1px solid rgb(143 170 220);"
                     type="password" name="password" class=" rounded" id="floatingPassword" placeholder="Contraseña">
                     <!-- <label for="floatingPassword">password</label> -->
                 </div>

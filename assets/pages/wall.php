@@ -511,7 +511,14 @@ global $profile;
 <div class="container col-12 rounded-0 d-flex justify-content-between mt-5 gap-4" style="padding: 0;">    
 
 
-    <div style="background-color: #272727 !important; height: 100%; width: auto;" class="col-3 mt-0 p-3 rounded shadow">
+    <div style="
+    background-color: #272727 !important;
+    height: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px;
+    width: auto;
+" class="col-3 mt-0 p-3 rounded shadow">
         <input hidden type="text" id="current_user_localStorage"  value="<?= $_SESSION['userdata']['id'] ?>">
         <!-- Fuente iconos https://icons.getbootstrap.com/icons/newspaper/-->
         <!-- <div class="d-flex align-items-center p-2 " >
@@ -1465,7 +1472,9 @@ if ($extension == "mp4") {
 
     </div>
 
-    <div style="background-color: #272727 !important; height: 100%; width: min-content;" class="col-3 mt-0 p-3 rounded shadow">
+    <div style="background-color: #272727 !important; height: 100%; width: min-content;     position: -webkit-sticky;
+    position: sticky;
+    top: 20px;" class="col-3 mt-0 p-3 rounded shadow">
 
 
 

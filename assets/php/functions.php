@@ -1156,5 +1156,31 @@ function getResponsesComments($idComentario){
 }
 
 
+function modificarPerifil($direccion,$telefono,$trabaja_en,$cargo, $ubicacion, $fecha_nacimiento, $redes_sociales, $biografia ){
+
+    global $db;
+    $cu = $_SESSION['userdata']['id'];
+    $direccion = mysqli_real_escape_string($db, $direccion);
+    $telefono = mysqli_real_escape_string($db, $telefono);
+    $trabaja_en = mysqli_real_escape_string($db, $trabaja_en);
+    $cargo = mysqli_real_escape_string($db, $cargo);
+    $ubicacion = mysqli_real_escape_string($db, $ubicacion);
+    $fecha_nacimiento = mysqli_real_escape_string($db, $fecha_nacimiento);
+    $redes_sociales = mysqli_real_escape_string($db, $redes_sociales);
+    $biografia = mysqli_real_escape_string($db, $biografia);
+
+    $query = "UPDATE users 
+                SET `direccion`='$direccion',
+                    `telefono`='$telefono',
+                    `trabaja_en`='$trabaja_en',
+                    `cargo`='$cargo',
+                    `ubicacion`='$ubicacion',
+                    `fecha_nacimiento`='$fecha_nacimiento',
+                    `redes_sociales`='$redes_sociales',
+                    `biografia`='$biografia'
+                
+                WHERE id = $cu ";
+    return mysqli_query($db,$query); 
+}
 
 ?>

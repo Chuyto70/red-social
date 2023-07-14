@@ -308,6 +308,14 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `ac_status` int(11) NOT NULL COMMENT '0=not verified,1=active,2=blocked',
   `frontpage_pic` text DEFAULT 'mundo.jpg',
+  `direccion` varchar(255) NOT NULL DEFAULT '',
+  `telefono` varchar(255) NOT NULL DEFAULT '',
+  `trabaja_en` varchar(255) NOT NULL DEFAULT '',
+  `cargo` varchar(255) NOT NULL DEFAULT '',
+  `ubicacion` varchar(255) NOT NULL DEFAULT '',
+  `fecha_nacimiento` varchar(255) NOT NULL DEFAULT '',
+  `redes_sociales` varchar(255) NOT NULL DEFAULT '',
+  `biografia` varchar(255) NOT NULL DEFAULT '',
   user_rol VARCHAR(10) DEFAULT 'common' CHECK (user_rol IN ('admin','common')),
 
   PRIMARY KEY (`id`)

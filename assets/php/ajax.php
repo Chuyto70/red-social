@@ -610,4 +610,14 @@ if(isset($_GET['createEvento'])){
     }
 }
 
+if(isset($_GET['modificarPerifil'])){
+    $response = modificarPerifil($_POST['direccion'],$_POST['telefono'],$_POST['trabaja_en'],$_POST['cargo'], $_POST['ubicacion'],$_POST['fecha_nacimiento'], $_POST['redes_sociales'], $_POST['biografia'] );  
+    $user = $_SESSION['userdata']['username'];
+    if($response){ 
+        echo json_encode($response);
+        header("location:../../?u=$user");
+    }else{
+       echo false;
+    }
+}
 

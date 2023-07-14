@@ -772,7 +772,8 @@ var guardarPerfil = document.querySelector("#guardarPerfil");
 //Aqui se hace el update de los datos
 
 if(modificarPerfil){
-modificarPerfil.addEventListener('click', ()=>{
+modificarPerfil.addEventListener('click', (e)=>{
+    e.preventDefault()
     console.log(valorAModificar)
     for(let i = 0; i<modificarInput.length; i++){
 
