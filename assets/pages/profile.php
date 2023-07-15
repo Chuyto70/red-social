@@ -1627,7 +1627,10 @@ global $user;
          
 
           </h4>
-          <p class="bio-usuario"><i>INSTITUCION:</i> UAM-1</p>
+          <p class="bio-usuario"><i>INSTITUCION:</i> </p>
+
+        
+
           <ul class="lista-perfil">
           <?php
 if(!checkBS($profile['id'])){
@@ -1640,10 +1643,12 @@ if(!checkBS($profile['id'])){
 ?>
 
             <li>
+              
               <?php
               if ($user['id'] != $profile['id']) {
               ?>
                 <div class="dropdown">
+                  
                   <span class="" style="font-size:xx-large" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i> </span>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Message</a></li>
@@ -1882,12 +1887,14 @@ if(!checkBS($profile['id'])){
           grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
           grid-auto-rows: 240px;
           grid-gap: 10px;">
+          
           <?php 
+          if($profile_post){
+            
+            foreach($profile_post as $post){
+              $likes = getLikes($post['id']);
+              $comments = getComments($post['id']);
           
-          
-          foreach($profile_post as $post){
-             $likes = getLikes($post['id']);
-            $comments = getComments($post['id']);
           ?>
             
              <div class="modal fade" id="postview<?= $post['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -2184,9 +2191,12 @@ if(!checkBS($profile['id'])){
           data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"
           src="assets/images/posts/<?= $post['post_img'] ?>" alt="" class="rounded" style="object-fit: cover;
           cursor: pointer;">
-          <?php } ?>
+          <?php } }?>
+          
           </div>
+          
           </div>
+          
       </section>
           <?php
 
@@ -2194,7 +2204,7 @@ if(!checkBS($profile['id'])){
             $likes = getLikes($post['id']);
             $comments = getComments($post['id']);
           ?>
-
+              
             <div class="post-container">
               <div class="post-row">
                 <div class="user-profile">
@@ -2537,10 +2547,14 @@ if ($extension == "mp4") {
 
 
       </div>
-  </section>
+ 
+    </section>
 
 
   <!-- AQUI EL modal -->
+  <?php if($profile_post){
+
+   ?>
  <div class="modal fade" id="postview<?= $post['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div
                 style="width: 65%; height: 100vh;" 
@@ -2806,11 +2820,6 @@ if ($extension == "mp4") {
                                     }
                                     ?>
 
-
-
-
-
-
                                 </div>
                                 <div class="input-group p-2 border-0">
                                     <input 
@@ -2830,13 +2839,14 @@ if ($extension == "mp4") {
                     </div>
                 </div>
             </div>
-
+        
+  <?php } ?>          
   <!--    Barra-Derecha      -->
 
   <div
-  style="    margin-top: 95px;"
+  style="margin-top: 95px;"
    class="sidebar-2 position-fixed top-0" >
-
+    
     <a 
     href="/facebook99">
       <div class="sidebar-top">
@@ -2987,15 +2997,16 @@ frontpage_pic.addEventListener('change', ()=>{
   cambiar_portada.style.display = "inline-block"
 })
 
-let boton_de_wall_publicar = document.getElementById('boton_de_wall_publicar')
 
-boton_de_wall_publicar.addEventListener('click', (e)=>{
-    e.preventDefault()
+
+$('#boton_de_wall_publicar').click((e)=>{
+  e.preventDefault()
     let textarea = document.getElementById("post_textarea");
 
     textarea.click()
-
 })
+
+
 
 
 let editar_descripcionpost_button =document.getElementById('editar_descripcionpost_button')

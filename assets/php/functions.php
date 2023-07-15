@@ -1183,4 +1183,46 @@ function modificarPerifil($direccion,$telefono,$trabaja_en,$cargo, $ubicacion, $
     return mysqli_query($db,$query); 
 }
 
+function publicarEstado($user_id, $imagen_estado, $descripcion ) {
+
+    global $db;
+    $cu = $_SESSION['userdata']['id'];
+    
+    $image_name = time().basename($imagen_estado['name']);
+    $image_dir="../images/estados/$image_name";
+    move_uploaded_file($imagen_estado['tmp_name'],$image_dir);
+
+
+    $descripcion = mysqli_real_escape_string($db, $descripcion);
+
+
+
+    $query = "INSERT INTO estados (user_id, imagen, descripcion)
+    VALUES ($cu, '$image_name', '$descripcion') ";
+
+    return mysqli_query($db, $query);
+}
+
+function getEstados(){
+    global $db;
+    $estados = array();
+    $cu = $_SESSION['userdata']['id'];
+    $following = getFollowing($cu);
+
+    
+    foreach($following as $follow){
+        $id = $follow['user_id'];
+        $query = "SELECT * from estados WHERE user_id= $id";
+        $run = mysqli_query($db, $query);
+        $data = mysqli_fetch_all($run,true);
+        if(!empty($data)){
+            for($i=0;$i<count($data);$i++){
+                $estados[] = $data[$i];
+            }
+        }
+
+
+    }
+    return $estados;
+}
 ?>

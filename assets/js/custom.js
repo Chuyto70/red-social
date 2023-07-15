@@ -1393,3 +1393,55 @@ document.getElementById('leave-btn_mini').addEventListener('click', async()=>{
 // document.getElementById('mic-btn').addEventListener('click' ,toggleMic)
 // document.getElementById('camera-btn').addEventListener('click' ,toggleCamera)
 
+let agregarEstado = document.getElementById('agregarEstado')
+let mostrarMiModal = () =>{
+    console.log('SE ESTA EJECUTANDO')
+    let textarea = document.getElementById("post_textarea");
+
+    textarea.click()
+}
+agregarEstado.addEventListener('click', mostrarMiModal)
+
+
+
+$('#publicar_estado').click((e)=>{
+
+    let descripcion = document.getElementById('post_textarea').value;
+    let formData = new FormData();
+    let files = $('#select_post_img')[0].files[0];
+    formData.append('file',files);
+    formData.append('user_id', localStorage.getItem('current_user_id'));
+    formData.append('descripcion', descripcion);
+    
+    $.ajax({
+        url:"assets/php/ajax.php?publicarEstado",
+        method:"post",
+        data:formData,
+        success:function(response){
+           window.location.reload()
+        },
+        error:function(error){
+            alert('Lo siento.');
+        },
+        contentType: false,
+        processData: false,
+    })
+
+})
+
+
+document.querySelectorAll('.abrir_menu_estado').forEach((boton)=>{
+    boton.addEventListener('click', ()=>{
+     console.log('HOLA ABRIR')
+    let menu_estado = boton.nextElementSibling
+    console.log('EL ID DEL ELEMENTO A ELIMINAR')
+    console.log(menu_estado.id)
+    if(menu_estado.style.transform === "scale(0)"){
+        menu_estado.style.transform = "scale(1)"
+    }else{
+        menu_estado.style.transform = "scale(0)"
+    }
+})
+})
+
+

@@ -147,6 +147,11 @@
     border: transparent;
     font-size: 100%;
     opacity: 0.5;
+    transition:.3s ease all;
+}
+
+.public-btn:hover{
+    opacity: 1;
 }
 
 .progress-area .row .content{
@@ -499,6 +504,7 @@ border-radius: 50%;
     transition: all 250ms;
 }
 
+
   </style>
 
 <?php
@@ -716,6 +722,8 @@ global $profile;
                     <div class="form-group d-flex flex-column">
 
                             <button id="boton_de_wall_publicar" class="public-btn ">Publicar</button>
+
+                            
                         <!-- <div class="custom-file d-flex align-items-center gap-1">
                             <input type="file" class="custom-file-input" name="post_img" id="select_post_img">
                             <i class="bi bi-share"></i>
@@ -744,6 +752,73 @@ global $profile;
             </div>
         </div>
 
+
+
+        <!-- ESTADOS -->
+        <div class="card shadow mt-4" style="background-color:#272727; color:#ffffff; ">
+            <div class="contenedor_estados p-2" 
+                 style="display: flex;
+                        gap: 8px;
+                        align-items: center;">
+
+                    <?php $estados = getEstados();
+                        foreach($estados as $estado){
+
+                        
+                    ?>
+                    <img role="button" data-bs-toggle="modal" data-bs-target="#estadoModal<?= $estado['id'] ?>"  src="assets/images/estados/<?= $estado['imagen'] ?>" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #7030a0; object-fit: cover; " alt="">
+
+                    <div class="modal fade" id="estadoModal<?= $estado['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div style="border-radius: 12px; background-color: #404040; " class="modal-content">
+
+
+                            <!-- Sub menu  -->
+                            <i style="position: absolute;
+                                      z-index: 10;
+                                      right: 0;
+                                      font-size: 32px;
+                                      color: #404040;" role="button" class="bi bi-three-dots-vertical abrir_menu_estado" >
+                            </i>
+
+                            <div style="transform: scale(0);" class="menu_estado" id="<?= $estado['id'] ?>">
+                                <ul
+                                style="position: absolute;
+                                       background-color: white;
+                                       z-index: 10;
+                                       padding: 12px 24px;
+                                       color: #404040;
+                                       right: -130px;
+                                       top: 12px;
+                                       list-style: none;"
+                                 class="lista_menu_estado">
+                                   <li role="button">Eliminar <i class="bi bi-trash-fill"></i> </li> </i>
+                                </ul>
+                            </div>
+
+                            <div style="padding: 0px;" class="modal-body">
+                                <img src="assets/images/estados/<?= $estado['imagen'] ?>" style="width:100%; height:500px; object-fit: cover;     border-radius: 8px 8px 0 0;" alt="">
+                            </div>
+                            <div style="justify-content: start;  border-top: 0px;" class="modal-footer">
+                                <p style="color: white;"><?= $estado['descripcion'] ?></p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php } ?>
+
+                <button 
+                id="agregarEstado"
+                style="width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        border: 1px solid grey;
+                        background-color: #7f7f7f;
+                        padding: 0;"><i class="bi bi-plus"></i></button>
+            </div>
+        </div>
+        
         <!-- Button trigger modal -->
 
         <!-- Fin publicar -->
@@ -766,6 +841,8 @@ global $profile;
             $likes = getLikes($post['id']);
             $comments = getComments($post['id']);
         ?>
+
+        
             <div class="card mt-4 px-3" style="background-color:#272727; color:#ffffff; max-height: 660px;">
                 <div class="card-title d-flex justify-content-between  align-items-center">
 
@@ -1659,6 +1736,8 @@ if ($extension == "mp4") {
                    
                     <span style="padding-top: 10px ;" class="counter-limit">400</span>
                     <button style="position: absolute; right: 0; bottom: -10px;" type="submit" form="posteo_imagen" class="public-btn ">Publicar</button>
+
+                    <button style="position: absolute; right: 120px; bottom: -10px;"  class="public-btn btn btn-primary" id="publicar_estado">Estado</button>   
                 
                 </div>
                
@@ -1711,6 +1790,10 @@ if ($extension == "mp4") {
 </div>
 
 <script>
+
+
+
+
 var toggle = document.getElementById("toggle-input"); // Obtener el checkbox
 toggle.addEventListener("change", function() { // Agregar un evento al cambiar de estado
 if (this.checked) { // Si está marcado
@@ -1937,5 +2020,10 @@ corazon_like_menos.addEventListener('click', ()=>{
     valor.textContent =Number(valor.textContent) - 1
 
 })
+
+
+
+
+
 
 </script>

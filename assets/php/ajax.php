@@ -621,3 +621,13 @@ if(isset($_GET['modificarPerifil'])){
     }
 }
 
+if(isset($_GET['publicarEstado'])){
+
+    $response = publicarEstado($_POST['user_id'],$_FILES['file'], $_POST['descripcion']);
+    if($response){  
+        echo json_encode($response);
+       
+    }else{
+       echo false;
+    }
+}

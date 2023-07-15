@@ -399,6 +399,12 @@ CREATE TABLE likesResponseComments (
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE likesEstados (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_estado` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE eventos (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -407,6 +413,16 @@ CREATE TABLE eventos (
   descripcion text NOT NULL,
   imagen text NOT NULL DEFAULT 'default_profile.jpg',
   PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE estados (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  imagen text NOT NULL,
+  descripcion text,
+  creado timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Indexes for dumped tables
@@ -508,7 +524,6 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
