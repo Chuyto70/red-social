@@ -763,7 +763,7 @@ global $profile;
 
 
         <!-- ESTADOS -->
-        <div class="card shadow mt-4" style="background-color:#272727; color:#ffffff; ">
+        <div class="card shadow mt-4" style="background-color:#272727; color:#ffffff; overflow-y: hidden; overflow-x: auto;">
             <div class="contenedor_estados p-2" 
                  style="display: flex;
                         gap: 8px;
@@ -776,7 +776,7 @@ global $profile;
                         
 
                         ?>
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 90px;">
 
                         <img  role="button" data-bs-toggle="modal" data-bs-target="#estadoModal<?= $miEstado['id'] ?>"  src="assets/images/estados/<?= $miEstado['imagen'] ?>" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #7030a0; object-fit: cover; " alt="">
                         <span>Mi estado</span>
@@ -852,7 +852,9 @@ global $profile;
                         <img  role="button" data-bs-toggle="modal" data-bs-target="#estadoModal<?= $estado['id'] ?>"  src="assets/images/estados/<?= $estado['imagen'] ?>" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #7030a0; object-fit: cover; " alt="">
                         <span><?= getUser($estado['user_id'])['first_name'] ?> </span>
                     </div>
+                
 
+                    <!--    hasta aqui las copias -->
 
                     <div class="modal fade" id="estadoModal<?= $estado['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -918,6 +920,7 @@ global $profile;
                 id="agregarEstado"
                 class="hover_efecto"
                 style="width: 50px;
+                        min-width: 50px;
                         align-self: baseline;
                         height: 50px;
                         border-radius: 50%;
@@ -1287,7 +1290,7 @@ if ($extension == "mp4") {
 
                     <button 
                      style="width:20%;
-                            background-color: #515151;" 
+                            background-color: #515151; z-index: 0;" 
                     class="btn btn-outline-primary rounded-0 border-0 add-comment" data-page='wall' data-cs="comment-section<?= $post['id'] ?>" data-post-id="<?= $post['id'] ?>" type="button" id="button-addon2"><i class="bi bi-send-fill text-light"></i></button>
                 </div>
 

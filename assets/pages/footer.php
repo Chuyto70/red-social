@@ -73,8 +73,12 @@
     align-items: center;
 }
 .iconos_llamadas_chatbox i::before {
-  font-size: 29px;
-  font-weight: 900 !important;
+font-size: 16px;
+    font-weight: 900 !important;
+    background: black;
+    padding: 12px;
+    border-radius: 50%;
+    color: #d9d9d9 ;
 }
 #msgsender{
     align-items: center;
@@ -615,7 +619,8 @@ overflow-y: scroll !important;
           <i id="boton_camara_chatbox" role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal" class="bi bi-camera-video"></i>
           <i class="bi bi-telephone"></i>
           <i role="button" id="chatbox_menu_dropdown" class="bi bi-three-dots-vertical"></i>
-          <button type="button" class="btn-close cerrar_chatbox_boton" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button style="    font-size: 28px;
+    font-weight: 300 !important" type="button" class="btn-close cerrar_chatbox_boton" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="chatbox_menu_emergente">
           <p>Silenciar notificaciones</p>
@@ -627,7 +632,7 @@ overflow-y: scroll !important;
       
       </div>
 
-      <div style="overflow: scroll;" class="modal-body d-flex flex-column-reverse gap-2" id="user_chat">
+      <div style="overflow: auto;" class="modal-body d-flex flex-column-reverse gap-2" id="user_chat">
       loading..
 
       </div>

@@ -513,7 +513,8 @@ function synmsg() {
 
                 document.getElementById('imagen_perfil_te_llaman').src = `assets/images/profile/${response.chat.userdata.profile_pic}`
                 document.getElementById('nombre_perfil_te_llaman').textContent = `${response.chat.userdata.first_name} ${response.chat.userdata.last_name}`
-
+                document.getElementById('boton_camara_chatbox').style.display = ''
+                document.getElementById('chatbox_menu_dropdown').style.display = ''
                 let userchat = $("#user_chat")
                 let userChat = document.getElementById('user_chat')
                 let scroll_pos = userchat.scrollTop()
@@ -1504,3 +1505,6 @@ document.querySelectorAll('.imagen_estado').forEach((estado)=>{
     })
  })
 
+ $('#msginput').change((e)=>{
+    $('#sendmsg').click()
+ })

@@ -211,15 +211,17 @@ $leido = $cm['read_status'];
 if($cm['from_user_id']==$_SESSION['userdata']['id']){
     $cl1 = 'align-self-end bg-primary text-light';
     $cl2 = 'align-self-end text-muted';
+    $backgroundColor = 'style="background:#262626 !important;"';
 
 }else{
     $cl1 = '';
     $cl2 = 'text-muted';
+    $backgroundColor = 'style="background:#757170 !important;"';
 }
     $colorHora = ($leido == 1) ? '#6d4a8c' : 'grey';
     $chatmsg.='
-    <div class="d-flex flex-column">
-    <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'">'.$cm['msg'].'</div>
+    <div class="d-flex flex-column" >
+    <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'" '.$backgroundColor.' >'.$cm['msg'].'</div>
     <i style="display:inline-block; font-weight:500; position:realtive; right:0; color:'.$colorHora.'!important ;" class="'.$cl2.'">'.gettime($cm['created_at']).'
     </i> 
     
@@ -246,18 +248,20 @@ if($cm['id_usuario']==$_SESSION['userdata']['id']){
     $cl2 = 'align-self-end text-muted';
     $nombre_bubble = 'Tú';
     $colorNombre =  'style="color:white;"';
+    $backgroundColor = 'style="background:#262626 !important;"';
 
 }else{
     $cl1 = '';
     $cl2 = 'text-muted';
     $nombre_bubble = $user_name['first_name'];
     $colorNombre =  'style="color:#6d4a8c;"';
+    $backgroundColor = 'style="background:#757170 !important;"';
 }
     $colorHora = ($leido == 1) ? '#6d4a8c' : 'grey';
     $chatmsg.='
     <div class="d-flex flex-column">
     
-    <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'">
+    <div class="py-2 px-3 border rounded shadow-sm col-8 d-inline-block '.$cl1.'" '.$backgroundColor.'>
     <strong '.$colorNombre.' >'.$nombre_bubble.'</strong> 
     <br/>
 

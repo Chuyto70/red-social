@@ -190,7 +190,7 @@ function updateMessageReadStatus($user_id){
 }
 
 function gettime($date){
-    return date('H:i - (F jS, Y )', strtotime($date));
+    return date('H:i', strtotime($date));
 }
 
 function getAllMessages(){
