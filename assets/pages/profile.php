@@ -953,6 +953,11 @@
 
   }
 
+  .hover_efecto:hover{
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
   .seccion-perfil-publicacion .perfil-usuario-body .texto {
     color: #b5b5b5;
     font-size: 0.95em;
@@ -1651,8 +1656,8 @@ if(!checkBS($profile['id'])){
                   
                   <span class="" style="font-size:xx-large" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i> </span>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Message</a></li>
-                    <li><a class="dropdown-item " href="assets/php/actions.php?block=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Block</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Mensaje</a></li>
+                    <li><a class="dropdown-item " href="assets/php/actions.php?block=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Bloquear</a></li>
 
                     <li>       
                         <?php 
@@ -1689,7 +1694,7 @@ if(!checkBS($profile['id'])){
             <label style="
                 background: #343a40;
                 padding: 4px 14px;
-                border-radius: 8px;" for="frontpage_pic">Cambiar portada </label>
+                border-radius: 8px;" for="frontpage_pic" class="hover_efecto ">Cambiar portada </label>
             <input type="file" hidden name="frontpage_pic" id="frontpage_pic">
             <button style="display: none;" id="cambiar_portada" type="submit"><i class="fas fa-wrench"></i></button> 
           </form>
@@ -1716,16 +1721,17 @@ if(!checkBS($profile['id'])){
                               
                             ?>
                              <button style="background: #0d6efd;
-    padding: 8px 16px;
-    border-radius: 16px;
-    color: white;" class="unfollowbtn" data-user-id='<?= $profile['id'] ?>'>
+                                            padding: 8px 16px;
+                                            border-radius: 16px;
+                                            color: white;" class="unfollowbtn hover_efecto" 
+                                            data-user-id='<?= $profile['id'] ?>'>
                             Dejar de seguir</button>  
                              
                             <?php } else{ ?>
                               <button style="background: #0d6efd;
                                              padding: 8px 16px;
                                              border-radius: 16px;
-                                             color: white;" class="btn btn-primary followbtn" data-user-id='<?= $profile['id'] ?>'>  
+                                             color: white;" class="btn btn-primary followbtn hover_efecto" data-user-id='<?= $profile['id'] ?>'>  
                              Seguir</button>  
                               <?php } ?>
 
@@ -1767,9 +1773,9 @@ if(!checkBS($profile['id'])){
            ?>
           <div style="align-self: flex-end;">
 
-            <button id="guardarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px; display:none;" class="py-2 px-4 text-white">Guardar</button>
+            <button id="guardarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px; display:none;" class="py-2 px-4 text-white hover_efecto">Guardar</button>
 
-            <button id="modificarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px;" class="py-2 px-4 text-white">Modificar</button>
+            <button id="modificarPerfil" style="background-color:rgb(38 38 38); border:1px solid black; border-radius:16px;" class="py-2 px-4 text-white hover_efecto">Modificar</button>
           </div>
 
           <?php } ?>

@@ -56,6 +56,9 @@ if (isset($_GET['crearGrupo'])) {
       
         
         $image_name = time().basename($imagenGrupo['name']);
+        $image_name = str_replace(" ", "-", $image_name);
+        $image_name = str_replace("(", "_", $image_name);
+        $image_name = str_replace(")", "_", $image_name);
         $image_dir="../images/imagesGrupos/$image_name";
         move_uploaded_file($imagenGrupo['tmp_name'],$image_dir);
 
@@ -596,6 +599,9 @@ if(isset($_GET['createEvento'])){
     $imagen_evento = $_FILES['evento_imagen'];
 
     $image_name = time().basename($imagen_evento['name']);
+    $image_name = str_replace(" ", "-", $image_name);
+    $image_name = str_replace("(", "_", $image_name);
+    $image_name = str_replace(")", "_", $image_name);
     $image_dir="../images/eventosImages/$image_name";
     move_uploaded_file($imagen_evento['tmp_name'],$image_dir);
     
@@ -630,4 +636,34 @@ if(isset($_GET['publicarEstado'])){
     }else{
        echo false;
     }
+}
+
+if(isset($_GET['likeEstado'])){
+   $response = likeEstado($_POST['id_estado']); 
+    if($response){  
+        echo json_encode($response);
+       
+    }else{
+       echo false;
+    } 
+}
+
+if(isset($_GET['borrarMiEstado'])){
+   $response = borrarMiEstado($_POST['id_estado']); 
+    if($response){  
+        echo $response;
+       
+    }else{
+       echo false;
+    } 
+}
+
+if(isset($_GET['estadoCaducado'])){
+  $response = estadoCaducado();  
+    if($response){  
+        echo $response;
+       
+    }else{
+       echo false;
+    }   
 }

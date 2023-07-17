@@ -261,6 +261,14 @@ function checkLikeStatus($post_id){
     $run = mysqli_query($db,$query);
     return mysqli_fetch_assoc($run)['row'];
 }
+
+function checkLikeEstadoStatus($id_estado){
+    global $db;
+    $current_user = $_SESSION['userdata']['id'];
+    $query="SELECT count(*) as `row` FROM likesestados WHERE id_user=$current_user && id_estado=$id_estado";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_assoc($run)['row'];
+}
 function checkLikeCommentStatus($idComentario){
     global $db;
     $current_user = $_SESSION['userdata']['id'];
@@ -719,6 +727,14 @@ function getPosterId($post_id){
 
 }
 
+function getPosterEstadoId($estado_id){
+    global $db;
+ $query = "SELECT user_id FROM estados WHERE id=$estado_id";
+ $run = mysqli_query($db,$query);
+ return mysqli_fetch_assoc($run)['user_id'];
+
+}
+
 //for searching the users
 function searchUser($keyword){
     global $db;
@@ -882,6 +898,10 @@ $password = $_SESSION['userdata']['password'];
 $profile_pic="";
 if($imagedata['name']){
     $image_name = time().basename($imagedata['name']);
+    $image_name = str_replace(" ", "-", $image_name);
+    $image_name = str_replace(" ", "-", $image_name);
+    $image_name = str_replace("(", "_", $image_name);
+    $image_name = str_replace(")", "_", $image_name);
     $image_dir="../images/profile/$image_name";
     move_uploaded_file($imagedata['tmp_name'],$image_dir);
     $profile_pic=", profile_pic='$image_name'";
@@ -899,6 +919,9 @@ function updateFrontImage($frontImage){
     $frontpage_pic="";
     if($frontImage['name']){
     $image_name = time().basename($frontImage['name']);
+    $image_name = str_replace(" ", "-", $image_name);
+    $image_name = str_replace("(", "_", $image_name);
+    $image_name = str_replace(")", "_", $image_name);
     $image_dir="../images/frontpage/$image_name";
     move_uploaded_file($frontImage['tmp_name'],$image_dir);
     $frontpage_pic="frontpage_pic='$image_name'";
@@ -952,6 +975,9 @@ function createPost($text,$image){
     $user_id = $_SESSION['userdata']['id'];
     
     $image_name = time().basename($image['name']);
+    $image_name = str_replace(" ", "-", $image_name);
+    $image_name = str_replace("(", "_", $image_name);
+    $image_name = str_replace(")", "_", $image_name);
     $image_dir="../images/posts/$image_name";
     move_uploaded_file($image['tmp_name'],$image_dir);
     $allow_comment = $text['allow_comment'];
@@ -1189,13 +1215,24 @@ function publicarEstado($user_id, $imagen_estado, $descripcion ) {
     $cu = $_SESSION['userdata']['id'];
     
     $image_name = time().basename($imagen_estado['name']);
+    $image_name = str_replace(" ", "-", $image_name);
+    $image_name = str_replace("(", "_", $image_name);
+    $image_name = str_replace(")", "_", $image_name);
     $image_dir="../images/estados/$image_name";
+    
     move_uploaded_file($imagen_estado['tmp_name'],$image_dir);
 
 
     $descripcion = mysqli_real_escape_string($db, $descripcion);
 
+    $query = "SELECT * FROM estados WHERE user_id = $cu";
+    $result = mysqli_query($db, $query);
 
+    // Si hay algún resultado, borrar los registros existentes
+    if (mysqli_num_rows($result) > 0) {
+    $query = "DELETE FROM estados WHERE user_id = $cu";
+    mysqli_query($db, $query);
+    }
 
     $query = "INSERT INTO estados (user_id, imagen, descripcion)
     VALUES ($cu, '$image_name', '$descripcion') ";
@@ -1224,5 +1261,68 @@ function getEstados(){
 
     }
     return $estados;
+}
+
+function likeEstado($id_estado){
+
+    global $db;
+$id_estado = mysqli_real_escape_string($db, $id_estado);
+$cu = $_SESSION['userdata']['id'];
+
+$query = "SELECT * FROM `likesestados` WHERE `id_estado` = '$id_estado' AND `id_user` = '$cu'";
+
+$result = mysqli_query($db,$query);
+$num_rows = mysqli_num_rows($result);
+
+// Si el número de filas es cero, significa que el usuario no le dio like anteriormente
+if ($num_rows == 0) {
+// Inserta el like en la tabla likescomments
+$query = "INSERT INTO `likesestados`(`id_estado`, `id_user`) 
+VALUES ('$id_estado','$cu')";
+
+mysqli_query($db,$query);
+ $poster_id = getPosterEstadoId($id_estado);
+   
+   if($poster_id!=$cu){
+    createNotification($cu,$poster_id,"le gusto tu estado!",$id_estado);
+   }      
+
+return true;        
+} else {
+$query = "DELETE FROM `likesestados` 
+            WHERE `id_estado` = '$id_estado' 
+            AND `id_user` = '$cu'";
+
+ mysqli_query($db,$query);
+ return false;
+}
+}
+
+function getMyEstados(){
+    global $db;
+
+    $cu = $_SESSION['userdata']['id'];
+
+    $query = "SELECT * from estados WHERE user_id = $cu";
+    $run = mysqli_query($db,$query);
+    $data = mysqli_fetch_all($run,true);
+
+    return $data;
+
+}
+
+function borrarMiEstado($id_estado){
+    global $db;
+
+    $query = "DELETE from `estados` WHERE id = $id_estado";
+
+    return mysqli_query($db, $query);
+}
+
+function estadoCaducado() {
+    global $db;
+
+    $query = "DELETE FROM estados WHERE creado < (NOW() - INTERVAL 24 HOUR)";
+    return mysqli_query($db, $query);
 }
 ?>

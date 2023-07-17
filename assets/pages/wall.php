@@ -504,6 +504,14 @@ border-radius: 50%;
     transition: all 250ms;
 }
 
+.hover_efecto:hover{
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  div.modal-backdrop.fade.show {
+/* Aplicar la propiedad display con el valor none */
+display: none;
+}
 
   </style>
 
@@ -761,25 +769,108 @@ global $profile;
                         gap: 8px;
                         align-items: center;">
 
-                    <?php $estados = getEstados();
-                        foreach($estados as $estado){
-
+                    <?php 
+                         $miEstado = getMyEstados();
+                        if($miEstado){
+                        $miEstado = getMyEstados()[0];
                         
-                    ?>
-                    <img role="button" data-bs-toggle="modal" data-bs-target="#estadoModal<?= $estado['id'] ?>"  src="assets/images/estados/<?= $estado['imagen'] ?>" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #7030a0; object-fit: cover; " alt="">
 
-                    <div class="modal fade" id="estadoModal<?= $estado['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
+                        ?>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+                        <img  role="button" data-bs-toggle="modal" data-bs-target="#estadoModal<?= $miEstado['id'] ?>"  src="assets/images/estados/<?= $miEstado['imagen'] ?>" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #7030a0; object-fit: cover; " alt="">
+                        <span>Mi estado</span>
+                    </div>
+
+                    <div class="modal fade" id="estadoModal<?= $miEstado['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div style="border-radius: 12px; background-color: #404040; " class="modal-content">
 
 
-                            <!-- Sub menu  -->
+                            <!-- Sub menu ESTADOS  -->
+
+                            <?php if($miEstado['user_id'] == $_SESSION['userdata']['id']){ ?>
+
                             <i style="position: absolute;
                                       z-index: 10;
                                       right: 0;
                                       font-size: 32px;
                                       color: #404040;" role="button" class="bi bi-three-dots-vertical abrir_menu_estado" >
                             </i>
+
+                            <?php }?>
+
+                            <div style="transform: scale(0);" class="menu_estado" id="<?= $miEstado['id'] ?>">
+                                <ul
+                                style="position: absolute;
+                                       background-color: white;
+                                       z-index: 10;
+                                       padding: 12px 24px;
+                                       color: #404040;
+                                       right: -130px;
+                                       top: 12px;
+                                       list-style: none;"
+                                 class="lista_menu_estado">
+                                   <li role="button" class="borrarMiEstado" id="<?= $miEstado['id']?>">Eliminar <i class="bi bi-trash-fill"></i> </li> </i>
+                                </ul>
+                            </div>
+
+                            <div style="padding: 0px; position:relative;" class="modal-body">
+                                <img class="imagen_estado" id="<?= $miEstado['id'] ?>" src="assets/images/estados/<?= $miEstado['imagen'] ?>" style="width:100%; height:500px; object-fit: cover;border-radius: 8px 8px 0 0;" alt="" >
+                                
+                                <?php 
+                                if(checkLikeEstadoStatus($miEstado['id'])){
+                                    $likeButtonEstado = 'scale(1)';
+                                }else{
+                                    $likeButtonEstado = 'scale(0)';
+                                }
+                                ?>
+                                <i style="position: absolute;
+                                          bottom: 0;
+                                          transition: all .3s ease-in-out;
+                                          left: calc(50% - 35px);
+                                          font-size: 70px;
+                                          color: red; transform: <?= $likeButtonEstado ?>;" class="bi bi-heart-fill"></i>
+                                
+                            </div>
+                            <div style="justify-content: start;  border-top: 0px;" class="modal-footer">
+                                <p style="color: white;"><?= $miEstado['descripcion'] ?></p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php }?>
+                    
+                    <?php $estados = getEstados();
+                        foreach($estados as $estado){
+
+                        
+                    ?>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+                        <img  role="button" data-bs-toggle="modal" data-bs-target="#estadoModal<?= $estado['id'] ?>"  src="assets/images/estados/<?= $estado['imagen'] ?>" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #7030a0; object-fit: cover; " alt="">
+                        <span><?= getUser($estado['user_id'])['first_name'] ?> </span>
+                    </div>
+
+
+                    <div class="modal fade" id="estadoModal<?= $estado['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div style="border-radius: 12px; background-color: #404040; " class="modal-content">
+
+
+                            <!-- Sub menu ESTADOS  -->
+
+                            <?php if($estado['user_id'] == $_SESSION['userdata']['id']){ ?>
+
+                            <i style="position: absolute;
+                                      z-index: 10;
+                                      right: 0;
+                                      font-size: 32px;
+                                      color: #404040;" role="button" class="bi bi-three-dots-vertical abrir_menu_estado" >
+                            </i>
+
+                            <?php }?>
 
                             <div style="transform: scale(0);" class="menu_estado" id="<?= $estado['id'] ?>">
                                 <ul
@@ -796,8 +887,23 @@ global $profile;
                                 </ul>
                             </div>
 
-                            <div style="padding: 0px;" class="modal-body">
-                                <img src="assets/images/estados/<?= $estado['imagen'] ?>" style="width:100%; height:500px; object-fit: cover;     border-radius: 8px 8px 0 0;" alt="">
+                            <div style="padding: 0px; position:relative;" class="modal-body">
+                                <img class="imagen_estado" id="<?= $estado['id'] ?>" src="assets/images/estados/<?= $estado['imagen'] ?>" style="width:100%; height:500px; object-fit: cover;border-radius: 8px 8px 0 0;" alt="" >
+                                
+                                <?php 
+                                if(checkLikeEstadoStatus($estado['id'])){
+                                    $likeButtonEstado = 'scale(1)';
+                                }else{
+                                    $likeButtonEstado = 'scale(0)';
+                                }
+                                ?>
+                                <i style="position: absolute;
+                                          bottom: 0;
+                                          transition: all .3s ease-in-out;
+                                          left: calc(50% - 35px);
+                                          font-size: 70px;
+                                          color: red; transform: <?= $likeButtonEstado ?>;" class="bi bi-heart-fill"></i>
+                                
                             </div>
                             <div style="justify-content: start;  border-top: 0px;" class="modal-footer">
                                 <p style="color: white;"><?= $estado['descripcion'] ?></p>
@@ -810,7 +916,9 @@ global $profile;
 
                 <button 
                 id="agregarEstado"
+                class="hover_efecto"
                 style="width: 50px;
+                        align-self: baseline;
                         height: 50px;
                         border-radius: 50%;
                         border: 1px solid grey;
@@ -866,7 +974,7 @@ global $profile;
 
                             <div class="dropdown">
 
-                                <i class="bi bi-three-dots-vertical" id="option<?= $post['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <i class="bi bi-three-dots-vertical hover_efecto" id="option<?= $post['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false"></i>
 
                                 <ul class="dropdown-menu" aria-labelledby="option<?= $post['id'] ?>">
                                     <li><a class="dropdown-item" href="assets/php/actions.php?deletepost=<?= $post['id'] ?>"><i class="bi bi-trash-fill"></i> Delete Post</a></li>
@@ -1602,7 +1710,7 @@ if ($extension == "mp4") {
         <div>
             <div class ="d-flex justify-content-between border-bottom font-weight-bold mt-3 align-items-end ">
                 <p style="font-weight: 800;" class="text-secondary font-weight-bold  m-0">Eventos</p>
-                <a href="#">click aqui</a>
+                <a href="?eventos=1">click aqui</a>
             </div>
             <br/>
 

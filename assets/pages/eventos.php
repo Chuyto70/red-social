@@ -853,7 +853,9 @@ border-radius: 10px;
 
       <?php 
         $eventos = getEventos();
+         if($eventos){
 
+         
         foreach($eventos as $evento){
 
       ?>
@@ -898,7 +900,10 @@ border-radius: 10px;
             </div>
         </article>
 
-       <?php } ?> 
+       <?php }} else{?>
+        
+          <h1 style="color: white !important;">Aun no hay eventos</h1>
+        <?php } ?>
 
 
 

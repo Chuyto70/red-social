@@ -367,11 +367,13 @@ $(".unblockbtn").click(function () {
     });
 });
 
-var chatting_user_id = 0;
+let chatting_user_id = 0;
 let chatting_grupo_id = 0;
 $(".chatlist_item").click();
 
 function popchat(user_id) {
+    chatting_grupo_id = 0
+    
     $('#buscador_de_chat').val("")
     localStorage.setItem('user_id_to_call', JSON.stringify(user_id))
     $("#user_chat").html(`<div class="spinner-border text-center" role="status">
@@ -386,6 +388,7 @@ function popchat(user_id) {
 }
 
 function popGrupochat(grupo_id){
+    chatting_user_id = 0;
     $("#user_chat").html(`<div class="spinner-border text-center" role="status">
 
   </div>`);
@@ -478,7 +481,7 @@ $("#sendmsg").click(function () {
         }
     })
 function synmsg() {
-
+    // Obteniendo mensajes
     $.ajax({
         url: 'assets/php/ajax.php?getmessages',
         method: 'post',
@@ -605,7 +608,7 @@ function synmsg() {
 
         }
     });
-
+    // Obteniendo llamadas
     $.ajax({
         url: 'assets/php/ajax.php?getllamadas',
         method:'GET',
@@ -700,7 +703,7 @@ function synmsg() {
          
         }
     })
-
+    // Obteniendo notificaciones
     $.ajax({
         url:'assets/php/ajax.php?getNotifications',
         method:'GET',
@@ -755,6 +758,17 @@ $('#show_not').html(icono_notificacionesHTML)
 $("#contenedor_de_notificaciones").html(htmlNotifications);
         }
     })
+
+    // Borrando estados caducados
+
+     $.ajax({
+        url:"assets/php/ajax.php?estadoCaducado",
+        method:"post",
+        success:function(response){
+           console.log('Verificando si hay estados borrados')
+          
+        }
+    })
 }
 
 synmsg();
@@ -762,7 +776,7 @@ synmsg();
 setInterval(() => {
     synmsg();
 
-}, 5000);
+}, 1000);
 
 var valorAModificar = document.querySelectorAll('#valorAModificar')
 var modificarPerfil = document.querySelector("#modificarPerfil");
@@ -1242,7 +1256,7 @@ let createOffer = async (memberId) =>{
 let createAnswer = async (memberId, offer)=>{
 
  
-         try {
+    try {
     await createPeerConnection(memberId)
  
     await peerConnection.setRemoteDescription(offer)
@@ -1409,6 +1423,10 @@ $('#publicar_estado').click((e)=>{
     let descripcion = document.getElementById('post_textarea').value;
     let formData = new FormData();
     let files = $('#select_post_img')[0].files[0];
+    if(!files) {
+        alert('Agrega una imagen')
+        return
+    }
     formData.append('file',files);
     formData.append('user_id', localStorage.getItem('current_user_id'));
     formData.append('descripcion', descripcion);
@@ -1438,10 +1456,51 @@ document.querySelectorAll('.abrir_menu_estado').forEach((boton)=>{
     console.log(menu_estado.id)
     if(menu_estado.style.transform === "scale(0)"){
         menu_estado.style.transform = "scale(1)"
-    }else{
+    }else{  
         menu_estado.style.transform = "scale(0)"
     }
 })
 })
 
+document.querySelectorAll('.imagen_estado').forEach((estado)=>{
+   
+    estado.addEventListener('dblclick', ()=>{
+        let id_estado = estado.id;
+
+       $.ajax({
+        url:"assets/php/ajax.php?likeEstado",
+        method:"post",
+        data:{id_estado: id_estado},
+        success:function(response){
+           let corazon = estado.nextElementSibling
+          
+            if(corazon.style.transform == 'scale(0)'){
+                corazon.style.transform = 'scale(1)'
+            }else{
+                corazon.style.transform ='scale(0)';
+            }
+           
+          
+        }
+    })
+    })
+})
+
+ let borrarMiEstado = document.querySelector('.borrarMiEstado')
+
+ borrarMiEstado.addEventListener('click', (e)=>{
+
+    let id_estado = borrarMiEstado.id;
+
+    $.ajax({
+        url:"assets/php/ajax.php?borrarMiEstado",
+        method:"post",
+        data:{id_estado: id_estado},
+        success:function(response){
+         alert('Haz borrado tu estado')
+         window.location.reload()
+          
+        }
+    })
+ })
 
