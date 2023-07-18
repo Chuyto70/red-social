@@ -144,7 +144,7 @@ foreach($gruposActivos as $grupo ){
    $chatlist.='  
     <div class="d-flex justify-content-between border-bottom chatlist_item" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popGrupochat('.$grupo['id_grupo'].')" >
                         <div class="d-flex align-items-center p-2">
-                            <div><img src="assets/images/imagesGrupos/'.$grupo['grupos_pic'].'" alt="" height="40" width="40" class="rounded-circle border">
+                            <div><img src="assets/images/imagesGrupos/'.$grupo['grupos_pic'].'" alt="" height="40" width="40" class="rounded-circle border" style="object-fit:cover; ">
                             </div>
                             <div>&nbsp;&nbsp;</div>
                             <div class="d-flex flex-column justify-content-center" >
@@ -172,7 +172,7 @@ foreach($chats as $chat){
     $chatlist.='  
     <div class="d-flex justify-content-between border-bottom chatlist_item" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat('.$chat['user_id'].')" >
                         <div class="d-flex align-items-center p-2">
-                            <div><img src="assets/images/profile/'.$ch_user['profile_pic'].'" alt="" height="40" width="40" class="rounded-circle border">
+                            <div><img src="assets/images/profile/'.$ch_user['profile_pic'].'" alt="" height="40" width="40" class="rounded-circle border" style="object-fit:cover;">
                             </div>
                             <div>&nbsp;&nbsp;</div>
                             <div class="d-flex flex-column justify-content-center" >

@@ -962,13 +962,23 @@ responderChat[i].addEventListener('click', (e)=>{
 })
 }
 
+let flex = document.getElementById("flex");
 
-var post_textarea = document.querySelectorAll('#post_textarea');
-var modal = document.getElementById('miModal');
+let post_textarea = document.querySelectorAll('#post_textarea');
+let modal = document.getElementById('miModal');
 let cerrar = document.getElementById('close');
 post_textarea[0].addEventListener('click', ()=>{
    modal.style.display = 'block';
 })
+
+flex.addEventListener("click", function(e) {
+// Comprobar si el elemento objetivo es el mismo que el div flex
+if (e.target == flex) {
+// Ocultar el modal cambiando su propiedad de visualización a none
+modal.style.display = "none";
+}
+});
+
 cerrar.addEventListener('click', function(){
     modal.style.display = 'none';
     console.log(document.querySelector('.file-input'))

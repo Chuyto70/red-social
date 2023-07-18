@@ -1769,6 +1769,7 @@ if ($extension == "mp4") {
     font-size: 12px;"
            >Copyright 2022 Avadisk</p>
         </div>  
+        
 <!-- MODAL PARA EL Post -->
         <div id="miModal" class="modal">
             <div class="flex" id="flex">
@@ -1863,40 +1864,7 @@ if ($extension == "mp4") {
 
 
         </div>
-        <!--<div>
-            <h6 class="text-muted p-2">Puedes seguirlos</h6>
-            <?php
-            foreach ($follow_suggestions as $suser) {
-            ?>
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profile/<?= $suser['profile_pic'] ?>" alt="" height="40" width="40" class="rounded-circle border">
-                        </div>
-                        <div>&nbsp;&nbsp;</div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <a href='?u=<?= $suser['username'] ?>' class="text-decoration-none text-dark">
-                                <h6 style="margin: 0px;font-size: small;"><?= $suser['first_name'] ?> <?= $suser['last_name'] ?></h6>
-                            </a>
-                            <p style="margin:0px;font-size:small" class="text-muted">@<?= $suser['username'] ?></p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-sm btn-primary followbtn" data-user-id='<?= $suser['id'] ?>'>Follow</button>
 
-                    </div>
-                </div>
-            <?php
-            }
-
-            if (count($follow_suggestions) < 1) {
-                echo "<p class='p-2 bg-white border rounded text-center'>No Suggestions For You</p>";
-            }
-            ?>
-
-
-
-
-        </div>-->
     </div>
 </div>
 
