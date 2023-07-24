@@ -7,7 +7,7 @@
     position: absolute;
     background-color: rgb(64 64 64);
     color: white;
-    right: -124px;
+    right: -165px;
     top: 0px;
     
     transition: all 500ms ease-in-out;
@@ -73,12 +73,12 @@
     align-items: center;
 }
 .iconos_llamadas_chatbox i::before {
-font-size: 16px;
+font-size: 20px;
     font-weight: 900 !important;
-    background: black;
+    background: transparent;
     padding: 12px;
     border-radius: 50%;
-    color: #d9d9d9 ;
+    color: #212529;
 }
 #msgsender{
     align-items: center;
@@ -320,8 +320,8 @@ background-color: white;
           height: 160px;
           width: 120px;
           z-index: 100;
-          top: 0;
-          right: 0;
+          top: 8px;
+          right: 8px;
           object-fit: cover;
           border-radius: 8px;
         }
@@ -404,7 +404,7 @@ transform: scaleX(-1); /* Invertir horizontalmente */
   .control-container{
     width: 58px;
     height: 58px;
-    background-color: rgb(179, 102, 249, .9);
+    background-color: rgb(179, 102, 249, .3);
     padding: 20px;
     border-radius: 50%;
     display: flex;
@@ -417,7 +417,7 @@ transform: scaleX(-1); /* Invertir horizontalmente */
     color: white;
   }
   #leave-btn{
-    background-color: rgb(255, 80, 80,1);
+    background-color: rgb(255, 80, 80,.3);
   }
   .header_video_llamada{
     background-color: rgb(38 38 38);
@@ -462,6 +462,25 @@ overflow-y: scroll !important;
     transition: all 0.5s ease-in-out; 
     
 }
+
+#cambiar_tema_toggle::before{
+      position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+.border-bottom {
+    border-bottom: 1px solid #007efc!important;
+}
+input[name="cambiar_tema"]:checked + .slider:before {
+transform: translateX(15px);
+}
+
 </style>
 <?php if(isset($_SESSION['Auth'])){ ?>
 
@@ -533,10 +552,21 @@ overflow-y: scroll !important;
   </div>
 
    <div class="perfil_container_messages mb-2">
-    <div style="transform: scale(0);" class="menu_perfil_message">
+    <div style="transform: scale(0); width: 178px;" class="menu_perfil_message">
       <p role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Crear grupo</p>
       <p role="button" data-bs-toggle="offcanvas" data-bs-target="#notification_sidebar">Notificaciones</p>
-      <p>Cambiar tema</p>
+      <p style="position: relative; display:flex; justify-content:space-between;">Cambiar tema
+      <label class="toggle" style="align-self: center;">
+                        <input checked type="checkbox" id="toggle-input" name="cambiar_tema"  value="1">
+                        <span style="height: 18px;
+    width: 38px;
+    right: 4px !important;
+    left: auto;
+    top: calc(50% - 9px);
+    border: 1px solid white;
+    background: transparent;" class="slider" id="cambiar_tema_toggle"></span>
+                    </label>
+     </p>
     </div>
     <div style="background-color: rgb(31 55 101);
     display: flex;
@@ -572,20 +602,22 @@ overflow-y: scroll !important;
         class="opciones_iconos">
           <i class="bi bi-people-fill"></i>
         </div>
-        <div 
+        <!-- <div 
         class="opciones_iconos">
           <i class="bi bi-telephone-fill"></i>
-        </div>
-        <div class="opciones_iconos">
+        </div> -->
+        <!-- <div class="opciones_iconos">
           <i class="bi bi-camera-fill"></i>
-        </div>
-        <div class="opciones_iconos">
+        </div> -->
+        <div role="button" id="agregar_estado_plus" class="opciones_iconos">
           <i class="bi bi-plus-lg"></i>
         </div>
       </div>
-      <hr>
+      <hr style="    width: 88%;
+    
+    margin: 5px auto;">
     </div>
-  <div class="offcanvas-body" id="chatlist">
+  <div class="offcanvas-body" id="chatlist" style="padding: 40px;">
 
     
   </div>
@@ -617,16 +649,16 @@ overflow-y: scroll !important;
         
         <div class="iconos_llamadas_chatbox">
           <i id="boton_camara_chatbox" role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal" class="bi bi-camera-video"></i>
-          <i class="bi bi-telephone"></i>
+          <i id="boton_telefono_chatbox" role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal"   class="bi bi-telephone"></i>
           <i role="button" id="chatbox_menu_dropdown" class="bi bi-three-dots-vertical"></i>
-          <button style="    font-size: 28px;
+          <button style="    font-size: 16px;
     font-weight: 300 !important" type="button" class="btn-close cerrar_chatbox_boton" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="chatbox_menu_emergente">
-          <p>Silenciar notificaciones</p>
-          <p>Eliminar chat</p>
+          <!-- <p>Silenciar notificaciones</p> -->
+          <p role="button" id="eliminar_chat">Eliminar chat</p>
           <p role="button" data-bs-toggle="modal" data-bs-target="#reportarModal">Reportar abuso</p>
-          <p>Archivar chat</p>
+          <!-- <p>Archivar chat</p> -->
           <p role="button" data-bs-toggle="modal" data-bs-target="#bloquearModal">Bloquear</p>
         </div>
       
@@ -646,8 +678,8 @@ overflow-y: scroll !important;
 </div>
       <div class="input-group p-3 " id="msgsender">
         
-                <i class="fa fa-sticky-note" aria-hidden="true"></i>
-                <i class="bi bi-paperclip"></i>
+                <!-- <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                <i class="bi bi-paperclip"></i> -->
                 
                             <input
                             style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;"
@@ -673,10 +705,10 @@ overflow-y: scroll !important;
         <i role="button" data-bs-toggle="modal" data-bs-target="#chatbox" class="bi bi-arrow-left"></i>
         <i id="dropdown_perfil_menu" role="button" class="bi bi-three-dots-vertical"></i>
         <div class="perfil_menu_emergente position-absolute">
-          <p>Silenciar notificaciones</p>
-          <p>Eliminar chat</p>
+          <!-- <p>Silenciar notificaciones</p> -->
+          <p role="button" id="eliminar_chat_2">Eliminar chat</p>
           <p role="button" data-bs-toggle="modal" data-bs-target="#reportarModal">Reportar abuso</p>
-          <p>Archivar chat</p>
+          <!-- <p>Archivar chat</p> -->
           <p role="button" data-bs-toggle="modal" data-bs-target="#bloquearModal" >Bloquear</p>
         </div>
       </div>  
@@ -696,18 +728,18 @@ overflow-y: scroll !important;
         <strong  id="nombre_profile_modal">Nombre de usuario</strong>
       </a>
       <div class="funciones_perfil">
-         <div class="opciones_iconos">
+         <div class="opciones_iconos" role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal">
           <i role="button" class="bi bi-camera-video"></i>
         </div>
-        <div class="opciones_iconos">
+        <div class="opciones_iconos" id="boton_telefono_mini_perfil" role="button" data-bs-toggle="modal" data-bs-target="#videoLlamadaModal">
           <i role="button" class="bi bi-telephone"></i>
         </div>
-        <div class="opciones_iconos">
+        <!-- <div class="opciones_iconos">
           <i role="button" class="bi bi-search"></i>
-        </div>
-        <div class="opciones_iconos">
+        </div> -->
+        <!-- <div class="opciones_iconos">
           <i role="button" class="bi bi-bell"></i>
-        </div>
+        </div> -->
       </div>
       <div class="modal-body">
         <p>Imagenes y documentos</p>
@@ -944,20 +976,22 @@ decidas desbloquear a este usuario
         <i style="font-size: 28px; color: white;" role="button" class="bi bi-box-arrow-in-down-right"></i>
       </div>
 
-      <div style="height: 100%;" class="modal-body body_video_llamada">
+      <div style="height: 100%; padding: 0;" class="modal-body body_video_llamada">
         
         <div style="height: 100%;" id="stream-wrapper">
             <div style="height: 100%; overflow: hidden;" id="video-streams">
            
               <div id="usuario_a_llamar_info" 
-                    style="color: white;
-                          position: absolute;
-                          display: flex;
-                          flex-direction: column;
-                          align-items: center;
-                          gap: 12px;
-                          font-size: 16px;
-                          left: calc(50% - 75px);">
+                    style="height: 90%;
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 16px;
+    left: calc(50% - 75px);">
                 <img id="imagen_perfil_te_llaman"
                 style="width: 150px;
                        height: 150px;
@@ -972,7 +1006,13 @@ decidas desbloquear a este usuario
               <div id="videos" style="transform: scale(0);">
 
                 <video class="video-player" id="user-1" autoplay playsinline muted></video>
-                <video class="video-player" id="user-2" autoplay playsinline></video>
+                <video class="video-player" id="user-2" autoplay playsinline style=" 
+                display: block;
+                margin: 0 auto;
+                width: 50%;
+                height: 100%;
+                ;"></video>
+                <h4 id="en_llamada" style="display:none; color: white;">En llamada...</h4>
 
               </div>
              <button id="button_llamada" style="
@@ -1030,10 +1070,23 @@ decidas desbloquear a este usuario
                                       bottom: 0;
                                       right: 0;
                                       cursor: grab;
-                                      padding: 6px;">
+                                      padding: 6px;
+                                      background: #404040;">
      
       <div style="height: 100%;" class="modal-body">
-        <div style="position: absolute; top: 0; color: grey;top: -7px;left: -4px;
+        <div 
+        style="z-index: 1;
+    position: absolute;
+    top: 0;
+    color: white;
+    top: -7px;
+    left: -6px;
+    width: 248px;
+    height: 40px;
+    background: #262626;
+    padding-top: 2px;
+    padding-left: 6px;
+    font-size: 24px;
 " role="button" data-bs-target="#videoLlamadaModal" data-bs-toggle="modal">
           <i class="bi bi-box-arrow-up-left"></i>
         </div>
@@ -1047,7 +1100,7 @@ decidas desbloquear a este usuario
                   <i class="bi bi-mic"></i>
                 </div>
 
-                <div style="background-color: red;" class="control-container" id="leave-btn_mini"> 
+                <div style="background-color: red; opacity:.8;" class="control-container" id="leave-btn_mini"> 
                   <i class="bi bi-telephone-x"></i>
                 </div>
             </div>
@@ -1311,6 +1364,48 @@ input_editar_apodo.addEventListener('change', editarApodo)
 $(document).on("click", ".close", function() {
   $("#myModal").modal("hide");
 });
+
+$('#boton_telefono_chatbox').click((e)=>{
+    document.getElementById('camera-btn').style.opacity = '0.3'
+ })
+ $('#boton_telefono_mini_perfil').click((e)=>{
+  document.getElementById('camera-btn').style.opacity = '0.3'
+ })
+
+ $('#eliminar_chat').click((e)=>{
+
+  let user_id_deletechat = localStorage.getItem('user_id_to_call')
+   $.ajax({
+        url: 'assets/php/ajax.php?borrarMensajes',
+        method: 'post',
+        data: { user_id: user_id_deletechat },
+        success: function (response) {
+            // console.log(response);
+           alert('Eliminaste el chat')
+        }
+    });
+  
+ })
+
+ $('#eliminar_chat_2').click((e)=>{
+
+  let user_id_deletechat = localStorage.getItem('user_id_to_call')
+   $.ajax({
+        url: 'assets/php/ajax.php?borrarMensajes',
+        method: 'post',
+        data: { user_id: user_id_deletechat },
+        success: function (response) {
+            // console.log(response);
+           alert('Eliminaste el chat')
+        }
+    });
+  
+ })
+
+ $('#msginput').change((e)=>{
+    $('#sendmsg').click()
+ })
+ 
 </script>
 
 <script>

@@ -372,6 +372,7 @@ id_user_calling INT NOT NULL,
 id_user_called INT NOT NULL,
 status VARCHAR(10) CHECK (status IN ('activa','ENPROGRESO' ,'terminada')),
 channelName varchar(255) NOT NULL,
+tipo_llamada varchar(255) NOT NULL,
 fecha timestamp NOT NULL DEFAULT current_timestamp(),
 PRIMARY KEY (id_user_calling, id_user_called, fecha)
 );

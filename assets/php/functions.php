@@ -374,7 +374,7 @@ function getUnreadNotificationsCount(){
   }
 
   function show_description($description){
-    return '<span>'.$description.'</span>';
+    return '<span style="display: block;word-wrap: break-word;">'.$description.'</span>';
   }
 
   function setNotificationStatusAsRead(){
@@ -578,12 +578,12 @@ global $db;
 
 // INSERTANDO LLAMADAS
 
-function insertingCalls($user_called, $channelName) {
+function insertingCalls($user_called, $channelName, $tipo) {
     global $db;
     $cu = $_SESSION['userdata']['id'];
 
-    $query = "INSERT INTO `llamadas`(`id_user_calling`, `id_user_called`, `status`, `channelName`) 
-                VALUES ($cu,$user_called,'activa', '$channelName')";
+    $query = "INSERT INTO `llamadas`(`id_user_calling`, `id_user_called`, `status`, `channelName`, `tipo_llamada`) 
+                VALUES ($cu,$user_called,'activa', '$channelName', '$tipo')";
     $run =  mysqli_query($db,$query);
     
 
@@ -1316,6 +1316,17 @@ function borrarMiEstado($id_estado){
 
     $query = "DELETE from `estados` WHERE id = $id_estado";
 
+    return mysqli_query($db, $query);
+}
+
+function borrarMensajes($user_id){
+
+    global $db;
+    $cu = $_SESSION['userdata']['id'];
+
+    $query = "DELETE FROM messages 
+                    WHERE (from_user_id = $cu AND to_user_id = $user_id) 
+                    OR (from_user_id = $user_id AND to_user_id = $cu)";
     return mysqli_query($db, $query);
 }
 

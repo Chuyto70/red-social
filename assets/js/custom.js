@@ -488,7 +488,7 @@ function synmsg() {
         dataType: 'json',
         data: { chatter_id: chatting_user_id, chatter_grupo_id: chatting_grupo_id },
         success: function (response) {
-
+            
             let inputValorBuscarChat = $('#buscador_de_chat').val()
             if(inputValorBuscarChat.length === 0){
                  $("#chatlist").html(response.chatlist);
@@ -618,10 +618,19 @@ function synmsg() {
             let htmlLlamadas = '';
             if(responseFormat.length !== 0){
                 
-                
-                console.log(responseFormat)
+                console.warn('AQUI LA DATA DE QUE TE ESTAN LLAMANDO')
+                console.warn(responseFormat)
+                let tipo_de_llamada = ''
                 channelNameFromDB = responseFormat[0].channelName
-                
+                if(responseFormat[0].tipo_llamada === "llamada"){
+                   tipo_de_llamada = 'Te estan llamando'
+                   document.getElementById('user-1').style.display = 'none'
+                   document.getElementById('user-2').style.display = 'none'
+                   document.getElementById('en_llamada').style.display = 'block'
+
+                }else{
+                    tipo_de_llamada = 'Te hacen una videollamada'
+                }
                 $.ajax({
                     url: 'assets/php/ajax.php?getUserCalling',
                     method:'post',
@@ -651,7 +660,7 @@ function synmsg() {
               </div>
 
               <div class="content_contestar_llamada p-3">
-                <h3>Te esta llamando</h3>
+                <h3>${tipo_de_llamada}</h3>
                 <img style="border-radius: 50%;
                             padding: 10px;
                             background: white;" width="120px" height="120px" src="assets/images/profile/${usuario.profile_pic}" alt="">
@@ -683,8 +692,13 @@ function synmsg() {
                             console.log(nameChannel)
                             await actualizarLlamada(nameChannel)
                             await init(channelNameFromDB)
+                            if(responseFormat[0].tipo_llamada === "llamada"){
+                                document.getElementById('user-1').style.display = 'none'
+                                document.getElementById('user-2').style.display = 'none'
+                                document.getElementById('en_llamada').style.display = 'block' 
+                            }
                             $('#contenedor_de_llamada').html('')
-})
+})      
                         }
                         
                         
@@ -979,6 +993,15 @@ modal.style.display = "none";
 }
 });
 
+$('#agregar_estado_plus').click((e)=>{
+    if(modal.style.display === 'none'){
+
+        modal.style.display = 'block';
+    }else{
+        modal.style.display = 'none';
+    }
+})
+
 cerrar.addEventListener('click', function(){
     modal.style.display = 'none';
     console.log(document.querySelector('.file-input'))
@@ -1107,15 +1130,17 @@ const servers = {
         }
     ]
 }
+
 let init = async(nombreCanal = null) =>{
     document.getElementById('button_llamada').style.display = 'none'
     document.getElementById('usuario_a_llamar_info').style.display = 'none'
     document.getElementById('videos').style.transform = 'scale(1)'
+    let tipo = document.getElementById('camera-btn').style.opacity == '0.3' ? 'llamada' : 'video';
     if(typeof nombreCanal ==="object"){
         $.ajax({
                url:"assets/php/ajax.php?insertingCalls",
                method:"post",
-               data:{user_called:localStorage.getItem('user_id_to_call'), channelName:localStorage.getItem('user_id_to_call')},
+               data:{user_called:localStorage.getItem('user_id_to_call'), channelName:localStorage.getItem('user_id_to_call'), tipo:tipo},
                success:function(response){
                  console.log('AQUI LA RESPUESTA DEL INIT INSERTINGCALLS')
                  console.log(response)
@@ -1134,6 +1159,7 @@ let init = async(nombreCanal = null) =>{
     if(typeof nombreCanal ==="string"){
         console.log('ENTRO ACA EN EL NOMBRE DEL CANAL')
         channel = await client.createChannel(nombreCanal)
+        document.getElementById('user-2').style.display = 'none'
     }else{
         
         channel = await client.createChannel(localStorage.getItem('user_id_to_call'))
@@ -1148,8 +1174,8 @@ let init = async(nombreCanal = null) =>{
  
     client.on('MessageFromPeer', handleMessageFromPeer)
   
-
-    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true})
+    let isJustCall = document.getElementById('camera-btn').style.opacity == '0.3' ? false : true;
+    localStream = await navigator.mediaDevices.getUserMedia({video:isJustCall, audio:true})
   
     
     document.getElementById('user-1').srcObject = localStream
@@ -1216,13 +1242,27 @@ let createPeerConnection = async (memberId) =>{
     document.getElementById('user-2').style.display = "block"
     document.getElementById('user-2').srcObject = remoteStream
     document.getElementById('user-2-mini').srcObject = remoteStream
+    let isJustCall = document.getElementById('camera-btn').style.opacity === '0.3' ? false : true;
+    
+    if(!isJustCall){
+        document.getElementById('user-1').style.display = 'none'
+        
+        document.getElementById('user-2').style.display = 'none'
+        document.getElementById('en_llamada').style.display = 'block'
+    }
     
     
     }
    
         if(!localStream){
-             localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true})
-        document.getElementById('user-1').srcObject = localStream
+            let isJustCall = document.getElementById('camera-btn').style.opacity === '0.3' ? false : true;
+            localStream = await navigator.mediaDevices.getUserMedia({video:isJustCall,audio:true})
+            document.getElementById('user-1').srcObject = localStream
+            if(!isJustCall){
+                document.getElementById('user-1').style.display = 'none'
+                document.getElementById('user-2').style.display = 'none'
+                document.getElementById('en_llamada').style.display = 'block'
+            }
         }
        
 
@@ -1515,6 +1555,6 @@ document.querySelectorAll('.imagen_estado').forEach((estado)=>{
     })
  })
 
- $('#msginput').change((e)=>{
-    $('#sendmsg').click()
- })
+ 
+
+ 

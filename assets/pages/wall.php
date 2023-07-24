@@ -493,12 +493,19 @@ border-radius: 50%;
 }
 
 #editar_descripcionpost_button{
-    opacity: 0;
+    display: none;
     transition: all 300ms;
 }
 
-.contenedor_descripcion_post:hover > #editar_descripcionpost_button {
-    opacity: 1;
+.contenedor_descripcion_post:hover  #editar_descripcionpost_button {
+    display: inline-block;
+}
+
+.contenedor_editar_form{
+    display: none;
+}
+.contenedor_descripcion_post:hover .contenedor_editar_form{
+    display: inline-block;
 }
 #input_editar_comentario{
     transition: all 250ms;
@@ -522,7 +529,7 @@ global $follow_suggestions;
 global $profile;
 
 ?>
-<div class="container col-12 rounded-0 d-flex justify-content-between mt-5 gap-4" style="padding: 0;">    
+<div class="container col-12 rounded-0 d-flex justify-content-between mt-5 gap-1" style="padding: 0;">    
 
 
     <div style="
@@ -531,7 +538,7 @@ global $profile;
     position: -webkit-sticky;
     position: sticky;
     top: 20px;
-    width: auto;
+    width: 260px;
 " class="col-3 mt-0 p-3 rounded shadow">
         <input hidden type="text" id="current_user_localStorage"  value="<?= $_SESSION['userdata']['id'] ?>">
         <!-- Fuente iconos https://icons.getbootstrap.com/icons/newspaper/-->
@@ -993,10 +1000,10 @@ global $profile;
                 if ($post['post_text']) {
                 ?>
           
-                <div class="p-1 contenedor_descripcion_post">
-                        <p id="texto_descripcipcion_post"><?= $post['post_text'] ?></p> 
-
-                         <?php 
+                <div class="p-1 contenedor_descripcion_post" style="flex-direction: column;">
+                        <p id="texto_descripcipcion_post" style="min-width: 100%; margin: 0;"><?= $post['post_text'] ?></p> 
+                    <div class="d-flex gap-1 contenedor_editar_form" >
+                          <?php 
                         if($post['user_id'] == $user['id']){?>
 
                         <i role="button" class="bi bi-pencil ml-1" id="editar_descripcionpost_button"></i>
@@ -1007,6 +1014,8 @@ global $profile;
                             <input name="nuevo_descipcionpost" type="text" style="transform: scale(0); outline: none;" id="input_descripcionpost">
                             <input type="number" value="<?= $post['id'] ?>" name="post_id" style="display: none;" >
                         </form>
+                    </div>
+                       
                     </div>
                 <?php
                 }
@@ -1572,13 +1581,11 @@ if ($extension == "mp4") {
                                     }
                                     ?>
 
-
-
-
-
-
                                 </div>
+                                <!-- INPUT PARA ESCRIBIR COMENTARIO POSTVIEW -->
+                                <?php if($post['allow_comment'] == 1){ ?>
                                 <div class="input-group p-2 border-0">
+
                                     <input 
                                     style="max-width: 80%;"
                                     type="text" class="form-control rounded border-0 shadow-none comment-input" placeholder="Escribe algo..." aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -1587,6 +1594,8 @@ if ($extension == "mp4") {
                                     style="background: #272727; width:20%;" 
                                     class="btn btn-outline-primary rounded border-0 add-comment ms-2" data-cs="comment-section<?= $post['id'] ?>" data-post-id="<?= $post['id'] ?>" type="button" id="button-addon2"><i class="bi bi-send-fill text-light"></i> </button>
                                 </div>
+
+                                <?php }?>
                             </div>
 
 
@@ -1663,7 +1672,7 @@ if ($extension == "mp4") {
 
     </div>
 
-    <div style="background-color: #272727 !important; height: 100%; width: min-content;     position: -webkit-sticky;
+    <div style="background-color: #272727 !important; height: 100%; width: 260px;     position: -webkit-sticky;
     position: sticky;
     top: 20px;" class="col-3 mt-0 p-3 rounded shadow">
 
