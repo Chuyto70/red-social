@@ -772,7 +772,9 @@ border-radius: 10px;
     width: 100%;
     z-index: 100;
 }
-
+.contenedor_buscador_mensajes{
+  display: flex;
+}
  </style>
  <head>
   <meta charset="UTF-8">
@@ -790,10 +792,10 @@ border-radius: 10px;
  <section  class="nav position-fixed" id="navbar" style="top: 95px !important;">
     <a
     style="width: 100%;"
-     href="social.html" class="nav_link nav_logo ">
+     href="#" class="nav_link nav_logo ">
       <i class="fa-solid fa-bars nav_icon"></i>
       <span class="logo_name">
-        <i class="logo-barra"><img src="assets/images/home/logo.png" alt=""></i>
+        <i class="logo-barra"><img style="object-fit: cover;" src="assets/images/oficial_logo.png" alt=""></i>
         NavHer
       </span>
     </a>
@@ -802,11 +804,11 @@ border-radius: 10px;
         <div class="imp-links">
          <!-- <a href="#"><img src="assets/images/home/play.png"> Videos</a>-->
 
-          <a href="#"><img src="assets/images/home/logo.png"> Noticias</a>
+          <a href="#"><img style="object-fit: cover;" src="assets/images/oficial_logo.png"> Noticias</a>
 
           <!-- <a href="#"><img src="assets/images/home/stream.png"> Stream</a>-->
 
-          <a href="amigos.html"><img src="assets/images/home/amigos.png"> Amigos</a>
+          <a href="#"><img src="assets/images/home/amigos.png"> Amigos</a>
 
           <!-- <a href="game.html"><img src="assets/images/home/juegos.png"> Games</a>-->
 
@@ -823,7 +825,7 @@ border-radius: 10px;
 
           <a href="#"><img src="assets/images/home/twitter.png"> Twitter </a>-->
           <p>Informacion</p>
-          <a href="fundadores.html"><img src="assets/images/home/logo.png"> Fundadores </a>
+          <a href="?fundadores"><img style="object-fit: cover;" src="assets/images/oficial_logo.png"> Fundadores </a>
         </div>
 
       </div>
@@ -941,14 +943,14 @@ border-radius: 10px;
   <div class="sidebar-center">
     <ul class="list">
 
-      <a href="#">
+      <a href="?u=<?= $_SESSION['userdata']['username'] ?>">
         <li class="list-item">
           <i class="list-item-icon fa-solid fa-user"></i>
           <span class="list-item-text">Perfil</span>
         </li>
       </a>
 
-      <a href="Eventos.html">
+      <a href="?eventos=1">
         <li class="list-item">
           <i class="list-item-icon fa-solid fa-calendar"></i>
           <span class="list-item-text">envetos</span>

@@ -26,9 +26,9 @@
 id="segunda_nav"
 class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0  noshow_navbar" >
         <div class="col-lg-11 col-sm-12 col-md-10 d-flex flex-lg-row flex-md-row flex-sm-column justify-content-between" id="contenedor_del_navbar">
-            <div class="d-flex justify-content-between col-lg-7 col-sm-12">
+            <div class="d-flex justify-content-between align-items-center col-lg-7 col-sm-12">
                 <a class="navbar-brand" href="?">
-                <img src="assets/images/home/logo.png" alt="" height="28">
+                <img  src="assets/images/oficial_logo.png" alt="" height="28">
 
                 </a>
 
@@ -54,7 +54,7 @@ class="navbar navbar-expand-lg navbar-light justify-content-around shadow-lg p-0
             </div>
 
 
-            <ul class="navbar-nav flex-row justify-content-evenly mb-lg-1 mb-sm-0 gap-4">
+            <ul class="navbar-nav flex-row justify-content-evenly align-items-center mb-lg-1 mb-sm-0 gap-4">
 
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="?"><i class="bi bi-house-door-fill "  style="color: white; font-size: 1.4rem;"></i></a>

@@ -1462,7 +1462,7 @@ border-radius: 50%;
     transition: all 300ms;
 }
 
-.contenedor_descripcion_post:hover > #editar_descripcionpost_button {
+.contenedor_descripcion_post:hover  #editar_descripcionpost_button {
     opacity: 1;
 }
 .menu-comentario {
@@ -1539,10 +1539,10 @@ global $user;
   class="nav position-fixed top-0" id="navbar">
     <a
     style="width: 100%;"
-     href="social.html" class="nav_link nav_logo ">
+     href="#" class="nav_link nav_logo ">
       <i class="fa-solid fa-bars nav_icon"></i>
       <span class="logo_name">
-        <i class="logo-barra"><img src="assets/images/home/logo.png" alt=""></i>
+        <i class="logo-barra"><img style="object-fit: cover;" src="assets/images/oficial_logo.png" alt=""></i>
         NavHer
       </span>
     </a>
@@ -1551,15 +1551,15 @@ global $user;
         <div class="imp-links">
          <!-- <a href="#"><img src="assets/images/home/play.png"> Videos</a>-->
 
-          <a href="#"><img src="assets/images/home/logo.png"> Noticias</a>
+          <a href="#"><img style="object-fit: cover;" src="assets/images/oficial_logo.png"> Noticias</a>
 
           <!-- <a href="#"><img src="assets/images/home/stream.png"> Stream</a>-->
 
-          <a href="amigos.html"><img src="assets/images/home/amigos.png"> Amigos</a>
+          <a href="#"><img src="assets/images/home/amigos.png"> Amigos</a>
 
           <!-- <a href="game.html"><img src="assets/images/home/juegos.png"> Games</a>-->
 
-          <a href="#">Mas Categorias</a>
+          <a href="?mascategorias">Mas Categorias</a>
         </div>
         <div class="shortcut-links">
          <!-- <p>Conectados</p>-->
@@ -1572,7 +1572,7 @@ global $user;
 
           <a href="#"><img src="assets/images/home/twitter.png"> Twitter </a>-->
           <p>Informacion</p>
-          <a href="fundadores.html"><img src="assets/images/home/logo.png"> Fundadores </a>
+          <a href="?fundadores"><img style="object-fit: cover;" src="assets/images/oficial_logo.png"> Fundadores </a>
         </div>
 
       </div>
@@ -1747,24 +1747,24 @@ if(!checkBS($profile['id'])){
         action="assets/php/ajax.php?modificarPerifil" method="post" id="form_modificar_perfil">
 
           <ul class="lista-datos">
-            <li ><i class="icono fas fa-map-signs"></i>Direccion de usuario: <span><?= $profile['direccion']?></span></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-map-signs"></i>Direccion de usuario: <span style="word-break: break-word; font-weight: 300;"><?= $profile['direccion']?></span></li>
             <input class="form-control" id="modificarInput" type="text" value="<?= $profile['direccion']?>" style="display: none;" name="direccion">
-            <li><i class="icono fas fa-phone-alt"></i>Telefono: <span><?= $profile['telefono']?></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-phone-alt"></i>Telefono: <span style="word-break: break-word; font-weight: 300;"><?= $profile['telefono']?></li>
             <input class="form-control" id="modificarInput" type="text" value="<?= $profile['telefono']?>" style="display: none;" name="telefono">
-            <li><i class="icono fas fa-briefcase"></i>Trabaja en: <span><?= $profile['trabaja_en']?></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-briefcase"></i>Trabaja en: <span style="word-break: break-word; font-weight: 300;"><?= $profile['trabaja_en']?></li>
             <input class="form-control" id="modificarInput" type="text" value="<?= $profile['trabaja_en']?>" style="display: none;" name="trabaja_en">
-            <li><i class="icono fas fa-building"></i>Cargo: <span><?= $profile['cargo']?></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-building"></i>Cargo: <span style="word-break: break-word; font-weight: 300;"><?= $profile['cargo']?></li>
             <input class="form-control" id="modificarInput" type="text" value="<?= $profile['cargo']?>" style="display: none;" name="cargo">
           </ul>
           <ul class="lista-datos">
             
-            <li><i class="icono fas fa-map-marker-alt"></i>Ubicacion: <span><?= $profile['ubicacion']?></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-map-marker-alt"></i>Ubicacion: <span style="word-break: break-word; font-weight: 300;"><?= $profile['ubicacion']?></li>
             <input class="form-control" id="modificarInput" type="text" value="<?= $profile['ubicacion']?>" style="display: none;" name="ubicacion">
-            <li id="valorAModificar"><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: <span><?= $profile['fecha_nacimiento']?></li>
+            <li style="font-weight: 700;" id="valorAModificar"><i class="icono fas fa-calendar-alt"></i>Fecha nacimiento: <span style="word-break: break-word; font-weight: 300;"><?= $profile['fecha_nacimiento']?></li>
             <input class="form-control" id="modificarInput" type="date" value="<?= $profile['fecha_nacimiento']?>" style="display: none;" name="fecha_nacimiento">
-            <li><i class="icono fas fa-user-check"></i>Registro: <span><?= $profile['created_at']?></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-user-check"></i>Registro: <span style="word-break: break-word; font-weight: 300;"><?= $profile['created_at']?></li>
             <!-- <input class="form-control" id="modificarInput" type="text" value="" style="display: none;"> -->
-            <li><i class="icono fas fa-share-alt"></i>Redes sociales: <span><?= $profile['redes_sociales']?></li>
+            <li style="font-weight: 700;"><i class="icono fas fa-share-alt"></i>Redes sociales: <span style="word-break: break-word; font-weight: 300;"><?= $profile['redes_sociales']?></li>
             <input class="form-control" id="modificarInput" type="text" value="<?= $profile['redes_sociales']?>" style="display: none;" name="redes_sociales">
           </ul>
 
@@ -1791,7 +1791,7 @@ if(!checkBS($profile['id'])){
           <div class="perfil-usuario-body" style="width: 100%;">
             <div class="perfil-usuario-bio" style="width: 100%;">
               <h3 class="titulo">Biografia</h3>
-              <p class="texto"><?= $profile['biografia'] ?></p>
+              <p style="word-break:break-word;" class="texto"><?= $profile['biografia'] ?></p>
                 <textarea form="form_modificar_perfil" class="form-control" id="modificarInput" type="text" style="display: none; width: 100%; max-width: 100% !important;" name="biografia" ><?= $profile['biografia'] ?></textarea>
             </div>
           </div>
@@ -1915,6 +1915,7 @@ if(!checkBS($profile['id'])){
 
                         <div class="modal-body d-md-flex p-0">
                             <div class="col-md-8 col-sm-12">
+                              
                                 <img
                                  style=" max-height:555px; height:100%; object-fit:contain; "
                                 src="assets/images/posts/<?= $post['post_img'] ?>" style="max-height:90vh" class="w-100 overflow:hidden">
@@ -2192,11 +2193,34 @@ if(!checkBS($profile['id'])){
                     </div>
                 </div>
             </div>
+          
+          
+          <!-- JESUS, AQUI EL MINI IMAGEN -->
 
+           <?php 
+                $extension = pathinfo($post['post_img'], PATHINFO_EXTENSION);
+
+                if ($extension && $extension != "") {
+                // Verificar si la extensión es .mp4
+                if ($extension == "mp4") {
+                // Usar una etiqueta de video
+                ?>
+
+                <video style="max-height: 340px;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    " src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="rounded" controls  ></video>
+
+                <?php } else{?>
           <img 
           data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"
           src="assets/images/posts/<?= $post['post_img'] ?>" alt="" class="rounded" style="object-fit: cover;
           cursor: pointer;">
+
+                  <?php } }?>
+
           <?php } }?>
           
           </div>
@@ -2243,21 +2267,24 @@ if(!checkBS($profile['id'])){
                           
                     </div>
               </div>
-              <div class="contenedor_descripcion_post">
+              <div class="contenedor_descripcion_post" style="flex-direction: column; gap: 0;">
 
-                <p class="post-text" id="texto_descripcipcion_post"><?= $post['post_text'] ?></p>
+                <p style="min-width: 100%; word-break: break-word;" class="post-text" id="texto_descripcipcion_post"><?= $post['post_text'] ?></p>
                 
                   <?php 
                           if($post['user_id'] == $user['id']){?>
+                          <div class="d-flex gap-1" style="align-self: flex-start;" >
+                            <i role="button" class="bi bi-pencil ml-1" id="editar_descripcionpost_button"></i>
   
-                          <i role="button" class="bi bi-pencil ml-1" id="editar_descripcionpost_button"></i>
-  
-                          <?php }?>
+                          
                           <form id="form_editar_descripcion" method="post" action="assets/php/ajax.php?editarPostDescripcion">
   
                               <input name="nuevo_descipcionpost" type="text" style="transform: scale(0); outline: none;" id="input_descripcionpost">
                               <input type="number" value="<?= $post['id'] ?>" name="post_id" style="display: none;" >
-                          </form>         
+                          </form>  
+                          </div>
+                          
+                          <?php }?>       
               </div>
                       <?php 
                 $extension = pathinfo($post['post_img'], PATHINFO_EXTENSION);
@@ -2865,14 +2892,14 @@ if ($extension == "mp4") {
   <div class="sidebar-center">
     <ul class="list">
 
-      <a href="#">
+      <a href="?u=<?= $_SESSION['userdata']['username'] ?>">
         <li class="list-item">
           <i class="list-item-icon fa-solid fa-user"></i>
           <span class="list-item-text">Perfil</span>
         </li>
       </a>
 
-      <a href="Eventos.html">
+      <a href="?eventos=1">
         <li class="list-item">
           <i class="list-item-icon fa-solid fa-calendar"></i>
           <span class="list-item-text">envetos</span>
@@ -2915,10 +2942,10 @@ if ($extension == "mp4") {
                                 <img src="avatars/" alt="">
             
                                     <div>
-                                        <a href="perfil.html">
+                                        <a href="#">
                                         <p></p></a>
                                         <div>
-                                        <a href="perfil.html" class="vinculo-e">
+                                        <a href="#" class="vinculo-e">
                                         <small></small></a></div>
                                     </div>
                                 </div>

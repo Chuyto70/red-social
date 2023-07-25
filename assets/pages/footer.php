@@ -577,7 +577,7 @@ transform: translateX(15px);
     color: white;">
     
         <strong>THENAVHER</strong>
-        <div>
+        <div class="contenedor_buscador_mensajes">
           <input type="text" id="buscador_de_chat" class="fade-in-right" style="transform: scale(0);">
           <i role="button" id="mostrar_buscador" class="bi bi-search iconos_thenavher"></i>
           <i id="menu_perfil_messages" class="bi bi-three-dots-vertical iconos_thenavher" role="button"></i>
@@ -1404,6 +1404,13 @@ $('#boton_telefono_chatbox').click((e)=>{
 
  $('#msginput').change((e)=>{
     $('#sendmsg').click()
+ })
+ 
+ $('#boton_camara_chatbox').click((e)=>{
+  alert('Verifica antes que tu navegador tenga permisos de entrada de cámara y audio para evitar problemas.')
+ })
+ $('#boton_telefono_chatbox').click((e)=>{
+  alert('Verifica antes que tu navegador tenga permisos de entrada de audio para evitar problemas.')
  })
  
 </script>

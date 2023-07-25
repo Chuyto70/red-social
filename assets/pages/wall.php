@@ -652,7 +652,7 @@ global $profile;
              type="button" class="btn btn-dark btn-block border-secondary w-75 arounded-pill rounded"
             onclick="location.href='?fundadores'">
                 <div class="d-flex align-items-center justify-content-start gap-3 text-center">
-                    <img width="16px" height="16px" src="assets/images/home/logo.png" alt="" srcset="">
+                    <img style="object-fit: cover;" width="16px" height="16px" src="assets/images/oficial_logo.png" alt="" srcset="">
                     <span><a style="text-decoration: none; color: white;" href="?fundadores">Fundadores</a></span>
                     <div></div>
                 </div>
@@ -960,8 +960,8 @@ global $profile;
             $comments = getComments($post['id']);
         ?>
 
-        
-            <div class="card mt-4 px-3" style="background-color:#272727; color:#ffffff; max-height: 660px;">
+         
+            <div class="card mt-4 px-3" style="background-color:#272727; color:#ffffff; max-height:770px;">
                 <div class="card-title d-flex justify-content-between  align-items-center">
 
                     <div class="d-flex align-items-center p-2">
@@ -1112,7 +1112,7 @@ if ($extension == "mp4") {
                 ?>    
             
                 
-            <div id="contenedo_principal_comentarios" style="height:160px; max-height:100%; overflow-y: scroll; padding-right: 30px;">
+            <div id="contenedo_principal_comentarios" style="height:220px; max-height:100%; overflow-y: scroll; padding-right: 30px;">
                  <?php foreach ($comments as $comment) {
                                         $cuser = getUser($comment['user_id']);
                                     ?>
@@ -1760,7 +1760,7 @@ if ($extension == "mp4") {
                 <a href="#">ten cuidado con</a>
             </div>
             <div class="mt-3">
-                <img width="100%" src="assets/images/home/logo.png"/>
+                <img style="object-fit: cover;" width="100%" src="assets/images/oficial_logo.png"/>
             </div>
             <br/>
         </div> 
@@ -1793,10 +1793,10 @@ if ($extension == "mp4") {
                                 <img src="avatars/" alt="">
             
                                     <div>
-                                        <a href="perfil.html">
+                                        <a href="#">
                                         <p></p></a>
                                         <div>
-                                        <a href="perfil.html" class="vinculo-e">
+                                        <a href="#" class="vinculo-e">
                                         <small></small></a></div>
                                     </div>
                                 </div>
