@@ -2175,7 +2175,10 @@ if(!checkBS($profile['id'])){
 
 
                                 </div>
+                                <!-- INPUT PARA ESCRIBIR COMENTARIO POSTVIEW -->
+                                <?php if($post['allow_comment'] == 1){ ?>
                                 <div class="input-group p-2 border-0">
+
                                     <input 
                                     style="max-width: 80%;"
                                     type="text" class="form-control rounded border-0 shadow-none comment-input" placeholder="Escribe algo..." aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -2184,6 +2187,8 @@ if(!checkBS($profile['id'])){
                                     style="background: #272727; width:20%;" 
                                     class="btn btn-outline-primary rounded border-0 add-comment ms-2" data-cs="comment-section<?= $post['id'] ?>" data-post-id="<?= $post['id'] ?>" type="button" id="button-addon2"><i class="bi bi-send-fill text-light"></i> </button>
                                 </div>
+
+                                <?php }?>
                             </div>
 
 
@@ -2854,7 +2859,10 @@ if ($extension == "mp4") {
                                     ?>
 
                                 </div>
+                                <!-- INPUT PARA ESCRIBIR COMENTARIO POSTVIEW -->
+                                <?php if($post['allow_comment'] == 1){ ?>
                                 <div class="input-group p-2 border-0">
+
                                     <input 
                                     style="max-width: 80%;"
                                     type="text" class="form-control rounded border-0 shadow-none comment-input" placeholder="Escribe algo..." aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -2863,6 +2871,8 @@ if ($extension == "mp4") {
                                     style="background: #272727; width:20%;" 
                                     class="btn btn-outline-primary rounded border-0 add-comment ms-2" data-cs="comment-section<?= $post['id'] ?>" data-post-id="<?= $post['id'] ?>" type="button" id="button-addon2"><i class="bi bi-send-fill text-light"></i> </button>
                                 </div>
+
+                                <?php }?>
                             </div>
 
 
