@@ -2274,17 +2274,17 @@ if(!checkBS($profile['id'])){
               </div>
               <div class="contenedor_descripcion_post" style="flex-direction: column; gap: 0;">
 
-                <p style="min-width: 100%; word-break: break-word;" class="post-text" id="texto_descripcipcion_post"><?= $post['post_text'] ?></p>
+                <p style="min-width: 100%; word-break: break-word; margin-bottom: 0px;" class="post-text" id="texto_descripcipcion_post"><?= $post['post_text'] ?></p>
                 
                   <?php 
                           if($post['user_id'] == $user['id']){?>
                           <div class="d-flex gap-1" style="align-self: flex-start;" >
-                            <i role="button" class="bi bi-pencil ml-1" id="editar_descripcionpost_button"></i>
+                            <i role="button" class="bi bi-pencil ml-1 editar_descripcionpost_button" id="editar_descripcionpost_button" ></i>
   
                           
                           <form id="form_editar_descripcion" method="post" action="assets/php/ajax.php?editarPostDescripcion">
   
-                              <input name="nuevo_descipcionpost" type="text" style="transform: scale(0); outline: none;" id="input_descripcionpost">
+                              <input name="nuevo_descipcionpost" type="text" style="display: none; outline: none;" id="input_descripcionpost" class="input_descripcionpost">
                               <input type="number" value="<?= $post['id'] ?>" name="post_id" style="display: none;" >
                           </form>  
                           </div>
@@ -3052,9 +3052,9 @@ $('#boton_de_wall_publicar').click((e)=>{
 
 
 
-let editar_descripcionpost_button =document.getElementById('editar_descripcionpost_button')
+let editar_descripcionpost_button =document.querySelectorAll('.editar_descripcionpost_button')
 let texto_descripcipcion_post = document.getElementById('texto_descripcipcion_post')
-let input_descripcionpost = document.getElementById('input_descripcionpost')
+let input_descripcionpost = document.querySelectorAll('.input_descripcionpost')
 let boton_editar_comentario = document.querySelectorAll('.boton_editar_comentario')
 let boton_editar_comentario_response = document.querySelectorAll('.boton_editar_comentario_response')
 let form_editar_comentario =document.querySelectorAll('.form_editar_comentario')
@@ -3065,18 +3065,25 @@ let boton_eliminar_comentario = document.querySelectorAll('.boton_eliminar_comen
 let boton_eliminar_comentario_response = document.querySelectorAll('.boton_eliminar_comentario_response')
 let button_like_comentario = document.querySelectorAll('.button_like_comentario')
 let button_like_response_comentario = document.querySelectorAll('.button_like_response_comentario')
-let mostrarInputPost = () =>{
-    input_descripcionpost.value = texto_descripcipcion_post.textContent
-    if(input_descripcionpost.style.transform === "scale(0)"){
-        input_descripcionpost.style.transform = 'scale(1)'
+
+let mostrarInputPost = (e) =>{
+    let input_editar = e.target.nextElementSibling.firstElementChild
+    let descripcionText = e.target.parentElement.previousElementSibling
+    console.log(input_editar)
+    input_editar.value = descripcionText.textContent
+    if(input_editar.style.display === "none"){
+       
+        input_editar.style.display = 'inline-block'
+
     }else{
-        input_descripcionpost.style.transform = 'scale(0)'
+        input_editar.style.display = 'none'
     }
 }
 
 let editarDescripcionPost = (e) =>{
-    let form_editar_descripcion = document.getElementById('form_editar_descripcion')
-    console.log(document.getElementById('form_editar_descripcion'))
+    
+    let form_editar_descripcion = e.target.parentElement
+  
     form_editar_descripcion.submit()
 }
 
@@ -3227,8 +3234,13 @@ button_like_response_comentario.forEach((likeButton)=>{
 })
 
 
-editar_descripcionpost_button.addEventListener('click', mostrarInputPost)
-input_descripcionpost.addEventListener('change', editarDescripcionPost)
+editar_descripcionpost_button.forEach((btn)=>{
+   
+    btn.addEventListener("click",mostrarInputPost )
+})
+input_descripcionpost.forEach((inpt)=>{
+    inpt.addEventListener("change", editarDescripcionPost )
+})
 // boton_editar_comentario.addEventListener('click', mostrarEditComentario)
 // input_editar_comentario.addEventListener('change', editarComentario)
 

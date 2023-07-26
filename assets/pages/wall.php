@@ -489,7 +489,7 @@ border-radius: 50%;
 
 .contenedor_descripcion_post{
     display: flex;
-    gap: 8px;
+    gap: 0px;
 }
 
 #editar_descripcionpost_button{
@@ -1006,14 +1006,18 @@ global $profile;
                           <?php 
                         if($post['user_id'] == $user['id']){?>
 
-                        <i role="button" class="bi bi-pencil ml-1" id="editar_descripcionpost_button"></i>
+                        <i 
+                        role="button" class="bi bi-pencil ml-1 editar_descripcionpost_button_2" 
+                        id="editar_descripcionpost_button" 
+                        >
+                        </i>
+                             <form id="form_editar_descripcion" method="post" action="assets/php/ajax.php?editarPostDescripcion">
 
-                        <?php }?>
-                        <form id="form_editar_descripcion" method="post" action="assets/php/ajax.php?editarPostDescripcion">
-
-                            <input name="nuevo_descipcionpost" type="text" style="transform: scale(0); outline: none;" id="input_descripcionpost">
+                            <input name="nuevo_descipcionpost" type="text" style="display: none; outline: none;" id="input_descripcionpost" class="input_descripcionpost">
                             <input type="number" value="<?= $post['id'] ?>" name="post_id" style="display: none;" >
                         </form>
+                        <?php }?>
+                       
                     </div>
                        
                     </div>
@@ -1903,9 +1907,10 @@ boton_de_wall_publicar.addEventListener('click', (e)=>{
 
 })
 
-let editar_descripcionpost_button =document.getElementById('editar_descripcionpost_button')
+let editar_descripcionpost_button =document.querySelectorAll('.editar_descripcionpost_button_2')
+console.log(editar_descripcionpost_button)
 let texto_descripcipcion_post = document.getElementById('texto_descripcipcion_post')
-let input_descripcionpost = document.getElementById('input_descripcionpost')
+let input_descripcionpost = document.querySelectorAll('.input_descripcionpost')
 let boton_editar_comentario = document.querySelectorAll('.boton_editar_comentario')
 let boton_editar_comentario_response = document.querySelectorAll('.boton_editar_comentario_response')
 let form_editar_comentario =document.querySelectorAll('.form_editar_comentario')
@@ -1918,26 +1923,37 @@ let button_like_comentario = document.querySelectorAll('.button_like_comentario'
 let button_like_response_comentario = document.querySelectorAll('.button_like_response_comentario')
 
 
-let mostrarInputPost = () =>{
-    input_descripcionpost.value = texto_descripcipcion_post.textContent
-    if(input_descripcionpost.style.transform === "scale(0)"){
+let mostrarInputPost = (e) =>{
+    let input_editar = e.target.nextElementSibling.firstElementChild
+    let descripcionText = e.target.parentElement.previousElementSibling
+    
+    input_editar.value = descripcionText.textContent
+    if(input_editar.style.display === "none"){
        
-        input_descripcionpost.style.transform = 'scale(1)'
+        input_editar.style.display = 'inline-block'
 
     }else{
-        input_descripcionpost.style.transform = 'scale(0)'
+        input_editar.style.display = 'none'
     }
 }
 
 let editarDescripcionPost = (e) =>{
-    let form_editar_descripcion = document.getElementById('form_editar_descripcion')
+    
+    let form_editar_descripcion = e.target.parentElement
   
     form_editar_descripcion.submit()
 }
 
 
-editar_descripcionpost_button.addEventListener('click', mostrarInputPost)
-input_descripcionpost.addEventListener('change', editarDescripcionPost)
+editar_descripcionpost_button.forEach((btn)=>{
+   
+    btn.addEventListener("click",mostrarInputPost )
+})
+
+input_descripcionpost.forEach((inpt)=>{
+    inpt.addEventListener("change", editarDescripcionPost )
+})
+
 // boton_editar_comentario.addEventListener('click', mostrarEditComentario)
 
 
@@ -2109,6 +2125,8 @@ corazon_like_menos.addEventListener('click', ()=>{
 
 })
 
+ let editar_descripcionpost_button2 =document.querySelectorAll('.editar_descripcionpost_button')
+console.log(editar_descripcionpost_button2)
 
 
 

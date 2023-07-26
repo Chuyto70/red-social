@@ -1555,6 +1555,7 @@ document.querySelectorAll('.imagen_estado').forEach((estado)=>{
     })
  })
 
+
  
 
  
