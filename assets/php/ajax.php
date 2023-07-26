@@ -148,7 +148,7 @@ foreach($gruposActivos as $grupo ){
                             </div>
                             <div>&nbsp;&nbsp;</div>
                             <div class="d-flex flex-column justify-content-center" >
-                                <a href="#" class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small; color:#007efc;">'.$grupo['nombre_grupo'].'</h6></a>
+                                <a href="#" class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small; color:#212529;">'.$grupo['nombre_grupo'].'</h6></a>
                                  
                                 
                             </div>
@@ -176,7 +176,7 @@ foreach($chats as $chat){
                             </div>
                             <div>&nbsp;&nbsp;</div>
                             <div class="d-flex flex-column justify-content-center" >
-                                <a href="#" class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small; color:#007efc;">'.$ch_user['first_name'].' '.$ch_user['last_name'].'</h6></a>
+                                <a href="#" class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small; color:#212529;">'.$ch_user['first_name'].' '.$ch_user['last_name'].'</h6></a>
                                 <p style="margin:0px;font-size:small" class="">'.$chat['messages'][0]['msg'].'</p>
                                 <time style="font-size:small" class="timeago text-small" datetime="'.$chat['messages'][0]['created_at'].'">'.gettime($chat['messages'][0]['created_at']).'</time>
                             </div>
