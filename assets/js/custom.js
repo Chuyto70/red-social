@@ -407,7 +407,7 @@ function popGrupochat(grupo_id){
 
 $("#sendmsg").click(function () {
     if(chatting_grupo_id !== 0){
-        console.log('ENTRO EN CHAT ')
+    
         let grupo_id = chatting_grupo_id;
         let msg = $("#msginput").val();
      
@@ -780,7 +780,7 @@ $("#contenedor_de_notificaciones").html(htmlNotifications);
         url:"assets/php/ajax.php?estadoCaducado",
         method:"post",
         success:function(response){
-           console.log('Verificando si hay estados borrados')
+           
           
         }
     })
@@ -791,7 +791,7 @@ synmsg();
 setInterval(() => {
     synmsg();
 
-}, 1000);
+}, 10000);
 
 var valorAModificar = document.querySelectorAll('#valorAModificar')
 var modificarPerfil = document.querySelector("#modificarPerfil");
@@ -1555,6 +1555,7 @@ document.querySelectorAll('.imagen_estado').forEach((estado)=>{
     })
  })
 
+ 
 
  
 

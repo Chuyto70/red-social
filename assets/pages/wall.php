@@ -1033,12 +1033,12 @@ global $profile;
 if ($extension == "mp4") {
 // Usar una etiqueta de video
 ?>
-<video style="max-height: 340px; object-fit: contain;" src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="imagen_post" controls ></video>
+<video style="max-height: 340px; object-fit: cover;border-radius: 8px;" src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="imagen_post" controls ></video>
 <?php
 } else {
 // Usar una etiqueta de imagen
 ?>
-<img style="max-height: 340px; object-fit: contain;" src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="imagen_post" alt="..." data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>">
+<img style="max-height: 340px; object-fit: cover; border-radius: 8px;" src="assets/images/posts/<?= $post['post_img'] ?>" loading=lazy class="imagen_post" alt="..." data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>">
 <?php
 }
 } ?>
@@ -1049,7 +1049,15 @@ if ($extension == "mp4") {
 
 
             <div class="d-flex align-items-center">
-                  <span>
+                  <span class="cuadro_like_post" style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 gap: 8px;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
                         <?php
                         if (checkLikeStatus($post['id'])) {
                             $like_btn_display = 'none';
@@ -1085,15 +1093,23 @@ if ($extension == "mp4") {
                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                         </svg>
                          <span
-                         style="font-size: small;" 
+                         style="font-size: small; padding-bottom: 1px;" 
                          id="likecount<?= $post['id'] ?>"><?= count($likes) ?>
                         </span>
                     </span> 
                     &nbsp;&nbsp;
                     
-                    <svg 
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 /* cursor: pointer; */
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
+                         <svg 
                         class="bi bi-chat-left d-flex align-items-center mt-1" 
-                        style="font-size:small"
+                        style="font-size:small; margin: 0 !important;"
                         data-bs-toggle="modal" 
                         data-bs-target="#postview<?= $post['id'] ?>"
                         xmlns="http://www.w3.org/2000/svg" 
@@ -1102,9 +1118,39 @@ if ($extension == "mp4") {
                         fill="currentColor" 
                         viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <span class="mx-2 text-small" style="font-size:small" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
+                        <span class="mx-2 text-small" style="font-size:small; padding-bottom: 2px;" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
                     </svg>
-                    
+                    </span>
+                   &nbsp;&nbsp;
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;"
+                          role="button"
+                          data-bs-target="#compartirPostLink"
+                          data-bs-toggle="modal"
+                          data-post-username= "<?= $post['username'] ?>"
+                          data-post-id = "<?= $post['id'] ?>"
+                          >
+                         <img src="assets/images/share_icon.png" alt="" width="28px" height="28px" style="object-fit: cover;">
+                    </svg>
+                    </span>
+                    &nbsp;&nbsp;
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
+                        <i style="font-size: 24px;" class="bi bi-person"></i>
+                    </svg>
+                    </span>
                  <div>
                 </div>
                
@@ -1425,7 +1471,7 @@ if ($extension == "mp4") {
                                 </div>
 
 
-                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px;">
+                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px; overflow-x: hidden !important;">
 
                                     <?php
                                     if (count($comments) < 1) {
@@ -1908,7 +1954,7 @@ boton_de_wall_publicar.addEventListener('click', (e)=>{
 })
 
 let editar_descripcionpost_button =document.querySelectorAll('.editar_descripcionpost_button_2')
-console.log(editar_descripcionpost_button)
+
 let texto_descripcipcion_post = document.getElementById('texto_descripcipcion_post')
 let input_descripcionpost = document.querySelectorAll('.input_descripcionpost')
 let boton_editar_comentario = document.querySelectorAll('.boton_editar_comentario')
@@ -2129,7 +2175,23 @@ corazon_like_menos.addEventListener('click', ()=>{
 console.log(editar_descripcionpost_button2)
 
 
+let cuadro_like_post = document.querySelectorAll('.cuadro_like_post');
 
+let clickearCorazon = (e) =>{
+   let corazonLike = e.currentTarget.firstElementChild
+   let corazonDislike = e.currentTarget.firstElementChild.nextElementSibling
+   if(corazonLike.style.display === 'none'){
+    $(corazonDislike).click()
+ 
+   }else{
+    $(corazonLike).click()
+   
+   }
+}
+
+cuadro_like_post.forEach((cuadro)=>{
+    cuadro.addEventListener('click', clickearCorazon, false)
+})
 
 
 </script>

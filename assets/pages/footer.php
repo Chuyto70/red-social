@@ -251,6 +251,11 @@ background-color: white;
   color: #0d6efd;
   font-size: 48px;
 }
+
+.button_compartir_post::before{
+color: #0d6efd;
+  font-size: 48px;
+}
 .icono_grupo::before{
  color: #7f7f7f;
  font-size: 45px;
@@ -555,7 +560,7 @@ transform: translateX(15px);
     <div style="transform: scale(0); width: 178px;" class="menu_perfil_message">
       <p role="button" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Crear grupo</p>
       <p role="button" data-bs-toggle="offcanvas" data-bs-target="#notification_sidebar">Notificaciones</p>
-      <p style="position: relative; display:flex; justify-content:space-between;">Cambiar tema
+      <!-- <p style="position: relative; display:flex; justify-content:space-between;">Cambiar tema
       <label class="toggle" style="align-self: center;">
                         <input checked type="checkbox" id="toggle-input" name="cambiar_tema"  value="1">
                         <span style="height: 18px;
@@ -566,7 +571,7 @@ transform: translateX(15px);
     border: 1px solid white;
     background: transparent;" class="slider" id="cambiar_tema_toggle"></span>
                     </label>
-     </p>
+     </p> -->
     </div>
     <div style="background-color: rgb(31 55 101);
     display: flex;
@@ -917,6 +922,53 @@ decidas desbloquear a este usuario
 
 </div>
 
+<!-- COMPARTIR POST -->
+<div class="modal fade" id="compartirPostLink" tabindex="-1" role="dialog" aria-labelledby="compartirPostLinkLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content contenedor_modal_perfil">
+      
+      <div class="modal-header header_color_grupo">
+
+       <div class="contenedor_search_grupo">
+       <input type="text" placeholder="Buscar amigos" id="buscador_amigos">
+        <i class="bi bi-search iconos_thenavher"></i>
+       </div>
+        
+     
+        
+     </div> 
+       <div class="modal-body grupo_modal_body ">
+          
+        <?php 
+        $usuarios_amigos = getUserFriend();
+
+        foreach($usuarios_amigos as $amigo){
+        ?>
+          <div  class="d-flex justify-content-between align-items-center contenedor_perfil_amigos perfil_amigos_share_post">
+
+          <div class="d-flex align-items-center gap-1" id="<?= $amigo['username'] ?>">
+            <img style="object-fit:cover; " class="grupo_modal_image" width="60px" height="60px" src="assets/images/profile/<?= $amigo['profile_pic'] ?>" alt="">
+            <strong style="margin: 0px; color: grey;"> <?= $amigo['first_name']?> <?= $amigo['last_name']?> </strong>        
+          </div>
+          <input class="input_check_grupo" type="checkbox" name="" id="<?= $amigo['id'] ?> ">
+          
+        </div>
+        <?php }?>
+
+        
+       </div>
+
+       <div class="modal-footer justify-content-center" style="background-color: white; cursor: pointer;" id="next_phase_group">
+          <i class="bi bi-arrow-right-circle-fill button_compartir_post" id=""></i>
+       </div>
+    
+      </div>
+  </div>
+
+
+</div>
+
 
 <!-- MODAL DE CREAR GRUPO INTERFAZ -->
 <div class="modal fade" id="crearGrupoModalInterfaz" tabindex="-1" role="dialog" aria-labelledby="crearGrupoModalInterfazLabel" aria-hidden="true">
@@ -1155,6 +1207,10 @@ decidas desbloquear a este usuario
 </div>
 
 
+<!--START MODAL POSTVIEW 2 -->
+
+
+<!-- END MODAL POSTVIEW 2  -->
 <?php } ?>
 
 
@@ -1413,6 +1469,71 @@ $('#boton_telefono_chatbox').click((e)=>{
   alert('Verifica antes que tu navegador tenga permisos de entrada de audio para evitar problemas.')
  })
  
+ let button_compartir_post =document.querySelectorAll('.button_compartir_post')
+
+ button_compartir_post.forEach((btn)=>{
+
+  btn.addEventListener("click", (e) => {
+    let idPost = e.currentTarget.id.trim()
+    let usernamer_poster = e.currentTarget.dataset.username
+    
+
+    // TODOS LOS ID DE LOS USUARIOS
+    let perfil_amigos_share_post = document.querySelectorAll('.perfil_amigos_share_post')
+    let users_id = [];
+    let users_username = [];
+
+    perfil_amigos_share_post.forEach((amigo)=>{
+      let isChecked = amigo.lastElementChild.checked
+      let id = amigo.lastElementChild.id.trim()
+      let username = amigo.firstElementChild.id
+     
+      if(isChecked){
+        users_id.push(id)
+        users_username.push(username)
+      }
+    })
+
+    for(let i = 0; i<users_id.length; i++ ){
+
+    let msg = `
+    <a
+    href="?u=${usernamer_poster}&sharedpost=${idPost}"
+    style="color:blue; border-bottom:1px solid blue;" >Mira este post!</a>`
+    $.ajax({
+        url: 'assets/php/ajax.php?sendmessage',
+        method: 'post',
+        dataType: 'json',
+        data: { user_id: users_id[i], msg: msg },
+        success: function (response) {
+            if (response.status) {
+              alert('Link compartido');
+            } else {
+                alert('Algo ocurrio');
+            }
+        }
+    });
+    }
+   
+  })
+ })
+ 
+// Agregando el id al boton del modal compartirPostLink
+$('#compartirPostLink').on('show.bs.modal', function (event) {
+  console.log('HOLA MODAL')
+// Obtener el botón que abrió el modal
+var button = $(event.relatedTarget);
+let compartirButton = event.target.firstElementChild.firstElementChild.lastElementChild.firstElementChild
+
+console.log(button)
+
+let postId = button[0].dataset.postId
+let username = button[0].dataset.postUsername
+compartirButton.id = postId
+compartirButton.dataset.username = username
+
+});
+
 </script>
 
 <script>

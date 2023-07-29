@@ -233,7 +233,7 @@ function blockUser($blocked_user_id){
     $current_user=$_SESSION['userdata']['id'];
     $query="INSERT INTO block_list(user_id,blocked_user_id) VALUES($current_user,$blocked_user_id)";
   
-    createNotification($cu['id'],$blocked_user_id,"blocked you");
+    createNotification($cu['id'],$blocked_user_id,"Te bloqueo");
     $query2="DELETE FROM follow_list WHERE follower_id=$current_user && user_id=$blocked_user_id";
     mysqli_query($db,$query2);
     $query3="DELETE FROM follow_list WHERE follower_id=$blocked_user_id && user_id=$current_user";
@@ -249,7 +249,7 @@ function unblockUser($user_id){
     global $db;
     $current_user=$_SESSION['userdata']['id'];
     $query="DELETE FROM block_list WHERE user_id=$current_user && blocked_user_id=$user_id";
-    createNotification($current_user,$user_id,"Unblocked you !");
+    createNotification($current_user,$user_id,"Te desbloqueo!");
     return mysqli_query($db,$query);   
 }
 
@@ -310,7 +310,7 @@ function addComment($post_id,$comment){
     $poster_id = getPosterId($post_id);
 
     if($poster_id!=$current_user){
-        createNotification($current_user,$poster_id,"commented on your post",$post_id);
+        createNotification($current_user,$poster_id,"comentó tu post",$post_id);
     }
    
 
@@ -410,7 +410,7 @@ function unfollowUser($user_id){
     $current_user=$_SESSION['userdata']['id'];
     $query="DELETE FROM follow_list WHERE follower_id=$current_user && user_id=$user_id";
 
-    createNotification($current_user,$user_id,"Unfollowed you !");
+    createNotification($current_user,$user_id,"Dejo de seguirte!");
     return mysqli_query($db,$query);
  
     

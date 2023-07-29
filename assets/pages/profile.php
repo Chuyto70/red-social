@@ -1520,6 +1520,9 @@ border-radius: 50%;
 .menu-comentario .menu a:hover {
     color: #515151;
 }
+.anchor_mensaje:focus{
+  background-color: transparent;
+}
 </style>
 
 
@@ -1647,7 +1650,7 @@ if(!checkBS($profile['id'])){
 }
 ?>
 
-            <li>
+            <!-- <li>
               
               <?php
               if ($user['id'] != $profile['id']) {
@@ -1660,9 +1663,7 @@ if(!checkBS($profile['id'])){
                     <li><a class="dropdown-item " href="assets/php/actions.php?block=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Bloquear</a></li>
 
                     <li>       
-                        <?php 
-                          
-                        ?>            
+                        
                             <?php  
 
                               if(in_array($user['id'], array_column($profile['followers'], 'follower_id'))){
@@ -1684,7 +1685,7 @@ if(!checkBS($profile['id'])){
               <?php
               }
               ?>
-            </li>
+            </li> -->
 
           </ul>
         </div>
@@ -1706,7 +1707,19 @@ if(!checkBS($profile['id'])){
         <ul class="justify-content-between align-items-center">
          
           <li><a href="#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
-           <li>       
+          <ul style="margin: 0;
+    width: 100%;
+    justify-content: flex-end;">
+            <li><a class="dropdown-item anchor_mensaje" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Mensaje</a></li>
+
+            <?php if(!checkBS($profile['id'])){ ?>
+
+            <li><a class="dropdown-item " href="assets/php/actions.php?block=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Bloquear</a></li>
+
+            <?php }else{  ?> 
+             <li><a class="dropdown-item " href="assets/php/actions.php?unblock=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Desbloquear</a></li>
+              <?php }?>
+            <li>       
 
               <?php if( $user['username'] != $profile['username']) {
 
@@ -1739,6 +1752,10 @@ if(!checkBS($profile['id'])){
 
 
                     </li>
+          </ul>
+          
+          <!-- BOTONS DE BLOQUEAR, MENSAJE Y SEGUIR/UNFOLLOW -->
+           
         </ul>
       </div>
 
@@ -2009,7 +2026,7 @@ if(!checkBS($profile['id'])){
                                 </div>
 
 
-                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px;">
+                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px; overflow-x: hidden !important;">
 
                                     <?php
                                     if (count($comments) < 1) {
@@ -2698,7 +2715,7 @@ if ($extension == "mp4") {
                                 </div>
 
 
-                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px;">
+                                <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?= $post['id'] ?>" style="height: 100px; padding: 12px; overflow-x: hidden !important;">
 
                                     <?php
                                     if (count($comments) < 1) {
@@ -3033,8 +3050,31 @@ if ($extension == "mp4") {
                 </div>
                 
 <script> 
+
+
+let query = window.location.search;
+
+// Crear una instancia de URLSearchParams con esa cadena
+let params = new URLSearchParams(query);
+
+// Usar el método get para obtener el valor de sharedpost
+let sharedpost = params.get("sharedpost");
+console.log('AQUI EL SHARED')
+console.log(sharedpost)
+if(sharedpost){
+  console.log('ENTRO AL POST')
+window.onload = () =>{
+ let post = document.querySelector(`img[data-bs-target='#postview${sharedpost}']`);
+ console.log(post)
+$(post).click()
+}
+}
 let frontpage_pic =document.getElementById('frontpage_pic')
 let cambiar_portada =document.getElementById('cambiar_portada')
+
+
+
+
 
 frontpage_pic.addEventListener('change', ()=>{
   cambiar_portada.style.display = "inline-block"
@@ -3048,7 +3088,6 @@ $('#boton_de_wall_publicar').click((e)=>{
 
     textarea.click()
 })
-
 
 
 
@@ -3241,6 +3280,11 @@ editar_descripcionpost_button.forEach((btn)=>{
 input_descripcionpost.forEach((inpt)=>{
     inpt.addEventListener("change", editarDescripcionPost )
 })
+
+
+
+
+
 // boton_editar_comentario.addEventListener('click', mostrarEditComentario)
 // input_editar_comentario.addEventListener('change', editarComentario)
 
