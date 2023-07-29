@@ -1140,7 +1140,15 @@ if ($extension == "mp4") {
                     </svg>
                     </span>
                     &nbsp;&nbsp;
-                    <span style="background: #201e1f;
+                    <span 
+                    class="boton_reportar_post"
+                    data-username ="<?= $post['username'] ?>"
+                    data-userimg = "<?= $post['profile_pic'] ?>"
+                    data-name = "<?= $post['first_name'] ?> <?= $post['last_name'] ?>"
+                    data-toUserID = "<?= $post['user_id'] ?>"
+                    data-fromUserId =  "<?= $_SESSION['userdata']['id'] ?>"
+                    role="button" data-bs-toggle="modal" data-bs-target="#reportarModal"
+                    style="background: #201e1f;
                                  border-radius: 8px;
                                  cursor: pointer;
                                  display: flex;
@@ -1930,6 +1938,25 @@ if ($extension == "mp4") {
 <script>
 
 
+let boton_reportar_post = document.querySelectorAll('.boton_reportar_post')
+
+boton_reportar_post.forEach((btn)=>{
+    btn.addEventListener('click',(event)=>{
+        let profile_reportar_modal = document.getElementById('profile_reportar_modal')
+        let nombre_reportar_modal = document.getElementById('nombre_reportar_modal')
+        let user_reported_id = document.getElementById('user_reported_id')
+        let imgProfile = btn.dataset.userimg
+        let nameProfile = btn.dataset.name
+        let toUserId = btn.dataset.touserid
+        let formUserId = btn.dataset.fromuserid
+
+        console.log(btn.dataset)
+        $(profile_reportar_modal).attr('src','assets/images/profile/' + imgProfile )
+        $(nombre_reportar_modal).text(nameProfile)
+        $(user_reported_id).attr('value', toUserId)
+
+    })
+})
 
 
 var toggle = document.getElementById("toggle-input"); // Obtener el checkbox

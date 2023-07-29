@@ -3059,13 +3059,13 @@ let params = new URLSearchParams(query);
 
 // Usar el método get para obtener el valor de sharedpost
 let sharedpost = params.get("sharedpost");
-console.log('AQUI EL SHARED')
-console.log(sharedpost)
+
+
 if(sharedpost){
-  console.log('ENTRO AL POST')
+  
 window.onload = () =>{
  let post = document.querySelector(`img[data-bs-target='#postview${sharedpost}']`);
- console.log(post)
+ 
 $(post).click()
 }
 }
