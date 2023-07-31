@@ -98,9 +98,14 @@ align-items: flex-start;
 
                 </div>
                 
+                <a href="">Terminos y condiciones</a>
+                <div>
+                    <input type="checkbox" id="acepta_terminos">
+                    <label for="">He leido y acepto los terminos y condiciones </label>
+                </div>
 
                 <div class="mt-2 d-flex flex-column align-items-center">
-                    <button style="width: 16rem; background-color: rgb(32 56 100);" class="btn btn-primary" type="submit">Crear cuenta</button>
+                    <button id="btn_crearcuenta" style="width: 16rem; background-color: rgb(32 56 100);" class="btn btn-primary" type="submit">Crear cuenta</button>
                     <a href="?login" class="text-decoration-none">¿Ya tienes cuenta?</a>
 
 
@@ -112,4 +117,18 @@ align-items: flex-start;
 
 
 </div>
+<script>
+    
+    let btn_crearcuenta = document.getElementById('btn_crearcuenta')
+    
+    btn_crearcuenta.addEventListener('click', (e)=>{
+        let acepta_terminos =document.getElementById('acepta_terminos')
+
+        if(!acepta_terminos.checked){
+            alert('Necesitas aceptar los terminos y condiciones para registrarte.')
+            e.preventDefault()
+           return;
+        }
+    })
+</script>
     

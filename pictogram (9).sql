@@ -316,7 +316,8 @@ CREATE TABLE `users` (
   `fecha_nacimiento` varchar(255) NOT NULL DEFAULT '',
   `redes_sociales` varchar(255) NOT NULL DEFAULT '',
   `biografia` varchar(255) NOT NULL DEFAULT '',
-  user_rol VARCHAR(10) DEFAULT 'common' CHECK (user_rol IN ('admin','common')),
+  `instituto` varchar(255) NOT NULL DEFAULT 'UAM',
+   user_rol VARCHAR(10) DEFAULT 'common' CHECK (user_rol IN ('admin','common')),
 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

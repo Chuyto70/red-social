@@ -720,7 +720,7 @@ global $profile;
                 style="font-weight: 500;"
                 class="d-block text-decoration-none text-white "
                 ><?= $user['first_name'] ?> <?= $user['last_name'] ?></a>
-                <small style="opacity: .5;" >CEO <i class="bi bi-caret-down-fill"></i></small>
+                <small style="opacity: .5;" ><?= $user['instituto'] ?> <i class="bi bi-caret-down-fill"></i></small>
               </div>
             </div>
                 <form  method="post" action="assets/php/actions.php?addpost" enctype="multipart/form-data">
@@ -970,7 +970,7 @@ global $profile;
                         <div class="d-flex flex-column ">
                             <a href='?u=<?= $post['username'] ?>' class="text-decoration-none text-white"><?= $post['first_name'] ?> <?= $post['last_name'] ?></a>
                             
-                            <small style="opacity: .5;" >CEO <i class="bi bi-caret-down-fill"></i></small>
+                            <small style="opacity: .5;" ><?=$post['instituto']?><i class="bi bi-caret-down-fill"></i></small>
                         </div>
 
                        
@@ -1869,7 +1869,7 @@ if ($extension == "mp4") {
                 style="font-weight: 500;"
                 class="d-block text-decoration-none text-white "
                 ><?= $user['first_name'] ?> <?= $user['last_name'] ?></a>
-                <small style="opacity: .5;" >CEO <i class="bi bi-caret-down-fill"></i></small>
+                <small style="opacity: .5;" ><?= $user['instituto'] ?> <i class="bi bi-caret-down-fill"></i></small>
               </div>
             </div>
                                 <span class="placeholder">Cuentanos tu dia <?= $user['first_name'] ?> </span>

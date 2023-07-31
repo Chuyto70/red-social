@@ -1709,7 +1709,11 @@ if(!checkBS($profile['id'])){
           <li><a href="#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
           <ul style="margin: 0;
     width: 100%;
-    justify-content: flex-end;">
+    justify-content: flex-end;">  
+
+      <?php if( $user['username'] != $profile['username']) {
+
+               ?>
             <li><a class="dropdown-item anchor_mensaje" href="#" data-bs-toggle="modal" data-bs-target="#chatbox" onclick="popchat(<?= $profile['id'] ?>)"><i class="bi bi-chat-fill"></i> Mensaje</a></li>
 
             <?php if(!checkBS($profile['id'])){ ?>
@@ -1719,8 +1723,9 @@ if(!checkBS($profile['id'])){
             <?php }else{  ?> 
              <li><a class="dropdown-item " href="assets/php/actions.php?unblock=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"><i class="bi bi-x-circle-fill"></i> Desbloquear</a></li>
               <?php }?>
-            <li>       
 
+              <?php }?>
+            <li>       
               <?php if( $user['username'] != $profile['username']) {
 
                ?>

@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/css/AdminLTE.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
-  <link rel="icon" href="imagenes/logo.ico">
+  <link rel="icon" href="assets/images/oficial_logo.png">
   <link rel="stylesheet" href="../css/custom.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

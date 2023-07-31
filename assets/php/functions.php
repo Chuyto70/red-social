@@ -759,7 +759,7 @@ function getUserByUsername($username){
 //for getting posts
 function getPost(){
     global $db;
- $query = "SELECT users.id as uid,posts.id,posts.user_id,posts.post_img,posts.post_text,posts.allow_comment,posts.created_at,users.first_name,users.last_name,users.username,users.profile_pic FROM posts JOIN users ON users.id=posts.user_id ORDER BY id DESC";
+ $query = "SELECT users.id as uid,posts.id,posts.user_id,posts.post_img,posts.post_text,posts.allow_comment,posts.created_at,users.first_name,users.last_name,users.username,users.profile_pic, users.instituto FROM posts JOIN users ON users.id=posts.user_id ORDER BY id DESC";
 
  $run = mysqli_query($db,$query);
  return mysqli_fetch_all($run,true);

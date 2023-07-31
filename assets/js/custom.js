@@ -271,6 +271,10 @@ $(".add-comment").click(function () {
     });
 });
 
+$('.comment-input').on( 'change', (e)=>{
+    e.target.parentElement.lastElementChild.click()
+})
+
 var sr = false;
 
 $("#search").focus(function () {
