@@ -98,7 +98,7 @@ align-items: flex-start;
 
                 </div>
                 
-                <a href="">Terminos y condiciones</a>
+                <a href="?terminos">Terminos y condiciones</a>
                 <div>
                     <input type="checkbox" id="acepta_terminos">
                     <label for="">He leido y acepto los terminos y condiciones </label>

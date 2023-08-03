@@ -53,7 +53,13 @@ if(isset($_SESSION['Auth']) && $user['ac_status']==1 && !$pagecount){
     }
  
   
-}elseif(isset($_GET['signup'])){
+}
+elseif(isset($_GET['terminos'])){
+    // showPage('header');
+    // showPage('navbar');
+    showPage('terminosycondiciones');
+}
+elseif(isset($_GET['signup'])){
     showPage('header',['page_title'=>'Pictogram - SignUp']);
     showPage('signup');
 }elseif(isset($_GET['login'])){

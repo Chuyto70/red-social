@@ -35,6 +35,16 @@ body{
 }
 
 
+.descripcion::-webkit-scrollbar{
+  width: 7px;
+  background: rgba(70, 70, 70, 0.393);
+}
+
+.descripcion::-webkit-scrollbar-thumb{
+  background: rgba(166, 166, 166, 0.716);
+  border-radius: 10px;
+  border-right: 2px solid rgba(138, 138, 138, 0.382);
+}
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*==Header y sus movimientos==*/
@@ -404,6 +414,8 @@ body.sticky-header header h1{
     box-shadow: 0 0 12px rgb(0, 0, 0);
     overflow: hidden;
     transition: .2s;
+    height: 470px;
+    max-height: 470px;
 }
 
 .post:hover{
@@ -443,6 +455,10 @@ body.sticky-header header h1{
     line-height: 1.5;
     margin-bottom: 20px;
     color: rgb(133, 133, 133);
+    word-break: break-word;
+    height: 100px;
+    max-height: 100%;
+    overflow: auto;
 }
 
 .post-body h2{
@@ -460,7 +476,7 @@ body.sticky-header header h1{
     border-radius: 10px;
     box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.475);
     transition: .2s;
-    position: absolute ;
+  
     bottom: 30px;
     left: calc(50% - 80px);
 }
@@ -916,7 +932,7 @@ border-radius: 10px;
 
         
          ?>
-        <article role="button" class="post position-relative d-flex justify-content-center align-items-center" style="height: 400px;" data-bs-toggle="modal" data-bs-target="#agregarEvento">
+        <article role="button" class="post position-relative d-flex justify-content-center align-items-center" style="height: 5 00px;" data-bs-toggle="modal" data-bs-target="#agregarEvento">
             <i style="font-size: 240px; color:grey;" class="bi bi-plus"></i>
         </article>
 
