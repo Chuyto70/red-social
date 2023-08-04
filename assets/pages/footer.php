@@ -1499,7 +1499,7 @@ $('#boton_telefono_chatbox').click((e)=>{
     let msg = `
     <a
     href="?u=${usernamer_poster}&sharedpost=${idPost}"
-    style="color:white; border-bottom:1px solid blue;" >Mira este post!</a>`
+    style="color:blue; border-bottom:1px solid blue;" >Mira este post!</a>`
     $.ajax({
         url: 'assets/php/ajax.php?sendmessage',
         method: 'post',

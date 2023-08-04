@@ -1918,13 +1918,14 @@ if(!checkBS($profile['id'])){
           
           <?php 
           if($profile_post){
-            
             foreach($profile_post as $post){
               $likes = getLikes($post['id']);
               $comments = getComments($post['id']);
           
           ?>
             
+
+            <!-- hasta aqui copias -->
              <div class="modal fade" id="postview<?= $post['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div
                 style="width: 65%; height: 100vh;" 
@@ -1957,11 +1958,23 @@ if(!checkBS($profile['id'])){
                                     <div>&nbsp;&nbsp;&nbsp;</div>
                                     <?= show_description($post['post_text']) ?>
                                     
-                                  <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
+      <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
 
+            <?php 
+              $dataUser = getUser($post['user_id']);
+              
+            ?> 
 
             <div class="d-flex align-items-center">
-                  <span>
+                  <span class="cuadro_like_post" style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 gap: 8px;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
                         <?php
                         if (checkLikeStatus($post['id'])) {
                             $like_btn_display = 'none';
@@ -1971,10 +1984,8 @@ if(!checkBS($profile['id'])){
                             $unlike_btn_display = 'none';
                         }
                         ?>
-                        <!-- <i class="bi bi-heart-fill unlike_btn text-danger" style="display:<?= $unlike_btn_display ?>" data-post-id='<?= $post['id'] ?>'></i> -->
-                        <!-- <i class="bi bi-heart like_btn" style="display:<?= $like_btn_display ?>" data-post-id='<?= $post['id'] ?>'></i> -->
+                      
                         <svg 
-                            id="corazon_like_menos"
                             style="display:<?= $unlike_btn_display ?>"
                             data-post-id='<?= $post['id'] ?>'
                             xmlns="http://www.w3.org/2000/svg" 
@@ -1988,7 +1999,6 @@ if(!checkBS($profile['id'])){
 
 
                         <svg 
-                            id="corazon_like_mas"
                             style="display:<?= $like_btn_display ?>" data-post-id='<?= $post['id'] ?>'
                             xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
                             fill="currentColor" 
@@ -1999,15 +2009,23 @@ if(!checkBS($profile['id'])){
                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                         </svg>
                          <span
-                         style="font-size: small;" 
+                         style="font-size: small; padding-bottom: 1px;" 
                          id="likecount<?= $post['id'] ?>"><?= count($likes) ?>
                         </span>
                     </span> 
                     &nbsp;&nbsp;
                     
-                    <svg 
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 /* cursor: pointer; */
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
+                         <svg 
                         class="bi bi-chat-left d-flex align-items-center mt-1" 
-                        style="font-size:small"
+                        style="font-size:small; margin: 0 !important;"
                         data-bs-toggle="modal" 
                         data-bs-target="#postview<?= $post['id'] ?>"
                         xmlns="http://www.w3.org/2000/svg" 
@@ -2016,16 +2034,55 @@ if(!checkBS($profile['id'])){
                         fill="currentColor" 
                         viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <span class="mx-2 text-small" style="font-size:small" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
+                        <span class="mx-2 text-small" style="font-size:small; padding-bottom: 2px;" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
                     </svg>
-                    
+                    </span>
+                   &nbsp;&nbsp;
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;"
+                          role="button"
+                          data-bs-target="#compartirPostLink"
+                          data-bs-toggle="modal"
+                          data-post-username= "<?= $dataUser['username'] ?>"
+                          data-post-id = "<?= $post['id'] ?>"
+                          >
+                         <img src="assets/images/share_icon.png" alt="" width="28px" height="28px" style="object-fit: contain;">
+                    </svg>
+                    </span>
+                    &nbsp;&nbsp;
+                    <span 
+                    class="boton_reportar_post"
+                    data-username ="<?= $dataUser['username'] ?>"
+                    data-userimg = "<?= $dataUser['profile_pic'] ?>"
+                    data-name = "<?= $dataUser['first_name'] ?> <?= $dataUser['last_name'] ?>"
+                    data-toUserID = "<?= $post['user_id'] ?>"
+                    data-fromUserId =  "<?= $_SESSION['userdata']['id'] ?>"
+                    role="button" data-bs-toggle="modal" data-bs-target="#reportarModal"
+                    style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
+                        <i style="font-size: 24px;" class="bi bi-person"></i>
+                    </svg>
+                    </span>
                  <div>
                 </div>
                
             </div>
 
-            <span style="font-size:small" class="text-muted"> <?= show_time($post['created_at']) ?></span>
+           
             </div>
+             <span style="font-size:small" class="text-muted"> <?= show_time($post['created_at']) ?></span>
                                     <hr style="width: 100%;" />
 
                                 </div>
@@ -2044,7 +2101,7 @@ if(!checkBS($profile['id'])){
                                     ?>
                                         <div class="d-flex align-items-center justify-content-end p-1 gap-1" style="padding-right: 0 !important; padding-top: 8px !important;">
                                             <div class="align-self-start pt-2">
-                                                <img src="assets/images/profile/<?= $cuser['profile_pic'] ?>" alt="" height="25" width="25" class="rounded-circle border">
+                                                <img src="assets/images/profile/<?= $cuser['profile_pic'] ?>" alt="" height="25" width="25" class="rounded-circle border" style="width: 25px; max-width: 25px; height: 25px; max-height: 25px;">
                                             </div>
                                        
                                             <div class="d-flex flex-column justify-content-start align-items-start col-10 px-1 rounded background_bubble_chat position-relative " style="overflow-wrap: break-word;">
@@ -2332,11 +2389,23 @@ if ($extension == "mp4") {
 } ?>
               
               
-               <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between">
-                
+        <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
 
-                <div class="d-flex align-items-center">
-                  <span>
+            <?php 
+              $dataUser = getUser($post['user_id']);
+              
+            ?> 
+
+            <div class="d-flex align-items-center">
+                  <span class="cuadro_like_post" style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 gap: 8px;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
                         <?php
                         if (checkLikeStatus($post['id'])) {
                             $like_btn_display = 'none';
@@ -2346,7 +2415,7 @@ if ($extension == "mp4") {
                             $unlike_btn_display = 'none';
                         }
                         ?>
-                       
+                      
                         <svg 
                             style="display:<?= $unlike_btn_display ?>"
                             data-post-id='<?= $post['id'] ?>'
@@ -2371,15 +2440,23 @@ if ($extension == "mp4") {
                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                         </svg>
                          <span
-                         style="font-size: small;" 
+                         style="font-size: small; padding-bottom: 1px;" 
                          id="likecount<?= $post['id'] ?>"><?= count($likes) ?>
                         </span>
                     </span> 
                     &nbsp;&nbsp;
                     
-                    <svg 
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 /* cursor: pointer; */
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
+                         <svg 
                         class="bi bi-chat-left d-flex align-items-center mt-1" 
-                        style="font-size:small"
+                        style="font-size:small; margin: 0 !important;"
                         data-bs-toggle="modal" 
                         data-bs-target="#postview<?= $post['id'] ?>"
                         xmlns="http://www.w3.org/2000/svg" 
@@ -2388,9 +2465,47 @@ if ($extension == "mp4") {
                         fill="currentColor" 
                         viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <span class="mx-2 text-small" style="font-size:small" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
+                        <span class="mx-2 text-small" style="font-size:small; padding-bottom: 2px;" data-bs-toggle="modal" data-bs-target="#postview<?= $post['id'] ?>"><?= count($comments) ?></span>
                     </svg>
-                    
+                    </span>
+                   &nbsp;&nbsp;
+                    <span style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;"
+                          role="button"
+                          data-bs-target="#compartirPostLink"
+                          data-bs-toggle="modal"
+                          data-post-username= "<?= $dataUser['username'] ?>"
+                          data-post-id = "<?= $post['id'] ?>"
+                          >
+                         <img src="assets/images/share_icon.png" alt="" width="28px" height="28px" style="object-fit: contain;">
+                    </svg>
+                    </span>
+                    &nbsp;&nbsp;
+                    <span 
+                    class="boton_reportar_post"
+                    data-username ="<?= $dataUser['username'] ?>"
+                    data-userimg = "<?= $dataUser['profile_pic'] ?>"
+                    data-name = "<?= $dataUser['first_name'] ?> <?= $dataUser['last_name'] ?>"
+                    data-toUserID = "<?= $post['user_id'] ?>"
+                    data-fromUserId =  "<?= $_SESSION['userdata']['id'] ?>"
+                    role="button" data-bs-toggle="modal" data-bs-target="#reportarModal"
+                    style="background: #201e1f;
+                                 border-radius: 8px;
+                                 cursor: pointer;
+                                 display: flex;
+                                 width: 60px;
+                                 height: 40px;
+                                 align-items: center;
+                                 justify-content: center;">
+                        <i style="font-size: 24px;" class="bi bi-person"></i>
+                    </svg>
+                    </span>
                  <div>
                 </div>
                
@@ -2403,7 +2518,7 @@ if ($extension == "mp4") {
                 ?>    
             
                 
-            <div id="contenedo_principal_comentarios" style="height:160px; max-height:100%; overflow-y: scroll;padding-right: 30px;">
+            <div id="contenedo_principal_comentarios" style="height:250px; max-height:100%; overflow-y: scroll;padding-right: 30px;">
                  <?php foreach ($comments as $comment) {
                                         $cuser = getUser($comment['user_id']);
                                     ?>
@@ -2646,9 +2761,7 @@ if ($extension == "mp4") {
                                     <div>&nbsp;&nbsp;&nbsp;</div>
                                     <?= show_description($post['post_text']) ?>
                                     
-                                  <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
-
-
+         <div style="font-size: x-larger" class="p-2 d-flex align-items-center justify-content-between"> 
             <div class="d-flex align-items-center">
                   <span>
                         <?php
@@ -2660,8 +2773,7 @@ if ($extension == "mp4") {
                             $unlike_btn_display = 'none';
                         }
                         ?>
-                        <!-- <i class="bi bi-heart-fill unlike_btn text-danger" style="display:<?= $unlike_btn_display ?>" data-post-id='<?= $post['id'] ?>'></i> -->
-                        <!-- <i class="bi bi-heart like_btn" style="display:<?= $like_btn_display ?>" data-post-id='<?= $post['id'] ?>'></i> -->
+                  
                         <svg 
                             id="corazon_like_menos"
                             style="display:<?= $unlike_btn_display ?>"
@@ -3055,7 +3167,46 @@ if ($extension == "mp4") {
                 </div>
                 
 <script> 
+let cuadro_like_post = document.querySelectorAll('.cuadro_like_post');
 
+let clickearCorazon = (e) =>{
+    console.log(e.currentTarget)
+   let corazonLike = e.currentTarget.querySelector('.like_btn')
+   let corazonDislike = e.currentTarget.querySelector('.unlike_btn')
+
+   if(corazonLike.style.display === 'none'){
+    $(corazonDislike).click()
+    corazonDislike.parentElement.lastElementChild.textContent =Number(corazonDislike.parentElement.lastElementChild.textContent)  - 1 
+ 
+   }else{
+    $(corazonLike).click()
+     corazonLike.parentElement.lastElementChild.textContent =Number(corazonLike.parentElement.lastElementChild.textContent)  + 1 
+   }
+}
+
+cuadro_like_post.forEach((cuadro)=>{
+    cuadro.addEventListener('click', clickearCorazon, false)
+})
+
+let boton_reportar_post = document.querySelectorAll('.boton_reportar_post')
+
+boton_reportar_post.forEach((btn)=>{
+    btn.addEventListener('click',(event)=>{
+        let profile_reportar_modal = document.getElementById('profile_reportar_modal')
+        let nombre_reportar_modal = document.getElementById('nombre_reportar_modal')
+        let user_reported_id = document.getElementById('user_reported_id')
+        let imgProfile = btn.dataset.userimg
+        let nameProfile = btn.dataset.name
+        let toUserId = btn.dataset.touserid
+        let formUserId = btn.dataset.fromuserid
+
+        console.log(btn.dataset)
+        $(profile_reportar_modal).attr('src','assets/images/profile/' + imgProfile )
+        $(nombre_reportar_modal).text(nameProfile)
+        $(user_reported_id).attr('value', toUserId)
+
+    })
+})
 
 let query = window.location.search;
 

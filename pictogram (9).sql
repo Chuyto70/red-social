@@ -220,7 +220,7 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `from_user_id` int(11) NOT NULL,
   `read_status` int(11) NOT NULL DEFAULT 0,
-  `post_id` text DEFAULT NULL
+  `post_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -303,11 +303,11 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
-  `profile_pic` text NOT NULL DEFAULT 'default_profile.jpg',
+  `profile_pic` varchar(255) NOT NULL DEFAULT 'default_profile.jpg',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `ac_status` int(11) NOT NULL COMMENT '0=not verified,1=active,2=blocked',
-  `frontpage_pic` text DEFAULT 'mundo.jpg',
+  `frontpage_pic` varchar(255) DEFAULT 'mundo.jpg',
   `direccion` varchar(255) NOT NULL DEFAULT '',
   `telefono` varchar(255) NOT NULL DEFAULT '',
   `trabaja_en` varchar(255) NOT NULL DEFAULT '',
@@ -346,7 +346,7 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `gender`, `email`, `userna
 CREATE TABLE grupos (
 id_grupo int(11) NOT NULL AUTO_INCREMENT,
 nombre_grupo varchar(255) NOT NULL,
-grupos_pic text NOT NULL DEFAULT 'mundo.jpg',
+grupos_pic varchar(255) NOT NULL DEFAULT 'mundo.jpg',
 fecha_creacion timestamp NOT NULL DEFAULT current_timestamp(),
 PRIMARY KEY (id_grupo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -413,7 +413,7 @@ CREATE TABLE eventos (
   nombre varchar(250) NOT NULL,
   fecha_evento timestamp NOT NULL,
   descripcion text NOT NULL,
-  imagen text NOT NULL DEFAULT 'default_profile.jpg',
+  imagen varchar(255) NOT NULL DEFAULT 'default_profile.jpg',
   PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

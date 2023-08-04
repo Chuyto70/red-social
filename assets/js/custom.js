@@ -167,7 +167,7 @@ $(".like_btn").click(function () {
                 $(button).attr('disabled', false);
                 $(button).hide()
                 $(button).siblings('.unlike_btn').show();
-                $('#likecount' + post_id_v).text($('#likecount' + post_id_v).text() - (-1));
+                // $('#likecount' + post_id_v).text($('#likecount' + post_id_v).text() - (-1));
                 // location.reload();
 
             } else {
@@ -201,7 +201,7 @@ $(".unlike_btn").click(function () {
                 $(button).hide()
                 $(button).siblings('.like_btn').show();
                 // location.reload();
-                $('#likecount' + post_id_v).text($('#likecount' + post_id_v).text() - 1);
+                // $('#likecount' + post_id_v).text($('#likecount' + post_id_v).text() - 1);
 
             } else {
                 $(button).attr('disabled', false);
