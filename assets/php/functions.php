@@ -1080,7 +1080,7 @@ $idComentario = mysqli_real_escape_string($db, $idComentario);
 $cu = $_SESSION['userdata']['id'];
 
 // Consulta para verificar si el usuario ya le dio like al comentario
-$query = "SELECT * FROM `likescomments` WHERE `id_comment` = '$idComentario' AND `id_user` = '$cu'";
+$query = "SELECT * FROM `likesComments` WHERE `id_comment` = '$idComentario' AND `id_user` = '$cu'";
 
 // Ejecuta la consulta y obtiene el número de filas
 $result = mysqli_query($db,$query);
@@ -1089,14 +1089,14 @@ $num_rows = mysqli_num_rows($result);
 // Si el número de filas es cero, significa que el usuario no le dio like anteriormente
 if ($num_rows == 0) {
 // Inserta el like en la tabla likescomments
-$query = "INSERT INTO `likescomments`(`id_comment`, `id_user`) 
+$query = "INSERT INTO `likesComments`(`id_comment`, `id_user`) 
 VALUES ('$idComentario','$cu')";
 
 mysqli_query($db,$query);     
 createNotification($cu, $toUserId, 'te dio like a tu comentario');
 return true;        
 } else {
-$query = "DELETE FROM `likescomments` 
+$query = "DELETE FROM `likesComments` 
             WHERE `id_comment` = '$idComentario' 
             AND `id_user` = '$cu'";
 
